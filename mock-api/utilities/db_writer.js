@@ -65,11 +65,10 @@ function write_metadata(){
 function get_kpi_metadata(){
     let connection = mongoose.createConnection(url + "zen_category_TEST");
     let kpi_meta_model = connection.model('KPI_Meta', kpi_meta_schema, 'kpi_TEST');
-    kpi_meta_model.find({}, function (err, kpi_meta) {
+    kpi_meta_model.find({name: 'Energy use'}, function (err, kpi_meta) {
         console.log(kpi_meta);
     })
 }
-
 //write_metadata();
 get_kpi_metadata();
 
