@@ -1,3 +1,19 @@
+/*
+    HOW TO EXPRESS
+    Start here. This app was build using a generator, so here's a lot of auto-generated code we don't have to care about.
+
+    To map requests (GET and POST request from browsers etc), express uses routes. There are essentially JS-functions
+    Express will invoke when the right url is used.
+    For modularity, app.js only references other Route-files, which can one or more methods. For example, app.use('/users', ...);
+    forwards the call to the users-router. From there, this router may add more joints to the url. For instance, if users
+    has app.use('/login', ...) and app.use('/logoff, ....), domain.org/users/logon will work, even though only users is
+    specified here.
+
+    In app.js, we only need to care about using the correct app.use(...) to achieve the desired links.
+
+    For more examples, go into /routes/kpi-list/.
+ */
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,7 +24,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const energyRouter = require('./routes/energy_kpi');
-
+const kpi_list = require('./routes/kpi_list');
 var app = express();
 
 // view engine setup
@@ -24,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/energy', energyRouter);
+app.use('/kpi-list', kpi_list);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

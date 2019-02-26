@@ -2,15 +2,17 @@ const MongoClient = require('mongodb').MongoClient;
 // const assert = require('assert');
 const mongoose = require('mongoose');
 const kpi_meta_schema = require('../schemas/kpi_meta_schema');
+const config = require('../config.json');
 
 // Connection URL
-const url = 'mongodb://localhost:27017/';
+const url = config.DATABASE_URL;
+const db_name = config.COLLECTION_NAME;
 
 function write_metadata(){
     MongoClient.connect(url, function(err, client){
         //assert.equal(null, err);
 
-        let db = client.db("zen_category_TEST");
+        let db = client.db(db_name);
 
         let KPI_META = [
             {
