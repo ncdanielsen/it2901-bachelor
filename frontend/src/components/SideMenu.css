@@ -1,0 +1,26 @@
+
+.SideMenuContainer {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: calc(20% - 1px);
+  height: 100%;
+  border-right: 1px solid rgb(100,100,100);
+}
+
+.Button {
+  width: calc(100% - 2px);
+  height: 50px;
+  border: 1px solid rgb(200,200,200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  pointer-events: all;
+  cursor: grab;
+}
+
+.ButtonSelected {
+  background: green;
+  color: white;
+}
