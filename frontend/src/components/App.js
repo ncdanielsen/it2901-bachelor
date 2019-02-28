@@ -8,7 +8,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Header">
-          ZEN logo and stuff up here
+          <img src="zen.png" className="logo" />
+          <img src="fme_farge.png" className="logo" />
+          {/*<img src="ntnu.png" className="logo" />*/}
         </div>
         <div className="Content">
           <SideMenu />
