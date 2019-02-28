@@ -22,6 +22,15 @@
   cursor: pointer;
 }
 
+.Button:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+
+.ButtonSelected {
+  background: #5393b4 !important;
+  color: white;
+}
+
 
 .buttonTitle {
   font-weight: bold;
