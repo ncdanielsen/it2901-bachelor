@@ -7,6 +7,9 @@ import { history } from '../store/configureStore'
 import { Route, Switch, Redirect } from 'react-router' // react-router v4
 import { ConnectedRouter, push } from 'connected-react-router'
 
+import zenLogo from '../images/zen.png'
+import fmeLogo from '../images/fme.png'
+
 import SideMenu from './SideMenu'
 import Graph from './Graph'
 
@@ -44,9 +47,9 @@ class App extends Component {
       <div className="App">
         <div className="Header">
           <div onClick={()=>this.props.push("/")} className="HeaderLogo link">
-            <img src="zen.png" className="logo" alt="zen logo" />
-            <img src="fme_farge.png" className="logo" alt="fme logo" />
-            {/*<img src="ntnu.png" className="logo" />*/}
+            <img src={zenLogo} className="logo" alt="zen logo" />
+            <img src={fmeLogo} className="logo" alt="fme logo" />
+            {/*<img src="./ntnu.png" className="logo" />*/}
           </div>
           <div className="headerRightSide">
             <div onClick={()=>this.props.push("/about")} className="link">
