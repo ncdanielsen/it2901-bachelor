@@ -1,0 +1,19 @@
+[{
+  "name": "Energy",
+  "children": []
+}, {
+  "name": "Power",
+  "children": []
+},{
+  "name": "Emissions",
+  "children": []
+}, {
+  "name": "Economy",
+  "children": []
+},{
+  "name": "Mobility",
+  "children": []
+}, {
+  "name": "Spatial Quality",
+  "children": []
+}]

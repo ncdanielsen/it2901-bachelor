@@ -1,0 +1,44 @@
+[{
+  "name": "Energy",
+  "kpi_names": ["Energy need",
+    "Energy use",
+    "Delivered energy",
+    "Exported energy",
+    "Self consumption",
+    "Self generation"]
+}, {
+  "name": "Power",
+  "kpi_names": ["Yearly net load profile",
+    "Net load duration curve",
+    "Peak load",
+    "Peak export",
+    "Utilisation factor",
+    "Daily net load profile"]
+},{
+  "name": "Emissions",
+  "kpi_names": [
+    "Total gas emissions",
+    "Total gas emissions pr. m^2",
+    "Greenhouse gas emissions"
+  ]
+}, {
+  "name": "Economy",
+  "kpi_names": [
+    "Life cycle cost",
+    "Life cycle cost pr. m^2"
+  ]
+},{
+  "name": "Mobility",
+  "kpi_names": [
+    "Mode of transport",
+    "Acesss to public transport"
+  ]
+}, {
+  "name": "Spatial Quality",
+  "kpi_names": [
+    "Demographic needs",
+    "Number of services, facilities and amenities",
+    "Meters from services, facilities and amenities",
+    "Public space"
+  ]
+}]
