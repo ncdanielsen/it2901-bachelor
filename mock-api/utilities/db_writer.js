@@ -11,20 +11,22 @@ const db_name = config.COLLECTION_NAME;
 const KPI_LIST = require('../mock-data/kpi-list.json');
 const kpi_category_child_names = require('../mock-data/kpi_cat_children_names.json');
 
-function write_kpi_list(){
+function write_to_DB(collection, json_data) {
     MongoClient.connect(url, function(err, client){
         //assert.equal(null, err);
 
         let db = client.db(db_name);
 
-        let collection_name = "kpi_TEST";
-
-        db.collection(collection_name).insertMany(KPI_LIST, function(err, res) {
+        db.collection(collection).insertMany(json_data, function(err, res) {
             if (err) throw err;
             console.log("Number of documents inserted: " + res.insertedCount);
             client.close();
         });
     })
+}
+
+function write_kpi_list(){
+    write_to_DB("kpi_TEST", KPI_LIST);
 }
 
 function get_kpi_metadata(item = {}){
@@ -33,6 +35,12 @@ function get_kpi_metadata(item = {}){
     kpi_meta_model.find({item}, function (err, kpi_meta) {
         console.log(kpi_meta);
     })
+}
+
+function write_buildings(){
+    let buildings = require('../mock-data/buildings.json');
+
+    write_to_DB("buildings_TEST", buildings);
 }
 
 async function async_get_kpi_metadata(item){
@@ -105,3 +113,5 @@ function json_to_list(jsonlist, category){
 //write_categories();
 
 //async_get_kpi_metadata({name: "Energy use"});
+
+// write_buildings();
