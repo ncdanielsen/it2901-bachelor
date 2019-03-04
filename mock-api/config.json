@@ -1,4 +1,4 @@
 {
   "DATABASE_URL": "mongodb://localhost:27017/",
-  "COLLECTION_NAME": "zen_category_TEST"
+  "DATABASE_NAME": "zen_category_TEST"
 }

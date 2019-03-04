@@ -5,7 +5,7 @@ const config = require('../config.json');
 
 // Connection URL
 const url = config.DATABASE_URL;
-const db_name = config.COLLECTION_NAME;
+const db_name = config.DATABASE_NAME;
 
 /**
  * @param: callback(kpi_meta). Fucntion deatiling what to to do with retrieved data.

@@ -103,7 +103,6 @@ Returns a lift of all buildings as JSON
 [{
     id: int, 
     name: String, 
-    location: long, long // Corresponding to latitude and longitude
     buildings: [building_id] // List of building IDs 
 }]
 ```

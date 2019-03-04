@@ -11,7 +11,9 @@
 
     In app.js, we only need to care about using the correct app.use(...) to achieve the desired links.
 
-    For more examples, go into /routes/kpi-list/.
+    Examples:
+        - Route-function: /routes/kpi_list.js
+        - Reading/writing to DB: /utilities/db-writer.js
  */
 
 var createError = require('http-errors');
