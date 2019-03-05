@@ -42,9 +42,10 @@
 }
 
 .kpiContainer {
+  width: 80%;
   padding-left: 10%;
   padding-right: 10%;
-  width: 80%;
+  padding-bottom: 50px;
 }
 
 .kpiTitle {

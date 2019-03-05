@@ -64,19 +64,6 @@ class SideMenu extends Component {
     return (
       <div className="SideMenuContainer">
         <div
-          onClick={() => this.goTo("refData")}
-          className={this.props.isRefDataPath ? "Button ButtonSelected" : "Button"}
-        >
-            <div>
-              <div className="buttonTitle">
-                Comparison Data
-              </div>
-              <div className="buttonContent">
-                Perleporten
-              </div>
-            </div>
-        </div>
-        <div
           onClick={() => this.goTo("myData")}
           className={this.props.isMyDataPath ? "Button ButtonSelected" : "Button"}
         >
@@ -86,6 +73,19 @@ class SideMenu extends Component {
               </div>
               <div className="buttonContent">
                 My_new_building_1
+              </div>
+            </div>
+        </div>
+        <div
+          onClick={() => this.goTo("refData")}
+          className={this.props.isRefDataPath ? "Button ButtonSelected" : "Button"}
+        >
+            <div>
+              <div className="buttonTitle">
+                Comparison Data
+              </div>
+              <div className="buttonContent">
+                Perleporten
               </div>
             </div>
         </div>
