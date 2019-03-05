@@ -49,16 +49,17 @@ class Graph extends Component {
       </LineChart>)
     } else if (this.props.plotType === "radar") {
       plot = (<RadarChart
-        cx={chartSize*0.5}
+        cx={chartSize*0.5*1.2}
         cy={chartSize*0.5}
         outerRadius={chartSize*0.3}
-        width={chartSize}
+        width={chartSize*1.2}
         height={chartSize}
         data={this.props.data}
       >
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
-        <PolarRadiusAxis />
+        {/*<PolarRadiusAxis angle={30} />*/}
+        <Radar name="Andy" dataKey="B" stroke="#e034de" fill="#f145ef" fillOpacity={0.6} />
         <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
       </RadarChart>)
     } else if (this.props.plotType === "posNegBarChart") {
