@@ -1,3 +1,6 @@
+// this enhancer keeps track of and logs the reducer process time
+// useful for performance monitoring
+
 const round = number => Math.round(number * 100) / 100
 
 const monitorReducerEnhancer = createStore => (

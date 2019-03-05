@@ -1,3 +1,5 @@
+// this middleware logs info about actions and their results to the console
+
 const logger = store => next => action => {
   console.group(action.type)
   console.info('dispatching', action)

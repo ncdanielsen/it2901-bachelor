@@ -14,7 +14,7 @@ export default function graphReducer(state = initialState, action) {
   switch (action.type) {
     case types.UPDATE_GRAPH_INDEX:
       return {...state,
-        graphIndex: action.payload.graphIndex,
+        graphIndex: action.payload.graphIndex, // this way to identify graphs is just a temporary solution
         data: data[action.payload.graphIndex]
       }
     default:
