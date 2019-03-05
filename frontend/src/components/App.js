@@ -14,14 +14,14 @@ import Login from './Login'
 
 const App = () => (
   <div className={styles.App}>
-    <Header />
+    <Header /> {/*Header always visible on top*/}
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route exact path="/home/*" component={MainView} />
+      <Switch> {/* Checks which route matches current pathname, returns only that child */}
+        <Route exact path="/home/*" component={MainView} /> {/* the * is there because /home/ also has subviews linked to pathname */}
         <Route exact path="/about" component={About} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/" render={() => <Redirect to="/home/"/>} />
+        <Route exact path="/" render={() => <Redirect to="/home/"/>} /> {/* When going to "/", go to /home. When Login stuff ready, send to Login if not logged in */}
         <Route render={() => (<div>Unknown route</div>)} />
       </Switch>
     </ConnectedRouter>

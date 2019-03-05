@@ -3,13 +3,59 @@ import { connect } from 'react-redux'
 
 import styles from './SideMenu.module.css'
 
-import { kpiCategories } from '../../data/data'
+import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
 import { updateGraphIndex } from '../../actions/graphReducerActions'
 
 import { push, replace } from 'connected-react-router'
 
+// list item for kpi
+const Kpi = ({kpi, kpiIsSelected, selectKpi}) => (
+  <div
+    onClick={selectKpi}
+    className={kpiIsSelected ? styles.kpi+" "+styles.kpiIsSelected : styles.kpi}
+  >
+    {kpi.name} [{kpi.unit}]
+  </div>
+)
+
+// list item for kpi categories
+const KpiCategory = ({category, categoryIsSelected, selectCategory, graphIndex, selectKpi}) => (
+  <div>
+    <div
+      className={categoryIsSelected ? styles.kpiCategory+" "+styles.categorySelected : styles.kpiCategory}
+      onClick={selectCategory}
+    >
+      <div>{category.categoryName}</div><div>{categoryIsSelected ? "–" : "+"}</div>
+    </div>
+    {/* Shows kpis in category only if selected */}
+    {categoryIsSelected && (<div className={styles.categorySubBox}>
+      {category.kpis.map((kpi, i) => <Kpi key={i} kpi={kpi} kpiIsSelected={graphIndex === i} selectKpi={() => selectKpi(i)} />)}
+    </div>)}
+  </div>
+)
+
+// list item for data sources. However, only two are expected to be used (for myData and refData)
+const DataSource = ({title, nameOfChosenSource, select, isActive}) => (
+  <div
+    onClick={select}
+    className={isActive ? styles.Button+" "+styles.ButtonSelected : styles.Button}
+  >
+    <div>
+      <div className={styles.buttonTitle}>
+        {title}
+      </div>
+      <div className={styles.buttonContent}>
+        {nameOfChosenSource}
+      </div>
+    </div>
+  </div>
+)
+
 function mapStateToProps(state) {
+  /* the path props are used to figure out where the user is,
+     which is needed to determine whether to go to or from the graph view
+     when clicking on myData and refData in this SideMenu */
   const currentPath = state.router.location.pathname
   const currentPathSplitted = currentPath.split("/")
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length-1]
@@ -35,23 +81,18 @@ class SideMenu extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      openKpiCategory: 0
+    this.state = { // might wanna move this state into a reducer at some point
+      openKpiCategory: 0 // currently only one category of KPIs can be open in the menu simultaneously
     }
   }
 
-  openCategory = (index) => {
-    if (index === this.state.openKpiCategory) {
-      this.setState({openKpiCategory: -1})
-    } else {
-      this.setState({openKpiCategory: index})
-    }
-  }
+  // open category if closed, close if open
+  openCategory = (index) => this.setState({openKpiCategory: index === this.state.openKpiCategory ? -1 : index})
 
-  updateChosenKpiInCategory = (i) => {
-    this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
-  }
+  // temprorary implementation of updateChosenKpiInCategory. To be changed.
+  updateChosenKpiInCategory = (i) => this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
 
+  // open or close myData and refData
   goTo = (path) => {
     if ((path === "myData" && this.props.isMyDataPath) || (path === "refData" && this.props.isRefDataPath))  {
       this.props.replace("/home/")
@@ -61,69 +102,38 @@ class SideMenu extends Component {
   }
 
   render() {
+
     return (
       <div className={styles.SideMenuContainer}>
-        <div
-          onClick={() => this.goTo("myData")}
-          className={this.props.isMyDataPath ? styles.Button+" "+styles.ButtonSelected : styles.Button}
-        >
-            <div>
-              <div className={styles.buttonTitle}>
-                My Data Source
-              </div>
-              <div className={styles.buttonContent}>
-                My_new_building_1
-              </div>
-            </div>
-        </div>
-        <div
-          onClick={() => this.goTo("refData")}
-          className={this.props.isRefDataPath ? styles.Button+" "+styles.ButtonSelected : styles.Button}
-        >
-            <div>
-              <div className={styles.buttonTitle}>
-                Comparison Data
-              </div>
-              <div className={styles.buttonContent}>
-                Perleporten
-              </div>
-            </div>
-        </div>
+        <DataSource
+          title="My Data Source"
+          nameOfChosenSource="My_new_building_1"
+          select={() => this.goTo("myData")}
+          isActive={this.props.isMyDataPath}
+        />
+        <DataSource
+          title="Comparison Data"
+          nameOfChosenSource="Perleporten"
+          select={() => this.goTo("refData")}
+          isActive={this.props.isRefDataPath}
+        />
+
         <div className={styles.kpiContainer}>
-            <div>
-              <div className={styles.buttonTitle+" "+styles.kpiTitle}>
-                KPI
-              </div>
-              <div className={styles.kpiContent}>
-                {kpiCategories.map((category, index) => {
-                  const categoryIsSelected = this.state.openKpiCategory === index
-                  return (
-                    <div key={index}>
-                      <div
-                        className={categoryIsSelected ? styles.kpiCategory+" "+styles.categorySelected : styles.kpiCategory}
-                        onClick={() => this.openCategory(index)}
-                      >
-                        <div>{category.categoryName}</div><div>{categoryIsSelected ? "–" : "+"}</div>
-                      </div>
-                      {categoryIsSelected && (<div className={styles.categorySubBox}>
-                        {category.kpis.map((kpi, i) => {
-                          const kpiIsSelected = this.props.graphIndex === i
-                          return (
-                            <div
-                              key={i}
-                              onClick={() => this.updateChosenKpiInCategory(i)}
-                              className={kpiIsSelected ? styles.kpi+" "+styles.kpiIsSelected : styles.kpi}
-                            >
-                              {kpi.name} [{kpi.unit}]
-                            </div>
-                          )
-                        })}
-                      </div>)}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
+          <div className={styles.buttonTitle+" "+styles.kpiTitle}>
+            KPI
+          </div>
+          <div className={styles.kpiContent}>
+            {kpiCategories.map((category, i) => (
+              <KpiCategory
+                key={i}
+                category={category}
+                categoryIsSelected={this.state.openKpiCategory === i}
+                selectCategory={() => this.openCategory(i)}
+                graphIndex={this.props.graphIndex}
+                selectKpi={this.updateChosenKpiInCategory}
+              />
+            ))}
+          </div>
         </div>
       </div>
     )
