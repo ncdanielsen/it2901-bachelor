@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import './SideMenu.css'
+import styles from './SideMenu.module.css'
 
-import { kpiCategories } from '../data/data'
+import { kpiCategories } from '../../data/data'
 
-import { updateGraphIndex } from '../actions/graphReducerActions'
+import { updateGraphIndex } from '../../actions/graphReducerActions'
 
 import { push, replace } from 'connected-react-router'
 
@@ -62,57 +62,57 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <div className="SideMenuContainer">
+      <div className={styles.SideMenuContainer}>
         <div
           onClick={() => this.goTo("myData")}
-          className={this.props.isMyDataPath ? "Button ButtonSelected" : "Button"}
+          className={this.props.isMyDataPath ? styles.Button+" "+styles.ButtonSelected : styles.Button}
         >
             <div>
-              <div className="buttonTitle">
+              <div className={styles.buttonTitle}>
                 My Data Source
               </div>
-              <div className="buttonContent">
+              <div className={styles.buttonContent}>
                 My_new_building_1
               </div>
             </div>
         </div>
         <div
           onClick={() => this.goTo("refData")}
-          className={this.props.isRefDataPath ? "Button ButtonSelected" : "Button"}
+          className={this.props.isRefDataPath ? styles.Button+" "+styles.ButtonSelected : styles.Button}
         >
             <div>
-              <div className="buttonTitle">
+              <div className={styles.buttonTitle}>
                 Comparison Data
               </div>
-              <div className="buttonContent">
+              <div className={styles.buttonContent}>
                 Perleporten
               </div>
             </div>
         </div>
-        <div className="kpiContainer">
+        <div className={styles.kpiContainer}>
             <div>
-              <div className="buttonTitle kpiTitle">
+              <div className={styles.buttonTitle+" "+styles.kpiTitle}>
                 KPI
               </div>
-              <div className="kpiContent">
+              <div className={styles.kpiContent}>
                 {kpiCategories.map((category, index) => {
                   const categoryIsSelected = this.state.openKpiCategory === index
                   return (
                     <div key={index}>
                       <div
-                        className={categoryIsSelected ? "kpiCategory categorySelected" : "kpiCategory"}
+                        className={categoryIsSelected ? styles.kpiCategory+" "+styles.categorySelected : styles.kpiCategory}
                         onClick={() => this.openCategory(index)}
                       >
                         <div>{category.categoryName}</div><div>{categoryIsSelected ? "–" : "+"}</div>
                       </div>
-                      {categoryIsSelected && (<div className="categorySubBox">
+                      {categoryIsSelected && (<div className={styles.categorySubBox}>
                         {category.kpis.map((kpi, i) => {
                           const kpiIsSelected = this.props.graphIndex === i
                           return (
                             <div
                               key={i}
                               onClick={() => this.updateChosenKpiInCategory(i)}
-                              className={kpiIsSelected ? "kpi kpiIsSelected" : "kpi"}
+                              className={kpiIsSelected ? styles.kpi+" "+styles.kpiIsSelected : styles.kpi}
                             >
                               {kpi.name} [{kpi.unit}]
                             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import './MyData.css'
+import styles from './RefData.module.css'
 
 import { replace } from 'connected-react-router'
 
@@ -15,16 +15,16 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class MyData extends Component {
+class RefData extends Component {
 
   render() {
     return (
       <div>
-        <div>My Data</div>
-        <div onClick={() => this.props.replace("/")} className="closeButtonMyData">Close</div>
+        <div>Ref Data</div>
+        <div onClick={() => this.props.replace("/")} className={styles.closeButtonRefData}>Close</div>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyData)
+export default connect(mapStateToProps, mapDispatchToProps)(RefData)
