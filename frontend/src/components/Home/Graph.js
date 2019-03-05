@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import './Graph.css'
+import styles from './Graph.module.css'
 
 import {
   LineChart, XAxis, Tooltip, CartesianGrid, Line, Brush,
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, /*PolarRadiusAxis,*/
   BarChart, Bar, YAxis, Legend, ReferenceLine
 } from 'recharts'
 
@@ -81,7 +81,7 @@ class Graph extends Component {
       plot = <div />
     }
     return (
-      <div className="GraphContainer">
+      <div className={styles.GraphContainer}>
         {plot}
       </div>
     )

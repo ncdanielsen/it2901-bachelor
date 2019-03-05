@@ -1,3 +1,5 @@
+// All data from this file should eventually come from the server
+
 const data0 = {
   data: [
     {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
