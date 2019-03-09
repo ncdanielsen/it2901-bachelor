@@ -133,6 +133,7 @@ function json_to_list(json_list, category){
     console.log(list);
 
 }
-
-
-write_neighborhoods();
+//write_kpi_list()
+//write_buildings()
+//write_categories()
+//write_neighborhoods();

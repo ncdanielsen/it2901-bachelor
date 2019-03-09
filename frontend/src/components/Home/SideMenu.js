@@ -6,6 +6,7 @@ import styles from './SideMenu.module.css'
 import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
 import { updateGraphIndex } from '../../actions/graphReducerActions'
+import { getKpiList } from '../../actions/serverReducerActions'
 
 import { push, replace } from 'connected-react-router'
 
@@ -73,7 +74,8 @@ function mapDispatchToProps(dispatch) {
   return {
     updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
     push: (url) => dispatch(push(url)),
-    replace: (url) => dispatch(replace(url))
+    replace: (url) => dispatch(replace(url)),
+    getKpiList: () => dispatch(getKpiList())
   }
 }
 
@@ -84,6 +86,10 @@ class SideMenu extends Component {
     this.state = { // might wanna move this state into a reducer at some point
       openKpiCategory: 0 // currently only one category of KPIs can be open in the menu simultaneously
     }
+  }
+
+  componentDidMount() {
+    this.props.getKpiList()
   }
 
   // open category if closed, close if open
