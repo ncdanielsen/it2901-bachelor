@@ -141,5 +141,8 @@ function json_to_list(json_list, category){
 
 }
 
-write_categories();
-// write_neighborhoods();
+
+//write_kpi_list()
+//write_buildings()
+//write_categories()
+//write_neighborhoods();

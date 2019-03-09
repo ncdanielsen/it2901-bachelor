@@ -28,7 +28,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
    1.  ` npm install ` 
    2.  ` npm start ` 
 4. NOTE: Closing the terminal also stops the server. It also be quit using ctrl + c 
-   To send requests, go to “localhost:3000” in browser. 
+   To send requests, go to “localhost:4000” in browser. 
 
 
 

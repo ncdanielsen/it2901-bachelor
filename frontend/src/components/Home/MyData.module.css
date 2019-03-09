@@ -1,0 +1,10 @@
+
+
+.closeButtonMyData {
+  margin: 20px;
+  padding: 5px;
+  border: 1px solid rgb(150,150,150);
+  border-radius: 5px;
+  color: red;
+  cursor: pointer;
+}
