@@ -98,17 +98,17 @@ async function write_container_items(containers, container_identifier, child_ide
         let name = category[container_identifier];
         let children = category[child_identifier];
 
-        let id_list=[];
+        let child_list=[];
 
         for (let j=0; j < children.length; j++){
             let child_data = await async_get_from_database({"name": children[j]}, child_collection, 'Child', child_schema);
-            let id = child_data[0]["_id"];
-            id_list.push(id);
+            let id = child_data[0];
+            child_list.push(id);
         }
 
         containers_list.push({
             [container_identifier]: name,
-            [child_identifier]: id_list
+            [child_identifier]: child_list
         })
     }
 
@@ -125,6 +125,13 @@ async function write_container_items(containers, container_identifier, child_ide
     })
 }
 
+// function add_children_to_category(callback){
+//     const category_data = require('../mock-data/kpi_cat_children_names');
+//     const kpi_data = require('../mock-data/kpi-list');
+//
+//
+// }
+
 function json_to_list(json_list, category){
     let list = [];
     for (let j = 0; j > json_list.length; j++){
@@ -133,6 +140,8 @@ function json_to_list(json_list, category){
     console.log(list);
 
 }
+
+
 //write_kpi_list()
 //write_buildings()
 //write_categories()

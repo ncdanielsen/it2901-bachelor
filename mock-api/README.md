@@ -39,7 +39,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 
 ## Download functions
 
-### ../kpi-categories/
+### ../kpi-list/categories
 
 Return a list of all available categories of kpis, with KPIs included 
 
@@ -63,7 +63,7 @@ Return a list of all available categories of kpis, with KPIs included
 
 
 
-### ../kpi-list/
+### ../kpi-list/list
 
 Returns all possible KPIs as JSON
 
@@ -71,7 +71,7 @@ Returns all possible KPIs as JSON
 [{
     id: int,
     name, 
-    unit: String,
+    unit: String, // "kw/h", "%" 
     type: Number type, // (float, int, datetime, etc)
     timeseries: Boolean 
     description: String // I.e. "Amount of energy the bulding has delivered to national 							grid" 
@@ -125,7 +125,7 @@ Sample link: ` example.com/buildingkpi/011234/?kpi-id=123, time=[0, 360]`
 
 This will return an array of data in KPI #123 between 00:00 and 1:00 January 1st, 1970. 
 
-The JSON is a list of atomic KPI datapieces 
+The JSON is a list of atomic KPI datapieces.
 
 **Data format:**
 
@@ -170,3 +170,10 @@ The code is document especially well in selected methods to give an example.
 Note, all this happens in /mock-api/ 
 
 To take a tour of the code using the comments, start with app.js. s
+
+## To use Mongoose models, use the following names for the Schemas: 
+ - KPI Categories:
+    - Categories of KPI 
+ - KPI Metadata 
+    - Metadata assiciated with each KPI 
+ 
