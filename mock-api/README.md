@@ -24,6 +24,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 2. Launch database if not running 
    1. ` mongod --dbpath <path-to-db>  ` 
    2. To monitor database: `mongo` in terminal
+   3. To init database, run: `node utilities/db_writer.js`
 3. Execute the following in a terminal in the mock-api folder:
    1.  ` npm install ` 
    2.  ` npm start ` 

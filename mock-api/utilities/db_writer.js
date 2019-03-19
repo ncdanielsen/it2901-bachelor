@@ -81,10 +81,10 @@ async function write_categories(){
         "kpi_TEST", kpi_schema);
 }
 
-function write_neighborhoods(){
+async function write_neighborhoods(){
     let neighborhoods = require('../mock-data/neighborhood_building_names');
     let building_schema = require('../schemas/building_schema');
-    write_container_items(neighborhoods, "name", "buildings", "neighborhoods_TEST",
+    await write_container_items(neighborhoods, "name", "buildings", "neighborhoods_TEST",
         "buildings_TEST", building_schema);
 }
 
@@ -142,7 +142,23 @@ function json_to_list(json_list, category){
 }
 
 
-//write_kpi_list()
-//write_buildings()
-//write_categories()
-//write_neighborhoods();
+// running this script clears and re-inits db
+
+function clearAll() {
+    MongoClient.connect(url, function(err, client){
+        if (err) throw err;
+        client.db(db_name).dropDatabase();
+        client.close();
+    });
+}
+const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods]
+var i = 0;
+function timeout() {
+    setTimeout(function () {
+        functions[i]();
+        i++;
+        i < functions.length && timeout();
+    }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+}
+timeout()
+
