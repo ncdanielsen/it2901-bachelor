@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 
 import styles from './SideMenu.module.css'
 
-import { kpiCategories } from '../../data/data' // will be replaced with data from server
+//import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
 import { updateGraphIndex } from '../../actions/graphReducerActions'
-import { getKpiList } from '../../actions/serverReducerActions'
+import { getKpiList, getKpiCategories } from '../../actions/serverReducerActions'
 
 import { push, replace } from 'connected-react-router'
 
@@ -27,11 +27,11 @@ const KpiCategory = ({category, categoryIsSelected, selectCategory, graphIndex, 
       className={categoryIsSelected ? styles.kpiCategory+" "+styles.categorySelected : styles.kpiCategory}
       onClick={selectCategory}
     >
-      <div>{category.categoryName}</div><div>{categoryIsSelected ? "–" : "+"}</div>
+      <div>{category.name}</div><div>{categoryIsSelected ? "–" : "+"}</div>
     </div>
     {/* Shows kpis in category only if selected */}
     {categoryIsSelected && (<div className={styles.categorySubBox}>
-      {category.kpis.map((kpi, i) => <Kpi key={i} kpi={kpi} kpiIsSelected={graphIndex === i} selectKpi={() => selectKpi(i)} />)}
+      {category.kpi_names.map((kpi, i) => <Kpi key={i} kpi={kpi} kpiIsSelected={graphIndex === i} selectKpi={() => selectKpi(i)} />)}
     </div>)}
   </div>
 )
@@ -66,7 +66,8 @@ function mapStateToProps(state) {
     graphIndex: state.graphReducer.graphIndex,
     numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
-    isRefDataPath
+    isRefDataPath,
+    kpiCategories: state.serverReducer.kpiCategories
   }
 }
 
@@ -75,7 +76,10 @@ function mapDispatchToProps(dispatch) {
     updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
     push: (url) => dispatch(push(url)),
     replace: (url) => dispatch(replace(url)),
-    getKpiList: () => dispatch(getKpiList())
+    getKpiOptions: () => {
+      dispatch(getKpiList()) // currently not useful
+      dispatch(getKpiCategories())
+    }
   }
 }
 
@@ -89,7 +93,7 @@ class SideMenu extends Component {
   }
 
   componentDidMount() {
-    this.props.getKpiList()
+    this.props.getKpiOptions()
   }
 
   // open category if closed, close if open
@@ -129,10 +133,10 @@ class SideMenu extends Component {
             KPI
           </div>
           <div className={styles.kpiContent}>
-            {kpiCategories.map((category, i) => (
+            {Object.keys(this.props.kpiCategories).map((category, i) => (
               <KpiCategory
                 key={i}
-                category={category}
+                category={this.props.kpiCategories[category]}
                 categoryIsSelected={this.state.openKpiCategory === i}
                 selectCategory={() => this.openCategory(i)}
                 graphIndex={this.props.graphIndex}
