@@ -12,7 +12,7 @@
     In app.js, we only need to care about using the correct app.use(...) to achieve the desired links.
 
     Examples:
-        - Route-function: /routes/kpi_list.js
+        - Route-function: /routes/kpi_metadata.js
         - Reading/writing to DB: /utilities/db-writer.js
  */
 
@@ -26,8 +26,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-const energyRouter = require('./routes/energy_kpi');
-const kpi_list = require('./routes/kpi_list');
+const kpi_list = require('./routes/kpi_metadata');
 var app = express();
 app.use(cors());
 
@@ -43,7 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/energy', energyRouter);
 app.use('/kpi-list', kpi_list);
 
 // catch 404 and forward to error handler

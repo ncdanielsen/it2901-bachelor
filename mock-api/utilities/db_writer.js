@@ -81,10 +81,10 @@ async function write_categories(){
         "kpi_TEST", kpi_schema);
 }
 
-function write_neighborhoods(){
+async function write_neighborhoods(){
     let neighborhoods = require('../mock-data/neighborhood_building_names');
     let building_schema = require('../schemas/building_schema');
-    write_container_items(neighborhoods, "name", "buildings", "neighborhoods_TEST",
+    await write_container_items(neighborhoods, "name", "buildings", "neighborhoods_TEST",
         "buildings_TEST", building_schema);
 }
 
@@ -98,17 +98,17 @@ async function write_container_items(containers, container_identifier, child_ide
         let name = category[container_identifier];
         let children = category[child_identifier];
 
-        let id_list=[];
+        let child_list=[];
 
         for (let j=0; j < children.length; j++){
             let child_data = await async_get_from_database({"name": children[j]}, child_collection, 'Child', child_schema);
-            let id = child_data[0]["_id"];
-            id_list.push(id);
+            let id = child_data[0];
+            child_list.push(id);
         }
 
         containers_list.push({
             [container_identifier]: name,
-            [child_identifier]: id_list
+            [child_identifier]: child_list
         })
     }
 
@@ -125,6 +125,13 @@ async function write_container_items(containers, container_identifier, child_ide
     })
 }
 
+// function add_children_to_category(callback){
+//     const category_data = require('../mock-data/kpi_cat_children_names');
+//     const kpi_data = require('../mock-data/kpi-list');
+//
+//
+// }
+
 function json_to_list(json_list, category){
     let list = [];
     for (let j = 0; j > json_list.length; j++){
@@ -133,7 +140,25 @@ function json_to_list(json_list, category){
     console.log(list);
 
 }
-//write_kpi_list()
-//write_buildings()
-//write_categories()
-//write_neighborhoods();
+
+
+// running this script clears and re-inits db
+
+function clearAll() {
+    MongoClient.connect(url, function(err, client){
+        if (err) throw err;
+        client.db(db_name).dropDatabase();
+        client.close();
+    });
+}
+const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods]
+var i = 0;
+function timeout() {
+    setTimeout(function () {
+        functions[i]();
+        i++;
+        i < functions.length && timeout();
+    }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+}
+timeout()
+

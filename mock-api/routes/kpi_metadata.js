@@ -14,13 +14,20 @@
 const express = require('express');
 const router = express.Router();
 
-const retrieve_kpi_metadata = require('../utilities/kpi_retriever');
-
+const KPI_Retreiver = require('../utilities/kpi_retriever');
+const retriever = new KPI_Retreiver();
 // Binds the /-link to a function. The function simply uses a utility function with a callback to send the DB-data as JSON
-router.get('/', function (req, res, err) {
-    retrieve_kpi_metadata(function (kpi) {
-        res.json(kpi);
-    });
+router.get('/list', function (req, res, err) {
+    retriever.retrieve_kpi_metadata((data) => {
+        res.json(data);
+    })
 });
+
+router.get('/categories', function (req, res, err){
+    retriever.retrieve_kpi_categories((data) => {
+        res.json(data);
+    })
+});
+
 
 module.exports = router;
