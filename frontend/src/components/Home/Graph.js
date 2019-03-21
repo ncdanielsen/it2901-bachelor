@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import styles from './Graph.module.css'
 
+import { getrKpiDataEnergy } from '../../actions/serverReducerActions'
+
 import {
   LineChart, XAxis, Tooltip, CartesianGrid, Line, Brush,
   Radar, RadarChart, PolarGrid, PolarAngleAxis, /*PolarRadiusAxis,*/
@@ -12,12 +14,15 @@ import {
 function mapStateToProps(state) {
   return {
     data: state.graphReducer.data.data,
+    rkpiData: state.serverReducer.rkpis,
     plotType: state.graphReducer.data.type
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    getrKpiDataEnergy: () => dispatch(getrKpiDataEnergy())
+  }
 }
 
 class Graph extends Component {
@@ -28,10 +33,15 @@ class Graph extends Component {
   }
   updateDimensions = () => this.setState({width: window.innerWidth, height: window.innerHeight})
   componentWillMount = () => this.updateDimensions()
-  componentDidMount = () => window.addEventListener("resize", this.updateDimensions)
+  componentDidMount = () => 
+  {
+    window.addEventListener("resize", this.updateDimensions)
+    this.props.getrKpiDataEnergy()
+  }
   componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions)
 
   render() {
+   
     const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
     let plot
     if (this.props.plotType === "line") {
@@ -84,6 +94,7 @@ class Graph extends Component {
       <div className={styles.GraphContainer}>
         {plot}
       </div>
+      
     )
   }
 }

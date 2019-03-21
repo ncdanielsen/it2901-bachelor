@@ -1,7 +1,9 @@
 import * as types from '../actionTypes/serverReducerTypes'
+import { routerActions } from 'connected-react-router';
 
 const initialState = {
-  kpis: []
+  kpis: [],
+  rkpis: []
 }
 
 export default function serverReducer(state = initialState, action) {
@@ -17,6 +19,11 @@ export default function serverReducer(state = initialState, action) {
     case types.GET_KPI_LIST_FAILURE:
       console.log("GET_KPI_LIST_FAILURE", action)
       return state
+    case types.GET_rKPI_DATA:
+      console.log("GET_rKPI_DATA", action)
+      return {...state,
+        rkpis: action.payload
+      }
     default:
       return state
   }
