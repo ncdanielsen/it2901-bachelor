@@ -1,34 +1,10 @@
 
-/*
-Dataformat:
-
-[
-    "kpi-name": [values] // can be one or more value depending on if timeseries or not
+export const rkpiDataEnergy = [
+  {name: "Energy need", value: 1500},
+  {name: "Energy use", value: 3000},
+  {name: "Energy generation", value: 4000},
+  {name: "Delivered energy", value: 2000},
+  {name: "Exported energy", value: 1000},
+  {name: "Self consumption", value: 70},
+  {name: "Self generation", value: 50},
 ]
-
-*/
-
-export const rkpiDataEnergy = 
-[
-    {
-        "Energy need": [3500]
-    },
-    {
-        "Energy use": [3000]
-    },
-    {
-        "Energy generation": [4000]
-    },
-    {
-        "Delivered energy": [2000]
-    },
-    {
-        "Exported energy": [1000]
-    },
-    {
-        "Self-consumption": [70]
-    },
-    {
-        "Self-generation": [50]
-    }
-];
