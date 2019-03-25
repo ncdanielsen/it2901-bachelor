@@ -29,5 +29,12 @@ router.get('/categories', function (req, res, err){
     })
 });
 
+router.get('/neighbourhoods', function (req, res, err) {
+    retriever.retrieve_neighbourhoods((data) => {
+        res.json(data);
+    })
+});
+
+
 
 module.exports = router;
