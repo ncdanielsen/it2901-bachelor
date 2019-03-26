@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import LineGraph from './LineGraph.js'
+import RadarGraph from './RadarGraph.js'
 import styles from './Graph.module.css'
 
 import {
-  LineChart, XAxis, Tooltip, CartesianGrid, Line, Brush,
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, /*PolarRadiusAxis,*/
+  XAxis, Tooltip, CartesianGrid,
   BarChart, Bar, YAxis, Legend, ReferenceLine
 } from 'recharts'
 
@@ -35,33 +35,11 @@ class Graph extends Component {
     const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
     let plot
     if (this.props.plotType === "line") {
-      plot = (<LineChart
-        width={chartSize}
-        height={chartSize}
-        data={this.props.data}
-      >
-        <XAxis dataKey="name" />
-        <Tooltip />
-        <CartesianGrid stroke="#f5f5f5" />
-        <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-        <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-        <Brush />
-      </LineChart>)
+      plot = (<LineGraph data={this.props.data} chartSize={chartSize}/>) 
+
     } else if (this.props.plotType === "radar") {
-      plot = (<RadarChart
-        cx={chartSize*0.5*1.2}
-        cy={chartSize*0.5}
-        outerRadius={chartSize*0.3}
-        width={chartSize*1.2}
-        height={chartSize}
-        data={this.props.data}
-      >
-        <PolarGrid />
-        <PolarAngleAxis dataKey="subject" />
-        {/*<PolarRadiusAxis angle={30} />*/}
-        <Radar name="Andy" dataKey="B" stroke="#e034de" fill="#f145ef" fillOpacity={0.6} />
-        <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-      </RadarChart>)
+      plot = (<RadarGraph data = {this.props.data} chartSize = {chartSize}/>)
+      
     } else if (this.props.plotType === "posNegBarChart") {
       plot = (<BarChart
         width={chartSize}
