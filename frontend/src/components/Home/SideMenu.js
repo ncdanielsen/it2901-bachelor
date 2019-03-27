@@ -6,7 +6,7 @@ import styles from './SideMenu.module.css'
 //import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
 import { updateGraphIndex } from '../../actions/graphReducerActions'
-import { getKpiList, getKpiCategories } from '../../actions/serverReducerActions'
+import { getKpiList, getKpiCategories, updateKpiIsSelected, updateMultiSelect } from '../../actions/serverReducerActions'
 
 import { push, replace } from 'connected-react-router'
 
@@ -21,7 +21,7 @@ const Kpi = ({kpi, kpiIsSelected, selectKpi}) => (
 )
 
 // list item for kpi categories
-const KpiCategory = ({category, categoryIsSelected, selectCategory, graphIndex, selectKpi}) => (
+const KpiCategory = ({category, categoryIsSelected, selectCategory, currentKpisSelected, selectKpi}) => (
   <div>
     <div
       className={categoryIsSelected ? styles.kpiCategory+" "+styles.categorySelected : styles.kpiCategory}
@@ -31,7 +31,10 @@ const KpiCategory = ({category, categoryIsSelected, selectCategory, graphIndex, 
     </div>
     {/* Shows kpis in category only if selected */}
     {categoryIsSelected && (<div className={styles.categorySubBox}>
-      {category.kpi_names.map((kpi, i) => <Kpi key={i} kpi={kpi} kpiIsSelected={graphIndex === i} selectKpi={() => selectKpi(i)} />)}
+      {category.kpi_names.map((kpi, i) => {
+        const kpiIsSelected = (currentKpisSelected.findIndex(selectedKpi => selectedKpi === kpi.name) !== -1)
+        return <Kpi key={i} kpi={kpi} kpiIsSelected={kpiIsSelected} selectKpi={() => selectKpi(kpi.name, !kpiIsSelected)} />
+      })}
     </div>)}
   </div>
 )
@@ -67,19 +70,23 @@ function mapStateToProps(state) {
     numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
-    kpiCategories: state.serverReducer.kpiCategories
+    kpiCategories: state.serverReducer.kpiCategories,
+    currentKpisSelected: state.serverReducer.currentKpisSelected,
+    multiSelect: state.serverReducer.multiSelect
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
+    updateKpiIsSelected: (kpiName, isSelected) => dispatch(updateKpiIsSelected(kpiName, isSelected)),
     push: (url) => dispatch(push(url)),
     replace: (url) => dispatch(replace(url)),
     getKpiOptions: () => {
       dispatch(getKpiList()) // currently not useful
       dispatch(getKpiCategories())
-    }
+    },
+    updateMultiSelect: multiSelect => dispatch(updateMultiSelect(multiSelect))
   }
 }
 
@@ -100,7 +107,10 @@ class SideMenu extends Component {
   openCategory = (index) => this.setState({openKpiCategory: index === this.state.openKpiCategory ? -1 : index})
 
   // temprorary implementation of updateChosenKpiInCategory. To be changed.
-  updateChosenKpiInCategory = (i) => this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
+  updateChosenKpiInCategory = (kpi, kpiIsSelected) => {
+    //this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
+    this.props.updateKpiIsSelected(kpi, kpiIsSelected)
+  }
 
   // open or close myData and refData
   goTo = (path) => {
@@ -122,7 +132,7 @@ class SideMenu extends Component {
           isActive={this.props.isMyDataPath}
         />
         <DataSource
-          title="Comparison Data"
+          title="Reference Data"
           nameOfChosenSource="Perleporten"
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
@@ -132,6 +142,18 @@ class SideMenu extends Component {
           <div className={styles.buttonTitle+" "+styles.kpiTitle}>
             KPI
           </div>
+          <div>
+            <label htmlFor="multiSelect">Multi-Select</label>
+            <input
+              type="checkbox"
+              id="multiSelect"
+              name="drone"
+              value="multiSelect"
+              checked={this.props.multiSelect}
+              onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
+              onChange={() => {}}
+            />
+          </div>
           <div className={styles.kpiContent}>
             {Object.keys(this.props.kpiCategories).map((category, i) => (
               <KpiCategory
@@ -139,7 +161,7 @@ class SideMenu extends Component {
                 category={this.props.kpiCategories[category]}
                 categoryIsSelected={this.state.openKpiCategory === i}
                 selectCategory={() => this.openCategory(i)}
-                graphIndex={this.props.graphIndex}
+                currentKpisSelected={this.props.currentKpisSelected}
                 selectKpi={this.updateChosenKpiInCategory}
               />
             ))}
