@@ -110,7 +110,7 @@ Returns a lift of all buildings as JSON
 
 
 
-### ../buildingkpi/{buildingID}/?kpiID={kpiID}
+### ../kpi/{kpiID}/building/{buildingID}
 
 Return KPI data for building as a JSON with the following parameters: 
 
