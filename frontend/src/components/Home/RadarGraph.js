@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './RadarGraph.module.css'
+//import styles from './RadarGraph.module.css'
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react"
 
-import styles from "./KpiCategory.module.css";
-import Kpi from "./Kpi.js";
+import styles from "./KpiCategory.module.css"
+import Kpi from "./Kpi.js"
 
 // list item for kpi categories
 const KpiCategory = ({
@@ -32,7 +32,7 @@ const KpiCategory = ({
           const kpiIsSelected =
             currentKpisSelected.findIndex(
               selectedKpi => selectedKpi === kpi.name
-            ) !== -1;
+            ) !== -1
 
           return (
             <Kpi
@@ -41,11 +41,11 @@ const KpiCategory = ({
               kpiIsSelected={kpiIsSelected}
               selectKpi={() => selectKpi(kpi.name, !kpiIsSelected)}
             />
-          );
+          )
         })}
       </div>
     )}
   </div>
-);
+)
 
-export default KpiCategory;
+export default KpiCategory
