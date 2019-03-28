@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "connected-react-router": "^6.3.1",
     "history": "^4.7.2",
+    "moment": "^2.24.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",
@@ -20,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress:open": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -32,6 +34,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cypress": "^3.2.0",
     "redux-devtools-extension": "^2.13.8"
   }
 }

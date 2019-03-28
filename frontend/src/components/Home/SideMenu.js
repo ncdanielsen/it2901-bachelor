@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 
 import styles from "./SideMenu.module.css";
 
-import { kpiCategories } from "../../data/data"; // will be replaced with data from server
+//import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
-import { updateGraphIndex } from "../../actions/graphReducerActions";
-import { getKpiList } from "../../actions/serverReducerActions";
+import { updateGraphIndex } from '../../actions/graphReducerActions'
+import { getKpiList, getKpiCategories, updateKpiIsSelected, updateMultiSelect } from '../../actions/serverReducerActions'
+
 
 import { push, replace } from "connected-react-router";
 
@@ -26,17 +27,24 @@ function mapStateToProps(state) {
     graphIndex: state.graphReducer.graphIndex,
     numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
-    isRefDataPath
-  };
+    kpiCategories: state.serverReducer.kpiCategories,
+    currentKpisSelected: state.serverReducer.currentKpisSelected,
+    multiSelect: state.serverReducer.multiSelect
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateGraphIndex: graphIndex => dispatch(updateGraphIndex(graphIndex)),
-    push: url => dispatch(push(url)),
-    replace: url => dispatch(replace(url)),
-    getKpiList: () => dispatch(getKpiList())
-  };
+    updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
+    updateKpiIsSelected: (kpiName, isSelected) => dispatch(updateKpiIsSelected(kpiName, isSelected)),
+    push: (url) => dispatch(push(url)),
+    replace: (url) => dispatch(replace(url)),
+    getKpiOptions: () => {
+      dispatch(getKpiList()) // currently not useful
+      dispatch(getKpiCategories())
+    },
+    updateMultiSelect: multiSelect => dispatch(updateMultiSelect(multiSelect))
+  }
 }
 
 class SideMenu extends Component {
@@ -49,7 +57,7 @@ class SideMenu extends Component {
   }
 
   componentDidMount() {
-    this.props.getKpiList();
+    this.props.getKpiOptions()
   }
 
   // open category if closed, close if open
@@ -59,8 +67,10 @@ class SideMenu extends Component {
     });
 
   // temprorary implementation of updateChosenKpiInCategory. To be changed.
-  updateChosenKpiInCategory = i =>
-    this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets - 1, i));
+  updateChosenKpiInCategory = (kpi, kpiIsSelected) => {
+    //this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
+    this.props.updateKpiIsSelected(kpi, kpiIsSelected)
+  }
 
   // open or close myData and refData
   goTo = path => {
@@ -84,22 +94,36 @@ class SideMenu extends Component {
           isActive={this.props.isMyDataPath}
         />
         <DataSource
-          title="Comparison Data"
+          title="Reference Data"
           nameOfChosenSource="Perleporten"
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
 
         <div className={styles.kpiContainer}>
-          <div className={styles.buttonTitle + " " + styles.kpiTitle}>KPI</div>
+        <div className={styles.buttonTitle+" "+styles.kpiTitle}>
+          KPI
+        </div>
+        <div>
+          <label htmlFor="multiSelect">Multi-Select</label>
+          <input
+            type="checkbox"
+            id="multiSelect"
+            name="drone"
+            value="multiSelect"
+            checked={this.props.multiSelect}
+            onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
+            onChange={() => {}}
+          />
+        </div>
           <div className={styles.kpiContent}>
-            {kpiCategories.map((category, i) => (
+            {Object.keys(this.props.kpiCategories).map((category, i) => (
               <KpiCategory
                 key={i}
-                category={category}
+                category={this.props.kpiCategories[category]}
                 categoryIsSelected={this.state.openKpiCategory === i}
                 selectCategory={() => this.openCategory(i)}
-                graphIndex={this.props.graphIndex}
+                currentKpisSelected={this.props.currentKpisSelected}
                 selectKpi={this.updateChosenKpiInCategory}
               />
             ))}
