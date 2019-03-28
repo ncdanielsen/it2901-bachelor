@@ -151,8 +151,9 @@ function clearAll() {
         client.close();
     });
 }
-const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods]
-var i = 0;
+
+const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods];
+let i = 0;
 function timeout() {
     setTimeout(function () {
         functions[i]();
@@ -160,5 +161,5 @@ function timeout() {
         i < functions.length && timeout();
     }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
 }
-timeout()
+timeout();
 
