@@ -10,7 +10,7 @@ const url = config.DATABASE_URL;
 const db_name = config.DATABASE_NAME;
 
 /**
- * @param: callback(kpi_meta). Fucntion deatiling what to to do with retrieved data.
+ * @param: callback(kpi_meta). Function detailing what to to do with retrieved data.
  * @return: List of availiable from kpi
  */
 
@@ -19,7 +19,7 @@ class kpi_retriever {
         this.connection = mongoose.createConnection(url + "zen_category_TEST");
         this.kpi_meta_model = this.connection.model('KPI Metadata', kpi_meta_schema, 'kpi_TEST');
         this.kpi_cat_model = this.connection.model('KPI Categories', kpi_cat_schema, 'kpi_cat_TEST');
-        this.neighbourhood_model = this.connection.model('Neighbourhoods', neighbourhood_schema, 'neighbourhood_TEST');
+        this.neighbourhood_model = this.connection.model('Neighbourhoods', neighbourhood_schema, 'neighborhoods_TEST');
 
     }
 
