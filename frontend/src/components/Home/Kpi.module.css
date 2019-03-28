@@ -1,0 +1,14 @@
+.kpi {
+  padding: 10px;
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.kpi:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+
+.kpiIsSelected {
+  background: #53b49b !important;
+  color: white;
+}
