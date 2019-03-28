@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import styles from "./kpiCategory.module.css";
+import styles from "./KpiCategory.module.css";
 import Kpi from "./Kpi.js";
 
 // list item for kpi categories
@@ -8,7 +8,7 @@ const KpiCategory = ({
   category,
   categoryIsSelected,
   selectCategory,
-  graphIndex,
+  currentKpisSelected,
   selectKpi
 }) => (
   <div>
@@ -20,20 +20,29 @@ const KpiCategory = ({
       }
       onClick={selectCategory}
     >
-      <div>{category.categoryName}</div>
+      <div>{category.name}</div>
       <div>{categoryIsSelected ? "–" : "+"}</div>
     </div>
+
     {/* Shows kpis in category only if selected */}
+
     {categoryIsSelected && (
       <div className={styles.categorySubBox}>
-        {category.kpis.map((kpi, i) => (
-          <Kpi
-            key={i}
-            kpi={kpi}
-            kpiIsSelected={graphIndex === i}
-            selectKpi={() => selectKpi(i)}
-          />
-        ))}
+        {category.kpi_names.map((kpi, i) => {
+          const kpiIsSelected =
+            currentKpisSelected.findIndex(
+              selectedKpi => selectedKpi === kpi.name
+            ) !== -1;
+
+          return (
+            <Kpi
+              key={i}
+              kpi={kpi}
+              kpiIsSelected={kpiIsSelected}
+              selectKpi={() => selectKpi(kpi.name, !kpiIsSelected)}
+            />
+          );
+        })}
       </div>
     )}
   </div>
