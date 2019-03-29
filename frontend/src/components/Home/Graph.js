@@ -25,7 +25,7 @@ function mapStateToProps(state) {
   return {
     kpis: state.serverReducer.kpis,
     cKpis: state.serverReducer.ckpis,
-    ckpiData: state.graphReducer.cKpi.data,
+    //ckpiData: state.graphReducer.cKpi.data,
     currentKpisSelected,
     rKpis
   }
@@ -64,16 +64,27 @@ class Graph extends Component {
 
     const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
     let plot
-    
+
     if (this.props.currentKpisSelected.length === 1) {
       const kpiIndex = this.props.cKpis.findIndex(ckpi => ckpi.name === this.props.currentKpisSelected[0])
       const cKpi = this.props.cKpis[kpiIndex]
-      plot = (<LineGraph chartSize={chartSize} kpis={this.props.kpis} rKpis={this.props.rKpis} 
-                         cKpi={cKpi} kpiIndex={kpiIndex} currentKpisSelected={this.props.currentKpisSelected}/>)
-    
+      plot = (<LineGraph
+        chartSize={chartSize}
+        kpis={this.props.kpis}
+        rKpis={this.props.rKpis}
+        cKpi={cKpi}
+        kpiIndex={kpiIndex}
+        currentKpisSelected={this.props.currentKpisSelected}
+      />)
+
     } else { // if more than one KPI is selected in the side menu
-      plot = (<RadarGraph chartSize={chartSize} currentKpisSelected={this.props.currentKpisSelected} cKpis={this.props.cKpis}/>)
-    }
+      plot = (<RadarGraph
+        chartSize={chartSize}
+        currentKpisSelected={this.props.currentKpisSelected}
+        cKpis={this.props.cKpis}
+      />)
+
+   }
 
     return (
       <div className={styles.GraphContainer}>

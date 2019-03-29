@@ -5,6 +5,8 @@ const initialState = {
   kpiCategories: [],
   rkpis: [],
   ckpis: [],
+  current_rKpiName: "",
+  current_cKpiName: "",
   currentKpisSelected: [],
   multiSelect: false,
   multiSelectKpisWereSelected: []
@@ -28,6 +30,10 @@ export default function serverReducer(state = initialState, action) {
       return {...state, rkpis: action.payload}
     case types.GET_cKPI_DATA:
       return {...state, ckpis: action.payload.ckpiDataEnergy}
+    case types.UPDATE_CURRENT_rKPI_NAME:
+      return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}
+    case types.UPDATE_CURRENT_cKPI_NAME:
+      return {...state, current_cKpiName: (action.payload.name === state.current_cKpiName ? "" : action.payload.name)}
     case types.UPDATE_KPI_IS_SELECTED:
       const kpiIndex = state.currentKpisSelected.findIndex(selectedKpi => selectedKpi === action.payload.kpiName)
       let currentKpisSelected

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { updateCurrent_cKpiName } from '../../actions/serverReducerActions'
+
 import styles from './MyData.module.css'
 
 import { replace } from 'connected-react-router'
@@ -26,7 +28,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    replace: (url) => dispatch(replace(url))
+    replace: (url) => dispatch(replace(url)),
+    updateCurrent_cKpiName: name => dispatch(updateCurrent_cKpiName(name))
   }
 }
 
@@ -36,7 +39,10 @@ class MyData extends Component {
 
   viewBuildingDetails = kpiSetName => console.log("viewBuildingDetails, kpiSetName:", kpiSetName)
   editKpiSet = kpiSetName => console.log("editKpiSet, kpiSetName:", kpiSetName)
-  selectKpiSet = kpiSetName => console.log("selectKpiSet, kpiSetName:", kpiSetName)
+  selectKpiSet = kpiSetName => {
+    console.log("selectKpiSet, kpiSetName:", kpiSetName)
+    this.props.updateCurrent_cKpiName(kpiSetName)
+  }
 
   render() {
     return (

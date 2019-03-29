@@ -28,6 +28,11 @@ const getKpiListFailure = error => ({type: types.GET_KPI_LIST_FAILURE, payload: 
 export const getrKpiDataEnergy = () => ({type: types.GET_rKPI_DATA, payload: [rkpiDataEnergy]})
 export const getcKpiDataEnergy = () => ({type: types.GET_cKPI_DATA, payload: {ckpiDataEnergy}})
 
+export const updateCurrent_rKpiName = (name) => ({type: types.UPDATE_CURRENT_rKPI_NAME, payload: {name}})
+export const updateCurrent_cKpiName = (name) => ({type: types.UPDATE_CURRENT_cKPI_NAME, payload: {name}})
+
+
+
 export const updateKpiIsSelected = (kpiName, isSelected) => ({type: types.UPDATE_KPI_IS_SELECTED, payload: {kpiName, isSelected}})
 export const updateMultiSelect = multiSelect => ({type: types.UPDATE_MULTI_SELECT, payload: {multiSelect}})
 
