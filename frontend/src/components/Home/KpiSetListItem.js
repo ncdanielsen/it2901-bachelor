@@ -29,6 +29,13 @@ const Building = ({buildingName, viewBuildingDetails}) => (
   </div>
 )
 
+const DataOwner = ({owner}) => (
+  <div className={styles.kpiSection}>
+    <div className={styles.kpiNameLabel}>Owner</div>
+    <div className={styles.kpiName}>{owner}</div>
+  </div>
+)
+
 const Description = ({description}) => (
   <div className={styles.kpiSection}>
     <div className={styles.kpiNameLabel}>Description</div>
@@ -51,13 +58,18 @@ const Buttons = ({editKpiSet, selectKpiSet, kpiSetName}) => (
   </div>
 )
 
-const KpiSetListItem = ({isCalculatedKpi, kpiSet, editKpiSet, selectKpiSet, description="", viewBuildingDetails=()=>{}}) => (
-  <div className={styles.kpiSet}>
+const KpiSetListItem = ({isCalculatedKpi, showOwner, kpiSet, editKpiSet, selectKpiSet, description="", viewBuildingDetails=()=>{}}) => (
+  <div className={isCalculatedKpi ? styles.kpiSet : styles.rKpiSet}>
     <NameAndDates kpiSetName={kpiSet.name} dateCreated={kpiSet.created} dateLastUpdated={kpiSet.lastUpdated} />
     {
       isCalculatedKpi
       ? <Building buildingName={kpiSet.building.name} viewBuildingDetails={viewBuildingDetails} />
-      : <Description description={"A decription of what the kpi set is useful for comparing with"} />
+      : <Description description={description}  />
+    }
+    {
+      showOwner
+      ? <DataOwner owner={kpiSet.owner}/>
+      : <div />
     }
     <Buttons editKpiSet={editKpiSet} selectKpiSet={selectKpiSet} />
   </div>
