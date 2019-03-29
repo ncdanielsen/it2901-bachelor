@@ -1,4 +1,5 @@
 import json
+import math
 from os.path import dirname, abspath
 from datetime import timezone
 import datetime
@@ -8,11 +9,11 @@ def gen_time_data(building_id, kpi_id, kpi_func, start, end):
     for i in range(start, end+1):
         for m in range(1, 13):
             for d in range(1, 32):
-                values.append(kpi_func(i))
                 try: 
                     dt = datetime.datetime(i, m, d)
                     timestamp = dt.replace(tzinfo=timezone.utc).timestamp()
                     times.append(timestamp)
+                    values.append(kpi_func(i))
                 except:
                     pass
     return {"building_id": building_id, "kpi_id": kpi_id, "values": values, "times": times}
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     data = []
     for bid in building_ids:
         for kid in kpi_ids:
-            data.append(gen_time_data(bid, kid, lambda x: 0.5, start, end))
+            data.append(gen_time_data(bid, kid, lambda x: abs(math.sin(x))*1000, start, end))
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
         
