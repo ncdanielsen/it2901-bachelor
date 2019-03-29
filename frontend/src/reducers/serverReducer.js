@@ -3,8 +3,8 @@ import * as types from '../actionTypes/serverReducerTypes'
 const initialState = {
   kpis: [],
   kpiCategories: [],
-  rkpis: [],
-  ckpis: [],
+  rKpiSets: [],
+  cKpiSets: [],
   current_rKpiName: "",
   current_cKpiName: "",
   currentKpisSelected: [],
@@ -27,9 +27,9 @@ export default function serverReducer(state = initialState, action) {
     case types.GET_KPI_CATEGORIES_FAILURE:
       return state
     case types.GET_rKPI_DATA:
-      return {...state, rkpis: action.payload}
+      return {...state, rKpiSets: action.payload}
     case types.GET_cKPI_DATA:
-      return {...state, ckpis: action.payload.ckpiDataEnergy}
+      return {...state, cKpiSets: action.payload}
     case types.UPDATE_CURRENT_rKPI_NAME:
       return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}
     case types.UPDATE_CURRENT_cKPI_NAME:

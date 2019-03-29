@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { get } from 'lodash'
+
 //import styles from './RadarGraph.module.css'
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
@@ -16,7 +18,7 @@ export default class RadarGraph extends Component {
               outerRadius={this.props.chartSize*0.3}
               width={this.props.chartSize*1.2}
               height={this.props.chartSize}
-              data={this.props.currentKpisSelected.map(selectKpi => this.props.cKpis.find(cKpi => cKpi.name === selectKpi))}
+              data={this.props.currentKpisSelected.map(selectKpi => get(this.props, 'cKpiSet.values', []).find(kpi => kpi.name === selectKpi))}
             >
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />

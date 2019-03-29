@@ -44,7 +44,9 @@
 .kpiSection {
   /*display: inline-block;
   vertical-align: top;*/
-  width: 40%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  width: 35%;
   min-width: 140px;
   min-height: 100px;
   margin-top: 10px;

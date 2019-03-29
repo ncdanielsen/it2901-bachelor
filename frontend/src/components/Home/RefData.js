@@ -14,22 +14,7 @@ function mapStateToProps(state) {
   return {
     // mock data at the moment, should come from the server
     current_rKpiName: state.serverReducer.current_rKpiName,
-    kpiSets: [
-      {
-        name: "Some name",
-        created: new Date(),
-        lastUpdated: new Date(),
-        owner: "Private",
-        description: "A set of KPIs for buildings built before 1980 and in a temperated location."
-      },
-      {
-        name: "Another name",
-        created: new Date(),
-        lastUpdated: new Date(),
-        owner: "Shared",
-        description: "Anothe nice and useful set of KPIs."
-      }
-    ]
+    kpiSets: state.serverReducer.rKpiSets
   }
 }
 

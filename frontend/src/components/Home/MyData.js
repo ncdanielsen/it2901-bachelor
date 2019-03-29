@@ -5,7 +5,7 @@ import { updateCurrent_cKpiName } from '../../actions/serverReducerActions'
 
 import styles from './MyData.module.css'
 
-import { replace } from 'connected-react-router'
+//import { replace } from 'connected-react-router'
 
 import UploadNewKpiSet from './UploadNewKpiSet'
 import KpiSetListItem from './KpiSetListItem'
@@ -13,42 +13,29 @@ import KpiSetListItem from './KpiSetListItem'
 function mapStateToProps(state) {
   return {
     current_cKpiName: state.serverReducer.current_cKpiName,
-    kpiSets: [
-      {
-        name: "Some name",
-        building: {
-          name: "Da name",
-          description: "Some description"
-        },
-        created: new Date(),
-        lastUpdated: new Date()
-      }
-    ]
+    kpiSets: state.serverReducer.cKpiSets
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    replace: (url) => dispatch(replace(url)),
+    //replace: (url) => dispatch(replace(url)),
     updateCurrent_cKpiName: name => dispatch(updateCurrent_cKpiName(name))
   }
 }
 
 class MyData extends Component {
 
-  close = () => this.props.replace("/")
+  //close = () => this.props.replace("/")
 
   viewBuildingDetails = kpiSetName => console.log("viewBuildingDetails, kpiSetName:", kpiSetName)
   editKpiSet = kpiSetName => console.log("editKpiSet, kpiSetName:", kpiSetName)
-  selectKpiSet = kpiSetName => {
-    console.log("selectKpiSet, kpiSetName:", kpiSetName)
-    this.props.updateCurrent_cKpiName(kpiSetName)
-  }
+  selectKpiSet = kpiSetName => this.props.updateCurrent_cKpiName(kpiSetName)
 
   render() {
     return (
       <div className={styles.myDataContainer}>
-        <div onClick={this.close} className={styles.closeButtonMyData}>X</div>
+        {/*<div onClick={this.close} className={styles.closeButtonMyData}>X</div>*/}
         <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} text="existing sets of calculated KPIs" />
         <div className={styles.kpiSets}>
           {this.props.kpiSets.map((kpiSet, index) => (
