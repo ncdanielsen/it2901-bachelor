@@ -21,6 +21,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 
 1. Open terminal in folder “mock-api”
    1. Protip for Windows: Find folder in explorer and type “CMD” in address bar
+2. Run `$ python utilities/gen_kpi.py`
 2. Launch database if not running 
    1. ` mongod --dbpath <path-to-db>  ` 
    2. To monitor database: `mongo` in terminal
