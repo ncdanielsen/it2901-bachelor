@@ -12,6 +12,7 @@ import KpiSetListItem from './KpiSetListItem'
 
 function mapStateToProps(state) {
   return {
+    current_cKpiName: state.serverReducer.current_cKpiName,
     kpiSets: [
       {
         name: "Some name",
@@ -53,6 +54,7 @@ class MyData extends Component {
           {this.props.kpiSets.map((kpiSet, index) => (
             <KpiSetListItem
               key={index}
+              kpiSetIsSelected={kpiSet.name === this.props.current_cKpiName}
               isCalculatedKpi={true}
               showOwner={false}
               kpiSet={kpiSet}
