@@ -42,12 +42,13 @@ class MyData extends Component {
     return (
       <div className={styles.myDataContainer}>
         <div onClick={this.close} className={styles.closeButtonMyData}>X</div>
-        <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} />
+        <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} text="existing sets of calculated KPIs" />
         <div className={styles.kpiSets}>
           {this.props.kpiSets.map((kpiSet, index) => (
             <KpiSetListItem
               key={index}
               isCalculatedKpi={true}
+              showOwner={false}
               kpiSet={kpiSet}
               editKpiSet={() => this.editKpiSet(kpiSet.name)}
               selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
