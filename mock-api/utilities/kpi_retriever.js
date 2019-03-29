@@ -4,6 +4,7 @@ const kpi_meta_schema = require('../schemas/kpi_meta_schema');
 const kpi_cat_schema = require('../schemas/category_schema');
 const neighbourhood_schema = require('../schemas/neighbourhood_schema');
 const buildingkpi_schema = require("../schemas/buildingkpi_schema")
+const neighbourhoodkpi_schema = require("../schemas/neighbourhoodkpi_schema")
 const config = require('../config.json');
 
 // Connection URL
@@ -22,6 +23,7 @@ class kpi_retriever {
         this.kpi_cat_model = this.connection.model('KPI Categories', kpi_cat_schema, 'kpi_cat_TEST');
         this.neighbourhood_model = this.connection.model('Neighbourhoods', neighbourhood_schema, 'neighborhoods_TEST');
         this.buildingkpi_model = this.connection.model("Building KPIs", buildingkpi_schema, "buildingkpi_TEST")
+        this.neighbourhoodkpi_model = this.connection.model("Neighbourhood KPIs", neighbourhoodkpi_schema, "neighbourhoodkpi_TEST")
 
     }
 
@@ -34,6 +36,12 @@ class kpi_retriever {
 
     retrieve_buildingkpi(buildingID, kpiID, callback) {
         this.buildingkpi_model.find({building_id: buildingID, kpi_id: kpiID}, function(err, buildingkpi) {
+            callback(buildingkpi)
+        })
+    }
+
+    retrieve_neighbourhoodkpi(neighbourhoodID, kpiID, callback ) {
+        this.neighbourhoodkpi_model.find({neighbourhood_id: neighbourhoodID, kpi_id: kpiID}, function(err, buildingkpi) {
             callback(buildingkpi)
         })
     }

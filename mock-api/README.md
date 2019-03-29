@@ -111,7 +111,7 @@ Returns a lift of all buildings as JSON
 
 
 
-### ../buildingkpi/{buildingID}/kpi/{kpiID}
+### ../buildingkpi/{buildingID}-{kpiID}
 Returns a list of KPI values for the specified buildingID and kpiID.
 
 **Data format:**
@@ -127,23 +127,21 @@ Returns a list of KPI values for the specified buildingID and kpiID.
 
 
 
-### ../neighborhoodkpi/{neighborhoodID}/?kpiID={kpiID}
+### ../neighborhoodkpi/{neighbourhoodID}-{kpiID}
 
-Return KPI data for neighborhood as a JSON with the following parameters: 
+Return KPI data for neighborhood as a JSON.
 
-- kpi-id: int 
-  - Select one type of kpi data is selected for 
-- kpi-id: [int,..]
-  - Selects several kpis data is selected for 
-- time: [start (int), end(int)]
-  - Limit time range of data 
-  - Start and end as unix-time integers
+**Data format:**
 
-Sample link: ` example.com/neigborhoodkpi/011234/?kpi-id=123, time=[0, 360]`
+```{js}
+[{
+    neighbourhood_id: int, 
+    kpi_id: int, 
+    values: [float] // list of floats
+    times: [float] // list of floats (unix time)
+}]
 
-This will return an array of data in KPI #123 between 00:00 and 1:00 January 1st, 1970. 
 
-The JSON is a list of atomic KPI datapieces.
 
 ## Upload-functions
 

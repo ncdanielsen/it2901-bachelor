@@ -24,6 +24,7 @@ const db_name = config.DATABASE_NAME;
 
 const KPI_LIST = require('../mock-data/kpi-list.json');
 const BUILDING_KPIS = require("../mock-data/buildingkpi.json")
+const NEIGHBOURHOOD_KPIS = require("../mock-data/neighbourhoodkpi.json")
 
 /*
     Sending data to database:
@@ -58,6 +59,10 @@ function write_kpi_list(){
 
 function write_building_KPIs(){
     write_to_DB("buildingkpi_TEST", BUILDING_KPIS)
+}
+
+function write_neighbourhood_KPIs() {
+    write_to_DB("neighbourhoodkpi_TEST", NEIGHBOURHOOD_KPIS)
 }
 
 function write_buildings(){
@@ -156,7 +161,7 @@ function clearAll() {
     });
 }
 
-const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs];
+const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs];
 let i = 0;
 function timeout() {
     setTimeout(function () {
