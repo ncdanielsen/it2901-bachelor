@@ -21,6 +21,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 
 1. Open terminal in folder “mock-api”
    1. Protip for Windows: Find folder in explorer and type “CMD” in address bar
+2. Run `$ python utilities/gen_kpi.py`
 2. Launch database if not running 
    1. ` mongod --dbpath <path-to-db>  ` 
    2. To monitor database: `mongo` in terminal
@@ -110,55 +111,37 @@ Returns a lift of all buildings as JSON
 
 
 
-### ../buildingkpi/{buildingID}/?kpiID={kpiID}
-
-Return KPI data for building as a JSON with the following parameters: 
-
-- kpi-id: int 
-  - Select one type of kpi data is selected for 
-- kpi-id: [int,..]
-  - Selects several kpis data is selected for 
-- time: [start (int), end(int)]
-  - Limit time range of data 
-  - Start and end as unix-time integers
-
-Sample link: ` example.com/buildingkpi/011234/?kpi-id=123, time=[0, 360]`
-
-This will return an array of data in KPI #123 between 00:00 and 1:00 January 1st, 1970. 
-
-The JSON is a list of atomic KPI datapieces.
+### ../buildingkpi/{buildingID}-{kpiID}
+Returns a list of KPI values for the specified buildingID and kpiID.
 
 **Data format:**
 
 ```{js}
 [{
-    buildingID: int, 
-    kpiID: int, 
-    timestamp: datetime, 
-    // For more detailed metadata, use the calls for info about buildings, kpis etc above
-    value: float
+    building_id: int, 
+    kpi_id: int, 
+    values: [float] // list of floats
+    times: [float] // list of floats (unix time)
 }]
 ```
 
 
 
-### ../neighborhoodkpi/{neighborhoodID}/?kpiID={kpiID}
+### ../neighborhoodkpi/{neighbourhoodID}-{kpiID}
 
-Return KPI data for neighborhood as a JSON with the following parameters: 
+Return KPI data for neighborhood as a JSON.
 
-- kpi-id: int 
-  - Select one type of kpi data is selected for 
-- kpi-id: [int,..]
-  - Selects several kpis data is selected for 
-- time: [start (int), end(int)]
-  - Limit time range of data 
-  - Start and end as unix-time integers
+**Data format:**
 
-Sample link: ` example.com/neigborhoodkpi/011234/?kpi-id=123, time=[0, 360]`
+```{js}
+[{
+    neighbourhood_id: int, 
+    kpi_id: int, 
+    values: [float] // list of floats
+    times: [float] // list of floats (unix time)
+}]
 
-This will return an array of data in KPI #123 between 00:00 and 1:00 January 1st, 1970. 
 
-The JSON is a list of atomic KPI datapieces.
 
 ## Upload-functions
 
