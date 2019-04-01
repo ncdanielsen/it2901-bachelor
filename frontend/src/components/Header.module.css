@@ -1,8 +1,8 @@
 .Header {
   height: calc(10% - 1px);
-  padding-left: 7.5%;
-  padding-right: 7.5%;
-  width: 85%;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 90%;
   border-bottom: 1px solid rgb(100, 100, 100);
   display: flex;
   justify-content: flex-start;
@@ -39,20 +39,10 @@
   background: rgba(128, 128, 128, 0.2);
 }
 
-.headerLeftSide {
-  position: absolute;
-  left: 5%;
-}
-
-.headerLeftSide > div {
+.humburger {
   display: inline-block;
-  padding-right: 20px;
-  padding-left: 20px;
-  line-height: calc(10vh - 1px);
-}
-
-.headerLeftSide > div:hover {
-  background: rgba(128, 128, 128, 0.2);
+  height: 35px;
+  margin-left: 20px;
 }
 
 .link {
