@@ -10,8 +10,12 @@
   margin-top: 40px;
   display: flex;
   /*
-  // can add a @media to make the layout change when screen is smaller 
+  // can add a @media to make the layout change when screen is smaller
   lex-wrap: wrap;*/
+}
+
+.kpiSetSelected {
+  border: 1px solid green !important;
 }
 
 .rKpiSet {
@@ -23,9 +27,9 @@
   box-shadow: 2px 2px 20px rgb(215,215,215);
   border-radius: 10px;
   margin-top: 40px;
-  display: flex; 
+  display: flex;
   /*
-  // can add a @media to make the layout change when screen is smaller 
+  // can add a @media to make the layout change when screen is smaller
   lex-wrap: wrap;*/
 }
 
@@ -40,7 +44,9 @@
 .kpiSection {
   /*display: inline-block;
   vertical-align: top;*/
-  width: 40%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  width: 35%;
   min-width: 140px;
   min-height: 100px;
   margin-top: 10px;
@@ -122,4 +128,8 @@
   background: rgb(74, 149, 255);
   color: white;
   cursor: pointer;
+}
+
+.selectButtonSelected {
+  background: rgb(255, 77, 102);
 }

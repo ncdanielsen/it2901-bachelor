@@ -1,12 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react"
 
-import styles from "./DataSource.module.css";
-
-import { updateGraphIndex } from "../../actions/graphReducerActions";
-import { getKpiList } from "../../actions/serverReducerActions";
-
-import { push, replace } from "connected-react-router";
+import styles from "./DataSource.module.css"
 
 // list item for data sources. However, only two are expected to be used (for myData and refData)
 const DataSource = ({ title, nameOfChosenSource, select, isActive }) => (
@@ -21,6 +15,6 @@ const DataSource = ({ title, nameOfChosenSource, select, isActive }) => (
       <div className={styles.buttonContent}>{nameOfChosenSource}</div>
     </div>
   </div>
-);
+)
 
-export default DataSource;
+export default DataSource

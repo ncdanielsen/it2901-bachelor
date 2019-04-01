@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { replace } from 'connected-react-router'
 
+import { updateCurrent_rKpiName } from '../../actions/serverReducerActions'
+
 import styles from './RefData.module.css'
 
 
@@ -11,32 +13,26 @@ import KpiSetListItem from './KpiSetListItem'
 function mapStateToProps(state) {
   return {
     // mock data at the moment, should come from the server
-    kpiSets: [
-      {
-        name: "Some name",
-        created: new Date(),
-        lastUpdated: new Date(),
-        owner: "Private",
-        description: "A set of KPIs for buildings built before 1980 and in a temperated location."
-      },
-      {
-        name: "Another name",
-        created: new Date(),
-        lastUpdated: new Date(),
-        owner: "Shared",
-        description: "Anothe nice and useful set of KPIs."
-      }
-    ]
+    current_rKpiName: state.serverReducer.current_rKpiName,
+    kpiSets: state.serverReducer.rKpiSets
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    replace: (url) => dispatch(replace(url))
+    replace: (url) => dispatch(replace(url)),
+    updateCurrent_rKpiName: name => dispatch(updateCurrent_rKpiName(name))
   }
 }
 
 class RefData extends Component {
+
+  editKpiSet = kpiSetName => console.log("editKpiSet, kpiSetName:", kpiSetName)
+
+  selectKpiSet = kpiSetName => {
+    console.log("selectKpiSet, kpiSetName:", kpiSetName)
+    this.props.updateCurrent_rKpiName(kpiSetName)
+  }
 
   render() {
     return (
@@ -46,6 +42,7 @@ class RefData extends Component {
           {this.props.kpiSets.map((kpiSet, index) => (
             <KpiSetListItem
               key={index}
+              kpiSetIsSelected={kpiSet.name === this.props.current_rKpiName}
               isCalculatedKpi={false}
               showOwner={true}
               kpiSet={kpiSet}
