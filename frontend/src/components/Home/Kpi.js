@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react"
 
-import styles from "./Kpi.module.css";
+import styles from "./Kpi.module.css"
 
 // list item for kpi
 const Kpi = ({ kpi, kpiIsSelected, selectKpi }) => (
@@ -12,6 +12,6 @@ const Kpi = ({ kpi, kpiIsSelected, selectKpi }) => (
   >
     {kpi.name} [{kpi.unit}]
   </div>
-);
+)
 
-export default Kpi;
+export default Kpi
