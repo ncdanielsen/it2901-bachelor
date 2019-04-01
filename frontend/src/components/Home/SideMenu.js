@@ -116,32 +116,36 @@ class SideMenu extends Component {
           isActive={this.props.isKPIDataPath}
         /> 
         
-        <div className={styles.kpiContainer}>
-          <label htmlFor="multiSelect">Multi-Select</label>
-          <input
-            type="checkbox"
-            id="multiSelect"
-            name="drone"
-            value="multiSelect"
-            checked={this.props.multiSelect}
-            onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
-            onChange={() => {}}
-          />
-          <div>
-            <div className={styles.kpiContent}>
-              {Object.keys(this.props.kpiCategories).map((category, i) => (
-                <KpiCategory
-                  key={i}
-                  category={this.props.kpiCategories[category]}
-                  categoryIsSelected={this.state.openKpiCategory === i}
-                  selectCategory={() => this.openCategory(i)}
-                  currentKpisSelected={this.props.currentKpisSelected}
-                  selectKpi={this.updateChosenKpiInCategory}
-                />
-              ))}
+        
+        {this.props.isKPIDataPath && 
+          <div className={styles.kpiContainer}>
+            <label htmlFor="multiSelect">Multi-Select</label>
+            <input
+              type="checkbox"
+              id="multiSelect"
+              name="drone"
+              value="multiSelect"
+              checked={this.props.multiSelect}
+              onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
+              onChange={() => {}}
+            />
+            <div>
+              <div className={styles.kpiContent}>
+                {Object.keys(this.props.kpiCategories).map((category, i) => (
+                  <KpiCategory
+                    key={i}
+                    category={this.props.kpiCategories[category]}
+                    categoryIsSelected={this.state.openKpiCategory === i}
+                    selectCategory={() => this.openCategory(i)}
+                    currentKpisSelected={this.props.currentKpisSelected}
+                    selectKpi={this.updateChosenKpiInCategory}
+                  />
+                ))}
+              </div> 
             </div>
           </div>
-        </div>
+        }
+
       </div>
     )
   }
