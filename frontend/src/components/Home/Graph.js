@@ -57,7 +57,6 @@ class Graph extends Component {
     if (this.props.currentKpisSelected.length === 0) {
       return <div>
                 Select a KPI to view from the side menu
-                {this.props.cKpis.name}
               </div>
     }
 

@@ -18,18 +18,20 @@ function mapStateToProps(state) {
   /* the path props are used to figure out where the user is,
      which is needed to determine whether to go to or from the graph view
      when clicking on myData and refData in this SideMenu */
-  const isKPIDataPath = currentPathEnd === "/";
   const currentPath = state.router.location.pathname
   const currentPathSplitted = currentPath.split("/")
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length - 1]
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
+  const isKPIDataPath = currentPathEnd === "";
   return {
     graphIndex: state.graphReducer.graphIndex,
     numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
     isKPIDataPath,
+    currentPath,
+    currentPathEnd,
     kpiCategories: state.serverReducer.kpiCategories,
     currentKpisSelected: state.serverReducer.currentKpisSelected,
     multiSelect: state.serverReducer.multiSelect
@@ -80,7 +82,7 @@ class SideMenu extends Component {
     if (
       (path === "myData" && this.props.isMyDataPath) ||
       (path === "refData" && this.props.isRefDataPath) ||
-      (path == "/" && this.props.isKPIDataPath)
+      (path == "" && this.props.isKPIDataPath)
     ) {
       this.props.replace("/home/")
     } else {
@@ -91,6 +93,9 @@ class SideMenu extends Component {
   render() {
     return (
       <div className={styles.SideMenuContainer}>
+        {console.log(this.props.currentPathEnd)}
+        {console.log(this.props.currentPath)}
+        {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
           nameOfChosenSource="My_new_building_1"
@@ -108,6 +113,7 @@ class SideMenu extends Component {
           title="KPI Overview"
           nameOfChosenSource=""
           select={() => this.goTo("/")}
+          isActive={this.props.isKPIDataPath}
         /> 
         
         <div className={styles.kpiContainer}>
