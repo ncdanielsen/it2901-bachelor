@@ -23,7 +23,6 @@ function mapStateToProps(state) {
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
   return {
-    numberOfDataSets: state.uiReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
     kpiCategories: state.serverReducer.kpiCategories,
