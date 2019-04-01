@@ -21,6 +21,7 @@
   display: inline-block;
   height: 65%;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .headerRightSide {
@@ -43,8 +44,11 @@
   display: inline-block;
   height: 35px;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 .link {
   cursor: pointer;
 }
+
+.link:hover {background: rgba(128, 128, 128, 0.2);}

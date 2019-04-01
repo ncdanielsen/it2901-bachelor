@@ -1,36 +1,5 @@
 // All data from this file should eventually come from the server
 
-
-const data = [
-  {
-    kpiName: "Energy need",
-    data: [
-      [0, 2400],
-      [20, 1398],
-      [50, 9800],
-      [100, 3908],
-      [1000, 4800],
-      [1110, 3800],
-      [1120, 4300]
-    ]
-  },
-  {
-    kpiName: "Energy use",
-    data: [
-      [0, 2400],
-      [20, 1398],
-      [50, 9800],
-      [100, 3908],
-      [1000, 4800],
-      [1110, 3800],
-      [1120, 4300]
-    ]
-  }
-]
-
-export default data
-
-
 /*export const kpiCategories = [
   {
     "categoryName": "Energy",

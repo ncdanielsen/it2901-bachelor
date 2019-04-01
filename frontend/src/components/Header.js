@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import styles from "./Header.module.css"
-
 import { push } from "connected-react-router"
+
+import { updateShowSideMenu } from '../actions/uiReducerActions'
+
+import styles from "./Header.module.css"
 
 import zenLogo from "../images/zen.png"
 import fmeLogo from "../images/fme.png"
@@ -12,14 +14,15 @@ import menuLogo from "../images/menu.png" //taken from https://material.io/tools
 function mapStateToProps(state) {
   const pathname = state.router.location.pathname
   return {
-    showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData")
+    showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData"),
+    showSideMenu: state.uiReducer.showSideMenu
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     push: newUrl => dispatch(push(newUrl)),
-    toggleShowSideMenu: () => console.log("toggleShowSideMenu here")
+    updateShowSideMenu: showSideMenu => dispatch(updateShowSideMenu(showSideMenu))
   }
 }
 
@@ -36,7 +39,7 @@ class Header extends Component {
           <img src={fmeLogo} className={styles.logo} alt="fme logo" />
         </div>
         {this.props.showHamburger && <div
-          onClick={() => this.props.toggleShowSideMenu()}
+          onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
           className={styles.HeaderLogo + " " + styles.link}
         >
           <img src={menuLogo} className={styles.humburger} alt="menu logo" />
