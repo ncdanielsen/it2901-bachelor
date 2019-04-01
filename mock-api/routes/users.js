@@ -4,6 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const user_schema = require('../schemas/user_schema');
 const config = require('../config.json');
+const jwt = require("jsonwebtoken")
 
 // Connection URL
 const url = config.DATABASE_URL;
@@ -19,8 +20,32 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get("/signup", function(req, res, next){
-  res.send("Create User")
+router.post("/login", function(req, res, next){
+  user_model.find({ email: req.body.email })
+    .exec()
+    .then(user => {
+        if (user.length < 1){
+          return res.status(401).json({
+            message: "Authentication failed"
+          })
+        }
+        if(req.body.password == user[0].password){
+          /*jwt.sign({
+            userID: user[0]._id,
+            email: user[0].email,
+            superuser: user[0].superuser
+            
+          }
+          //TODO legg til private key som argument
+           )*/
+          return res.status(200).json({
+            message: "Authentication succsessful"
+          })
+        }
+        res.status(401).json({
+          message: "Authentication failed"
+        })
+    })
 });
 
 
@@ -48,14 +73,12 @@ router.post('/signup', (req, res, next) => {
         user
           .save()
           .then(result => {
-            res.send("Test")
             console.log(result);
             res.status(201).json({
               message: "User successfully created"
             });
           })
           .catch(err => {
-            console.log("ERROR");
             console.log(err);
             res.status(500).json({
               error: err
