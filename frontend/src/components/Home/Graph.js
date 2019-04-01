@@ -84,7 +84,6 @@ class Graph extends Component {
     return (
       <div className={styles.GraphContainer}>
         {plot}
-        {console.log(this.props.currentKpisSelected.map(selectKpi => this.props.cKpis.find(cKpi => cKpi.name === selectKpi)))}
       </div>
 
     )
