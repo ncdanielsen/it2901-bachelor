@@ -1,0 +1,60 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { updateCurrent_cKpiName } from '../../actions/serverReducerActions'
+
+import styles from './MyData.module.css'
+
+//import { replace } from 'connected-react-router'
+
+import UploadNewKpiSet from './UploadNewKpiSet'
+import KpiSetListItem from './KpiSetListItem'
+
+function mapStateToProps(state) {
+  return {
+    current_cKpiName: state.serverReducer.current_cKpiName,
+    kpiSets: state.serverReducer.cKpiSets
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    //replace: (url) => dispatch(replace(url)),
+    updateCurrent_cKpiName: name => dispatch(updateCurrent_cKpiName(name))
+  }
+}
+
+class MyData extends Component {
+
+  //close = () => this.props.replace("/")
+
+  viewBuildingDetails = kpiSetName => console.log("viewBuildingDetails, kpiSetName:", kpiSetName)
+  editKpiSet = kpiSetName => console.log("editKpiSet, kpiSetName:", kpiSetName)
+  selectKpiSet = kpiSetName => this.props.updateCurrent_cKpiName(kpiSetName)
+
+  render() {
+    return (
+      <div className={styles.myDataContainer}>
+        {/*<div onClick={this.close} className={styles.closeButtonMyData}>X</div>*/}
+        <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} text="existing sets of calculated KPIs" />
+        <div className={styles.kpiSets}>
+          {this.props.kpiSets.map((kpiSet, index) => (
+            <KpiSetListItem
+              key={index}
+              kpiSetIsSelected={kpiSet.name === this.props.current_cKpiName}
+              isCalculatedKpi={true}
+              showOwner={false}
+              kpiSet={kpiSet}
+              editKpiSet={() => this.editKpiSet(kpiSet.name)}
+              selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
+              viewBuildingDetails={() => this.viewBuildingDetails(kpiSet.name)}
+            />
+          ))}
+        </div>
+        <div className={styles.paddingBottom} />
+      </div>
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyData)

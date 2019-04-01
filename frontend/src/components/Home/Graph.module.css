@@ -1,0 +1,10 @@
+
+.GraphContainer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
