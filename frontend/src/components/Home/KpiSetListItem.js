@@ -43,7 +43,7 @@ const Description = ({description}) => (
   </div>
 )
 
-const Buttons = ({editKpiSet, selectKpiSet, kpiSetName}) => (
+const Buttons = ({editKpiSet, selectKpiSet, kpiSetIsSelected}) => (
   <div className={styles.kpiButtonSection}>
     <div className={styles.kpiOptionTop}>
       <div onClick={editKpiSet} className={styles.editButton}>
@@ -51,15 +51,15 @@ const Buttons = ({editKpiSet, selectKpiSet, kpiSetName}) => (
       </div>
     </div>
     <div onClick={selectKpiSet} className={styles.kpiOptionBottom}>
-      <div className={styles.selectButton}>
-        Select
+      <div className={styles.selectButton + (kpiSetIsSelected ? (" " + styles.selectButtonSelected) : "")}>
+        {kpiSetIsSelected ? "Unselect" : "Select"}
       </div>
     </div>
   </div>
 )
 
-const KpiSetListItem = ({isCalculatedKpi, showOwner, kpiSet, editKpiSet, selectKpiSet, description="", viewBuildingDetails=()=>{}}) => (
-  <div className={isCalculatedKpi ? styles.kpiSet : styles.rKpiSet}>
+const KpiSetListItem = ({kpiSetIsSelected, isCalculatedKpi, showOwner=false, kpiSet, editKpiSet, selectKpiSet, description="", viewBuildingDetails=()=>{}}) => (
+  <div className={(isCalculatedKpi ? styles.kpiSet : styles.rKpiSet) + (kpiSetIsSelected ? (" " + styles.kpiSetSelected) : "")}>
     <NameAndDates kpiSetName={kpiSet.name} dateCreated={kpiSet.created} dateLastUpdated={kpiSet.lastUpdated} />
     {
       isCalculatedKpi
@@ -71,7 +71,7 @@ const KpiSetListItem = ({isCalculatedKpi, showOwner, kpiSet, editKpiSet, selectK
       ? <DataOwner owner={kpiSet.owner}/>
       : <div />
     }
-    <Buttons editKpiSet={editKpiSet} selectKpiSet={selectKpiSet} />
+    <Buttons editKpiSet={editKpiSet} selectKpiSet={selectKpiSet} kpiSetIsSelected={kpiSetIsSelected} />
   </div>
 )
 
