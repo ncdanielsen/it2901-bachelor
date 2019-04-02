@@ -18,6 +18,10 @@
   overflow-y: scroll;
 }
 
+.myDataContainerFullScreen {
+  width: 100%;
+}
+
 
 
 .kpiSets {

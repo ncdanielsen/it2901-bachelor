@@ -13,7 +13,8 @@ import KpiSetListItem from './KpiSetListItem'
 function mapStateToProps(state) {
   return {
     current_cKpiName: state.serverReducer.current_cKpiName,
-    kpiSets: state.serverReducer.cKpiSets
+    kpiSets: state.serverReducer.cKpiSets,
+    showSideMenu: state.uiReducer.showSideMenu
   }
 }
 
@@ -34,7 +35,7 @@ class MyData extends Component {
 
   render() {
     return (
-      <div className={styles.myDataContainer}>
+      <div className={styles.myDataContainer + (this.props.showSideMenu ? "" : (" " + styles.myDataContainerFullScreen))}>
         {/*<div onClick={this.close} className={styles.closeButtonMyData}>X</div>*/}
         <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} text="existing sets of calculated KPIs" />
         <div className={styles.kpiSets}>

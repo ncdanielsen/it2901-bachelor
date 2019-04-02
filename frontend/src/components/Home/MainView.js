@@ -14,7 +14,9 @@ import RefData from './RefData'
 import MyData from './MyData'
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    showSideMenu: state.uiReducer.showSideMenu
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -34,7 +36,7 @@ class MainView extends Component {
   render() {
     return (
       <div className={styles.Content}>
-        <SideMenu />
+        {this.props.showSideMenu && <SideMenu />}
         <Switch>
           {/* The Switch checks which route matches current pathname, it returns only that child.
               It receives pathname as prop since it is a subcomponent of ConnectedRouter.

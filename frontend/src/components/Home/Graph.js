@@ -26,7 +26,8 @@ function mapStateToProps(state) {
     kpis: state.serverReducer.kpis,
     currentKpisSelected,
     current_cKpiSet,
-    rKpis
+    rKpis,
+    showSideMenu: state.uiReducer.showSideMenu
   }
 }
 
@@ -53,7 +54,7 @@ class Graph extends Component {
   componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions)
 
   render() {
-    
+
     if (this.props.currentKpisSelected.length === 0) {
       return <div>
                 Select a KPI to view from the side menu
@@ -65,7 +66,8 @@ class Graph extends Component {
 
     if (this.props.currentKpisSelected.length === 1) {
       plot = (<LineGraph
-        chartSize={chartSize}
+        height={chartSize}
+        width={this.props.showSideMenu ? this.state.width*0.65 : window.innerWidth*0.9}
         kpis={this.props.kpis}
         rKpis={this.props.rKpis}
         cKpiSet={this.props.current_cKpiSet}
@@ -82,7 +84,7 @@ class Graph extends Component {
    }
 
     return (
-      <div className={styles.GraphContainer}>
+      <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
         {plot}
       </div>
 
