@@ -28,12 +28,18 @@ function mapDispatchToProps(dispatch) {
 
 class Header extends Component {
 
+  onLogoClick = () => {
+    if (!this.props.showHamburger) {
+      this.props.push("/")
+    }
+  }
+
   render() {
     return (
       <div className={styles.Header}>
         <div
-          onClick={() => this.props.push("/")}
-          className={styles.HeaderLogo + " " + styles.link}
+          onClick={this.onLogoClick}
+          className={styles.HeaderLogo + (this.props.showHamburger ? "" : (" " + styles.link))}
         >
           <img src={zenLogo} className={styles.logo} alt="zen logo" />
           <img src={fmeLogo} className={styles.logo} alt="fme logo" />
