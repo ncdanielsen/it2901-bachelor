@@ -23,6 +23,14 @@ function mapStateToProps(state) {
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
   const isKPIDataPath = currentPathEnd === "";
+  let current_rKpiName = state.serverReducer.current_rKpiName
+  if (current_rKpiName === "") {
+    current_rKpiName = "Source not selected"
+  }
+  let current_cKpiName = state.serverReducer.current_cKpiName
+  if (current_cKpiName === "") {
+    current_cKpiName = "Source not selected"
+  }
   return {
     isMyDataPath,
     isRefDataPath,
@@ -31,7 +39,9 @@ function mapStateToProps(state) {
     currentPathEnd,
     kpiCategories: state.serverReducer.kpiCategories,
     currentKpisSelected: state.serverReducer.currentKpisSelected,
-    multiSelect: state.serverReducer.multiSelect
+    multiSelect: state.serverReducer.multiSelect,
+    current_rKpiName,
+    current_cKpiName,
   }
 }
 
@@ -90,13 +100,13 @@ class SideMenu extends Component {
         {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
-          nameOfChosenSource="My_new_building_1"
+          nameOfChosenSource={this.props.current_cKpiName}
           select={() => this.goTo("myData")}
           isActive={this.props.isMyDataPath}
         />
         <DataSource
           title="Reference Data"
-          nameOfChosenSource="Perleporten"
+          nameOfChosenSource={this.props.current_rKpiName}
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
