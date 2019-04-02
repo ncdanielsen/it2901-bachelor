@@ -8,3 +8,9 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.chartTypeDropDown {
+  position: absolute;
+  top: 13%;
+  right: 2.5%;
+}

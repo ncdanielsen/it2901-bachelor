@@ -8,3 +8,12 @@ export function updateShowSideMenu(showSideMenu) {
     }
   }
 }
+
+export function updateChartType(chartType) {
+  return {
+    type: types.UPDATE_CHART_TYPE,
+    payload: {
+      chartType
+    }
+  }
+}
