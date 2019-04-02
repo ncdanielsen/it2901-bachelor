@@ -34,7 +34,7 @@ export default class LineGraph extends Component {
 
     return (
       <div>
-          <LineChart width={this.props.width} height={this.props.height} data={current_cKpiData}>
+          <LineChart width={this.props.width} height={this.props.height} data={data}>
               <XAxis
                 allowDataOverflow
                 dataKey={get(cKpiKeys, '[0]', "keyNotFound")}
