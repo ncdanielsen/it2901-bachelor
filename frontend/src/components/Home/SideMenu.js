@@ -74,7 +74,7 @@ class SideMenu extends Component {
     if (
       (path === "myData" && this.props.isMyDataPath) ||
       (path === "refData" && this.props.isRefDataPath) ||
-      (path == "" && this.props.isKPIDataPath)
+      (path === "" && this.props.isKPIDataPath)
     ) {
       this.props.replace("/home/")
     } else {
@@ -100,16 +100,16 @@ class SideMenu extends Component {
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
-        
+
         <DataSource
           title="KPI Overview"
           nameOfChosenSource=""
           select={() => this.goTo("/")}
           isActive={this.props.isKPIDataPath}
-        /> 
-        
-        
-        {this.props.isKPIDataPath && 
+        />
+
+
+        {this.props.isKPIDataPath &&
           <div className={styles.kpiContainer}>
             <label htmlFor="multiSelect">Multi-Select</label>
             <input
@@ -133,7 +133,7 @@ class SideMenu extends Component {
                     selectKpi={this.updateChosenKpiInCategory}
                   />
                 ))}
-              </div> 
+              </div>
             </div>
           </div>
         }
@@ -157,4 +157,3 @@ export default connect(
           </div>
         <div>
 */
-

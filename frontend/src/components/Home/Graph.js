@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+import { updateChartType } from '../../actions/uiReducerActions'
+
 import LineGraph from './LineGraph.js'
 import RadarGraph from './RadarGraph.js'
+import Dropdown from './Dropdown.js'
+
 import styles from './Graph.module.css'
 
 import { get } from 'lodash'
@@ -23,6 +28,7 @@ function mapStateToProps(state) {
   const current_cKpiSet = current_cKpiSetIndex === -1 ? {} : state.serverReducer.cKpiSets[current_cKpiSetIndex]
 
   return {
+    chartType: state.uiReducer.chartType,
     kpis: state.serverReducer.kpis,
     currentKpisSelected,
     current_cKpiSet,
@@ -32,14 +38,16 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    updateChartType: (chartType) => dispatch(updateChartType(chartType))
+  }
 }
 
-function dataIsDefined() {
+/*function dataIsDefined() {
   if (this.props.cKpis.length == 0 || this.props.ckpiData.lenght == 0) {
     return "undefined"
   }
-}
+}*/
 
 class Graph extends Component {
 
@@ -53,6 +61,8 @@ class Graph extends Component {
   componentDidMount = () => window.addEventListener("resize", this.updateDimensions)
   componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions)
 
+  updateChartType = (chartType) => this.props.updateChartType(chartType)
+
   render() {
 
     if (this.props.currentKpisSelected.length === 0) {
@@ -64,7 +74,7 @@ class Graph extends Component {
     const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
     let plot
 
-    if (this.props.currentKpisSelected.length === 1) {
+    if (this.props.currentKpisSelected.length < 3 || this.props.chartType === "Line") {
       plot = (<LineGraph
         height={chartSize}
         width={this.props.showSideMenu ? this.state.width*0.65 : window.innerWidth*0.9}
@@ -86,6 +96,14 @@ class Graph extends Component {
     return (
       <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
         {plot}
+        {this.props.currentKpisSelected.length > 2 && (<div className={styles.chartTypeDropDown}>
+          <Dropdown
+            title="Chart Type"
+            activeOption={this.props.chartType}
+            updateActiveOption={this.updateChartType}
+            options={["Radar", "Line"]}
+          />
+        </div>)}
       </div>
 
     )
