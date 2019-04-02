@@ -5,7 +5,6 @@ import styles from "./SideMenu.module.css"
 
 //import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
-import { updateGraphIndex } from '../../actions/graphReducerActions'
 import { getKpiList, getKpiCategories, updateKpiIsSelected, updateMultiSelect } from '../../actions/serverReducerActions'
 
 
@@ -25,8 +24,6 @@ function mapStateToProps(state) {
   const isRefDataPath = currentPathEnd === "refData"
   const isKPIDataPath = currentPathEnd === "";
   return {
-    graphIndex: state.graphReducer.graphIndex,
-    numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
     isKPIDataPath,
@@ -40,7 +37,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
     updateKpiIsSelected: (kpiName, isSelected) => dispatch(updateKpiIsSelected(kpiName, isSelected)),
     push: (url) => dispatch(push(url)),
     replace: (url) => dispatch(replace(url)),
@@ -71,11 +67,7 @@ class SideMenu extends Component {
       openKpiCategory: index === this.state.openKpiCategory ? -1 : index
     })
 
-  // temprorary implementation of updateChosenKpiInCategory. To be changed.
-  updateChosenKpiInCategory = (kpi, kpiIsSelected) => {
-    //this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
-    this.props.updateKpiIsSelected(kpi, kpiIsSelected)
-  }
+  updateChosenKpiInCategory = (kpi, kpiIsSelected) => this.props.updateKpiIsSelected(kpi, kpiIsSelected)
 
   // open or close myData and refData
   goTo = path => {
