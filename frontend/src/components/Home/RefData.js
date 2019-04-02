@@ -14,7 +14,8 @@ function mapStateToProps(state) {
   return {
     // mock data at the moment, should come from the server
     current_rKpiName: state.serverReducer.current_rKpiName,
-    kpiSets: state.serverReducer.rKpiSets
+    kpiSets: state.serverReducer.rKpiSets,
+    showSideMenu: state.uiReducer.showSideMenu
   }
 }
 
@@ -36,7 +37,7 @@ class RefData extends Component {
 
   render() {
     return (
-      <div className={styles.refDataContainer}>
+      <div className={styles.refDataContainer + (this.props.showSideMenu ? "" : (" " + styles.refDataContainerFullScreen))}>
         <UploadNewKpiSet text="existing sets of reference KPIs" />
         <div className={styles.kpiSets}>
           {this.props.kpiSets.map((kpiSet, index) => (
