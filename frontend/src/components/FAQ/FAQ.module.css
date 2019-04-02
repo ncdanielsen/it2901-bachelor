@@ -1,0 +1,12 @@
+.FAQContainer {
+  position: relative;
+  text-align: center;
+  width: calc(75% + 1px);
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.paddingBottom {
+  height: 10vh;
+  width: 100%;
+}
