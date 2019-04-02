@@ -34,6 +34,11 @@ function mapDispatchToProps(dispatch) {
   return {}
 }
 
+function dataIsDefined() {
+  if (this.props.cKpis.length == 0 || this.props.ckpiData.lenght == 0) {
+    return "undefined"
+  }
+}
 
 class Graph extends Component {
 
@@ -48,9 +53,11 @@ class Graph extends Component {
   componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions)
 
   render() {
-
+    
     if (this.props.currentKpisSelected.length === 0) {
-      return <div>Select a KPI to view from the side menu</div>
+      return <div>
+                Select a KPI to view from the side menu
+              </div>
     }
 
     const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)

@@ -23,11 +23,15 @@ function mapStateToProps(state) {
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length - 1]
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
+  const isKPIDataPath = currentPathEnd === "";
   return {
     graphIndex: state.graphReducer.graphIndex,
     numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
+    isKPIDataPath,
+    currentPath,
+    currentPathEnd,
     kpiCategories: state.serverReducer.kpiCategories,
     currentKpisSelected: state.serverReducer.currentKpisSelected,
     multiSelect: state.serverReducer.multiSelect
@@ -77,7 +81,8 @@ class SideMenu extends Component {
   goTo = path => {
     if (
       (path === "myData" && this.props.isMyDataPath) ||
-      (path === "refData" && this.props.isRefDataPath)
+      (path === "refData" && this.props.isRefDataPath) ||
+      (path == "" && this.props.isKPIDataPath)
     ) {
       this.props.replace("/home/")
     } else {
@@ -88,6 +93,9 @@ class SideMenu extends Component {
   render() {
     return (
       <div className={styles.SideMenuContainer}>
+        {console.log(this.props.currentPathEnd)}
+        {console.log(this.props.currentPath)}
+        {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
           nameOfChosenSource="My_new_building_1"
@@ -100,36 +108,44 @@ class SideMenu extends Component {
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
-
-        <div className={styles.kpiContainer}>
-        <div className={styles.buttonTitle+" "+styles.kpiTitle}>
-          KPI
-        </div>
-        <div>
-          <label htmlFor="multiSelect">Multi-Select</label>
-          <input
-            type="checkbox"
-            id="multiSelect"
-            name="drone"
-            value="multiSelect"
-            checked={this.props.multiSelect}
-            onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
-            onChange={() => {}}
-          />
-        </div>
-          <div className={styles.kpiContent}>
-            {Object.keys(this.props.kpiCategories).map((category, i) => (
-              <KpiCategory
-                key={i}
-                category={this.props.kpiCategories[category]}
-                categoryIsSelected={this.state.openKpiCategory === i}
-                selectCategory={() => this.openCategory(i)}
-                currentKpisSelected={this.props.currentKpisSelected}
-                selectKpi={this.updateChosenKpiInCategory}
-              />
-            ))}
+        
+        <DataSource
+          title="KPI Overview"
+          nameOfChosenSource=""
+          select={() => this.goTo("/")}
+          isActive={this.props.isKPIDataPath}
+        /> 
+        
+        
+        {this.props.isKPIDataPath && 
+          <div className={styles.kpiContainer}>
+            <label htmlFor="multiSelect">Multi-Select</label>
+            <input
+              type="checkbox"
+              id="multiSelect"
+              name="drone"
+              value="multiSelect"
+              checked={this.props.multiSelect}
+              onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
+              onChange={() => {}}
+            />
+            <div>
+              <div className={styles.kpiContent}>
+                {Object.keys(this.props.kpiCategories).map((category, i) => (
+                  <KpiCategory
+                    key={i}
+                    category={this.props.kpiCategories[category]}
+                    categoryIsSelected={this.state.openKpiCategory === i}
+                    selectCategory={() => this.openCategory(i)}
+                    currentKpisSelected={this.props.currentKpisSelected}
+                    selectKpi={this.updateChosenKpiInCategory}
+                  />
+                ))}
+              </div> 
+            </div>
           </div>
-        </div>
+        }
+
       </div>
     )
   }
@@ -139,3 +155,14 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SideMenu)
+
+
+/*
+
+<div className={styles.kpiContainer}>
+          <div className={styles.buttonTitle+" "+styles.kpiTitle} onClick={() => console.log("KPI Overview")}>
+            KPI Overview
+          </div>
+        <div>
+*/
+
