@@ -27,7 +27,23 @@
 ]
 */
 
-const data = () => ([
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+]
+
+/*
+([
   {time: 0, value: Math.random()*2400},
   {time: 20, value: Math.random()*1398},
   {time: 50, value: Math.random()*9800},
@@ -36,6 +52,26 @@ const data = () => ([
   {time: 1110, value: Math.random()*3800},
   {time: 1120, value: Math.random()*4300}
 ])
+*/
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d);
+}
+
+const data = () => {
+  datapoints = []
+  for(let year=2016; year < 2020; year++) {
+    months.forEach(month => {
+      for(let day=1; day < 32; day++) {
+        date = new Date(`${month} ${day}, ${year}`)
+        if (isValidDate(date)) {
+          datapoint = {time: date.getTime()/1000, value: Math.random()*year}
+          datapoints.push(datapoint)
+        }
+      }
+    }) 
+  }
+  return datapoints
+}
 
 module.exports = [
   {name: "Energy need", data: data()},
