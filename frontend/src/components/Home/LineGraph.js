@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { get, has } from 'lodash'
+import { get } from 'lodash'
 
 //import styles from './LineGraph.module.css'
 import { LineChart, XAxis, YAxis, Legend, ReferenceLine, Tooltip, CartesianGrid, Line, Brush } from 'recharts'

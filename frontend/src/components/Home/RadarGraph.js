@@ -4,7 +4,7 @@ import { get } from 'lodash'
 
 //import styles from './RadarGraph.module.css'
 
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend, LabelList } from 'recharts'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 
 
 export default class RadarGraph extends Component {
