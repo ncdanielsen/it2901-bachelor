@@ -8,10 +8,14 @@
   overflow-y: scroll;
 }
 
+.refDataContainerFullScreen {
+  width: 100%;
+}
+
 
 
 .kpiSets {
-  
+
 }
 
 .paddingBottom {
