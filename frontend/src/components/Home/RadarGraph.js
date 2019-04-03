@@ -17,17 +17,18 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
 
   // for each selected KPI add reference KPI data, fullmark and calculated KPI data if available
   for (let i = 0; i < data.length; i++) {
-    data[i].rKPIvalue = rKpis[data[i].name]
-    data[i].fullMark = 8000 //rKpis[data[i].name] + 100
-    if (get(cKpiSet, "values", []).filter(kpi => kpi.name == data[i].name).length != 0) { // check to see if calculated KPI data is available
+    data[i].rKPIvalue = rKpis[data[i].name] // at the moment set to undefined when no value (TODO: set to 0 instead?)
+    data[i].fullMark = 8000 
+
+    // check to see if calculated KPI data is available
+    if (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name).length !== 0) { 
       data[i].cKPIvalue = cKpiSet.values[0].data[0]["value"]
     } else {
       data[i].cKPIvalue = 0
     }
-   
   }
 
-  {console.log(data)}
+  console.log(data)
   // {name, cKPIvalue, rKPIvalue, fullMark}
   // cKPIvalue must be aggregated from time series data
   // refverdi må alltid være større enn fullmark
@@ -72,7 +73,8 @@ export default class RadarGraph extends Component {
             >
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
-                <Radar name="Calculated" dataKey="cKPIvalue" stroke="#e034de" fill="#f145ef" fillOpacity={0.6} />
+                <Radar name="Calculated KPI" dataKey="cKPIvalue" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
                 <Tooltip />
                 <Legend />
             </RadarChart>
