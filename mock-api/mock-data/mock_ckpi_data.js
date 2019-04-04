@@ -60,12 +60,11 @@ function isValidDate(d) {
 const data = () => {
   datapoints = []
   for(let year=2016; year < 2020; year++) {
-    console.log(year)
     months.forEach(month => {
       for(let day=1; day < 32; day++) {
         date = new Date(`${month} ${day}, ${year}`)
         if (isValidDate(date)) {
-          datapoint = {time: date.getTime()/1000, value: Math.random()*year}
+          datapoint = {time: Math.ceil(date.getTime()/1000), value: Math.random()*year}
           datapoints.push(datapoint)
           if (date === 2 && month === "May" && year === 2019) {
             return datapoints

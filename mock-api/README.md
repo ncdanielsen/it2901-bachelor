@@ -40,6 +40,9 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 > NOTE: This is a defintion to mock the real rest API. Changes may occur 
 
 ## Download functions
+### ../ckpi/ returns a set of predefined CKPI values. Will be updated in the future.
+
+### ../rkpi/ returns a set of predefined RKPI values. Will be updated in the future.
 
 ### ../kpi-list/categories
 
@@ -140,6 +143,8 @@ Return KPI data for neighborhood as a JSON.
     values: [float] // list of floats
     times: [float] // list of floats (unix time)
 }]
+
+
 
 
 

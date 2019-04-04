@@ -27,8 +27,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const buildingkpi = require("./routes/building_kpi")
 const neighbourhoodkpi = require("./routes/neighbourhoodkpi")
-const demoCKPI = require("./routes/demo-ckpi")
-const demoRKPI = require("./routes/demo-rkpi")
+const demoCKPI = require("./routes/ckpi")
+const demoRKPI = require("./routes/rkpi")
 
 const kpi_list = require('./routes/kpi_metadata');
 var app = express();
@@ -48,9 +48,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/kpi-list', kpi_list);
 app.use('/buildingkpi', buildingkpi)
-app.use("/neighbourhoodkpi", neighbourhoodkpi)
-app.use("/demo-ckpi", demoCKPI)
-app.use("/demo-rkpi", demoRKPI)
+app.use("/neighborhoodkpi", neighbourhoodkpi)
+app.use("/ckpi", demoCKPI)
+app.use("/rkpi", demoRKPI)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
