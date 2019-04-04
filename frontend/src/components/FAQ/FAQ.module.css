@@ -6,6 +6,7 @@
   height: 90%;
   overflow-y: scroll;
   line-height: 32px;
+  font-size: 80%;
 }
 .FaqMain h1 {
   color: rgba(0, 0, 0, 0.6);

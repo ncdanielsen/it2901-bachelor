@@ -34,7 +34,7 @@ class Faq extends Component {
           authorisation, it lets the user upload reference KPIs so that they can
           be shared with user-specied groups.
           <br />
-          <h3> Something something</h3>
+          <h3> How to compare two KPIs </h3>
           heyhey
           <br />
           <h3> Something more</h3>
