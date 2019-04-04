@@ -88,7 +88,9 @@ class Graph extends Component {
       plot = (<RadarGraph
         chartSize={chartSize}
         currentKpisSelected={this.props.currentKpisSelected}
+        rKpis={this.props.rKpis} 
         cKpiSet={this.props.current_cKpiSet}
+        kpis={this.props.kpis}
       />)
 
    }

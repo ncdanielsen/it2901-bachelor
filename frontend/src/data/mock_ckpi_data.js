@@ -50,7 +50,7 @@ export const mock_ckpi_data = [
     values: [
       {name: "Energy need", score: 120, full: 150, data: data()},
       {name: "Energy use", score: 98, full: 150, data: data()},
-      {name: "Energy generation", score: 86, full: 150, data: data()},
+      /*{name: "Energy generation", score: 86, full: 150, data: data()},*/
       {name: "Delivered energy", score: 99, full: 150, data: data()},
       {name: "Exported energy", score: 85, full: 150, data: data()},
       {name: "Self consumption", score: 65, full: 150, data: data()},
@@ -68,7 +68,7 @@ export const mock_ckpi_data = [
     values: [
       {name: "Energy need", score: 120, full: 150, data: data()},
       {name: "Energy use", score: 98, full: 150, data: data()},
-      {name: "Energy generation", score: 86, full: 150, data: data()},
+      /*{name: "Energy generation", score: 86, full: 150, data: data()},*/
       {name: "Delivered energy", score: 99, full: 150, data: data()},
       {name: "Exported energy", score: 85, full: 150, data: data()},
       {name: "Self consumption", score: 65, full: 150, data: data()},
