@@ -59,13 +59,13 @@ router.post('/signup', (req, res, next) => {
       
       if (user.length >= 1){
         return res.status(409).json({
-          message: "Mail exists"
+          message: "Email exists"
         });
       }
       else if(! req.body){
-        // TO-DO: Need to put in proper error code
-        return res.status(500).json({
-          message: "Need to fill in mail and password"
+        
+        return res.status(400).json({
+          message: "Need to fill in Email and password"
         });
       }
       else{
@@ -92,18 +92,7 @@ router.post('/signup', (req, res, next) => {
     })
 });
 
-router.post("/test_token", check_token, (req, res, next)=>{
-  user_model.find({ email: req.userData.email })
-    .exec()
-    .then(user => {
-      if(user.length > 0){
-        res.send("success");
-      }
-      else{
-        res.send("failure");
-      }
-    })
-});
+
 
 router.delete("/:userID", check_token, (req, res, next)=>{
   user_model.find({ email: req.userData.email })
@@ -121,13 +110,13 @@ router.delete("/:userID", check_token, (req, res, next)=>{
         }
         else{
           return res.status(401).json({
-            message: "Authorisation failed"
+            message: "Authorisation failed!"
           });
         }
       }
       else{
         return res.status(401).json({
-          message: "Authentication failed"
+          message: "Authentication failed!"
         });
       }
     })
