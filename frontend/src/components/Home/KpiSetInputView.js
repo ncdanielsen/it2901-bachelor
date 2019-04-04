@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { updateR_KpiInputValue, setEmtpy_rKpi, updateShowInputView } from '../../actions/uiReducerActions'
 
-import { get, has } from 'lodash'
+import { get } from 'lodash'
 
 import styles from './KpiSetInputView.module.css'
 
@@ -15,18 +15,6 @@ function mapStateToProps(state, ownProps) {
       {name: "Description", type: "textarea"},
       //{name: "Owner", type: "text"}
     ]
-    /*inputs.forEach((input, i) => { // find values for each input name
-      if (has(currentInput_rKpi, input.name)) {
-        inputs[i]["value"] = currentInput_rKpi[input.name]
-      }
-    })*/
-
-    /*
-    const valueIndex = currentInput_rKpi.values.findIndex(rKpi => rKpi.name === input.name)
-    if (valueIndex !== -1) {
-      inputs[i]["value"] = get(currentInput_rKpi, "values[" + valueIndex + "].value", 0)
-    }
-    */
 
     return {
       title: "Create New Reference KPI Set",
@@ -78,13 +66,13 @@ class KpiSetInputView extends Component {
                     <div className={styles.inputTitle}><b>{input.name}</b></div>
                     {(input.type === "text"/* || input.type === "number"*/) && <input
                       type={input.type}
-                      value={get(this.props.currentInput_rKpi, '[' + input.name + ']', "")}
-                      onChange={(e) => this.props.updateR_KpiInputValue(input.name, e)}
+                      value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
+                      onChange={(e) => this.props.updateR_KpiInputValue(input.name, get(e, 'target.value', ""))}
                       className={styles.inputField}
                     />}
                     {input.type === "textarea" && <textarea
-                      value={input.value}
-                      onChange={(e) => this.props.updateR_KpiInputValue(input.name, e)}
+                      value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
+                      onChange={(e) => this.props.updateR_KpiInputValue(input.name, get(e, 'target.value', ""))}
                       className={styles.inputField + " " + styles.textarea}
                     />}
                   </div>
