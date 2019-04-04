@@ -35,11 +35,20 @@ export function setEmtpy_rKpi() {
   }
 }
 
-export function updateShowInputView(showInputView) {
+export function updateCurrentInputView(currentInputView) {
   return {
-    type: types.UPDATE_SHOW_INPUT_VIEW,
+    type: types.UPDATE_CURRENT_INPUT_VIEW,
     payload: {
-      showInputView
+      currentInputView
+    }
+  }
+}
+
+export function setCurrentInput_rKpi(rKpiSet) {
+  return {
+    type: types.SET_CURRENT_INPUT_R_KPI,
+    payload: {
+      rKpiSet
     }
   }
 }

@@ -26,6 +26,19 @@ export default function serverReducer(state = initialState, action) {
       return {...state, kpiCategories: action.payload}
     case types.GET_KPI_CATEGORIES_FAILURE:
       return state
+    case types.SAVE_UPDATED_R_KPI_SET_STARTED: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_R_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_R_KPI_SET_FAILURE: // will be useful for showing spinning wheel
+      return state
+    case types.GET_R_KPI_SETS_STARTED:
+      return state
+    case types.GET_R_KPI_SETS_SUCCESS:
+      return {...state, rKpiSets: action.payload}
+    case types.GET_R_KPI_SETS_FAILURE:
+      return state
+
     case types.GET_rKPI_DATA:
       return {...state, rKpiSets: action.payload}
     case types.GET_cKPI_DATA:
