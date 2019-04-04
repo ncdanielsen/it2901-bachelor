@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const user_schema = require('../schemas/user_schema');
 const config = require('../config.json');
 const jwt = require("jsonwebtoken")
+const check_token = require("../middleware/check_token_validity")
+const check_auth = require("../middleware/check_auth")
 
 // Connection URL
 const url = config.DATABASE_URL;
@@ -30,16 +32,17 @@ router.post("/login", function(req, res, next){
           })
         }
         if(req.body.password == user[0].password){
-          /*jwt.sign({
-            userID: user[0]._id,
+          const payload = {
+            ID: user[0]._id,
             email: user[0].email,
-            superuser: user[0].superuser
-            
+            superuser: user[0].superuser,
+            admin: user[0].admin
           }
-          //TODO legg til private key som argument
-           )*/
+          // Uses HS256 algorithm. "secret" is the private key. Expires in 1 hour after creation
+          const token = jwt.sign(payload, "secret", { expiresIn: '1h' })
           return res.status(200).json({
-            message: "Authentication succsessful"
+            message: "Authentication succsessful",
+            token: token
           })
         }
         res.status(401).json({
@@ -60,6 +63,7 @@ router.post('/signup', (req, res, next) => {
         });
       }
       else if(! req.body){
+        // TO-DO: Need to put in proper error code
         return res.status(500).json({
           message: "Need to fill in mail and password"
         });
@@ -88,8 +92,51 @@ router.post('/signup', (req, res, next) => {
     })
 });
 
-router.post("/signin", (req, res, next) =>{
-  
+router.post("/test_token", check_token, (req, res, next)=>{
+  user_model.find({ email: req.userData.email })
+    .exec()
+    .then(user => {
+      if(user.length > 0){
+        res.send("success");
+      }
+      else{
+        res.send("failure");
+      }
+    })
+});
+
+router.delete("/:userID", check_token, (req, res, next)=>{
+  user_model.find({ email: req.userData.email })
+    .exec()
+    .then(user => {
+      if(user.length > 0){
+        if((req.userData.ID == req.params.userID) || (req.userData.admin == true)){
+          user_model.remove({ _id: req.params.userID })
+            .exec()
+            .then(
+              res.status(200).json({
+                message: "Deletion Successful"
+              })
+            ) 
+        }
+        else{
+          return res.status(401).json({
+            message: "Authorisation failed"
+          });
+        }
+      }
+      else{
+        return res.status(401).json({
+          message: "Authentication failed"
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+    });
+  });
 });
 
 module.exports = router;
