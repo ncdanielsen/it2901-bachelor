@@ -42,7 +42,7 @@ class Header extends Component {
           >
             Profile
           </div>
-          <div onClick={() => this.props.push("/FAQ")} className={styles.link}>
+          <div onClick={() => this.props.push("/Faq")} className={styles.link}>
             FAQ
           </div>
         </div>

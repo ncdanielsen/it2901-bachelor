@@ -10,7 +10,7 @@ import Header from "./Header";
 import MainView from "./Home/MainView";
 import Profile from "./Profile/Profile";
 import About from "./About/About";
-import FAQ from "./FAQ/FAQ";
+import Faq from "./Faq/Faq";
 import Login from "./Login";
 
 const App = () => (
@@ -24,7 +24,7 @@ const App = () => (
         {/* the * is there because /home/ also has subviews linked to pathname */}
         <Route exact path="/about" component={About} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/faq" component={FAQ} />
+        <Route exact path="/faq" component={Faq} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" render={() => <Redirect to="/home/" />} />{" "}
         {/* When going to "/", go to /home. When Login stuff ready, send to Login if not logged in */}

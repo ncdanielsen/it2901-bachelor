@@ -1,12 +1,28 @@
-.FAQContainer {
+.FaqMain {
   position: relative;
   text-align: center;
-  width: calc(75% + 1px);
-  height: 100%;
+  padding-left: 256px;
+  width: 75%;
+  height: 90%;
   overflow-y: scroll;
+  line-height: 32px;
+}
+.FaqMain h1 {
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 64px;
+  font-size: 48px;
+}
+.FaqMain h3 {
+  font-weight: bold;
+  height: 90%;
+  line-height: 24px;
 }
 
 .paddingBottom {
   height: 10vh;
   width: 100%;
+}
+
+.heading {
+  font-weight: bold, sans-serif;
 }
