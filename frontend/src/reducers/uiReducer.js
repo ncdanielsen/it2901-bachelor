@@ -21,9 +21,9 @@ const currentInput_rKpi = { // default values in form when creating new rKpi
 
 const initialState = {
   showSideMenu: true,
-  showInputView: false,
+  currentInputView: "none", // possible values: none || new_rKpi || edit_rKpi
   chartType: "Radar",
-  currentInput_rKpi,
+  currentInput_rKpi: {...currentInput_rKpi, ...{}},
   currentInput_cKpi: {}
 }
 
@@ -47,9 +47,11 @@ export default function uiReducer(state = initialState, action) {
       }
       return newState
     case types.SET_EMPTY_R_KPI:
-      return {...state, currentInput_rKpi}
-    case types.UPDATE_SHOW_INPUT_VIEW:
-      return {...state, showInputView: get(action.payload, 'showInputView', false)}
+      return {...state, currentInput_rKpi: {...currentInput_rKpi, ...{}}}
+    case types.SET_CURRENT_INPUT_R_KPI:
+      return {...state, currentInput_rKpi: get(action.payload, 'rKpiSet', {...currentInput_rKpi, ...{}})}
+    case types.UPDATE_CURRENT_INPUT_VIEW:
+      return {...state, currentInputView: get(action.payload, 'currentInputView', false)}
     default:
       return state
   }
