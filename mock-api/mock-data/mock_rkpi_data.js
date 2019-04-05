@@ -1,8 +1,8 @@
 module.exports = [
   {
     name: "Some name",
-    created: math.ceil(new Date().getTime()/1000),
-    lastUpdated: math.ceil(new Date().getTime()/1000),
+    created: Math.ceil(new Date().getTime()/1000),
+    lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Private",
     description: "A set of KPIs for buildings built before 1980 and in a temperated location.",
     values: [
@@ -17,8 +17,8 @@ module.exports = [
   },
   {
     name: "Another name",
-    created: math.ceil(new Date().getTime()/1000),
-    lastUpdated: math.ceil(new Date().getTime()/1000),
+    created: Math.ceil(new Date().getTime()/1000),
+    lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Shared",
     description: "Another nice and useful set of KPIs.",
     values: [

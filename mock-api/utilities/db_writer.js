@@ -57,6 +57,10 @@ function write_to_DB(collection, json_data) {
     })
 }
 
+function writeNewKPI(entry) {
+    write_to_DB("RKPI_TEST", [entry])
+}
+
 function write_demo_ckpi() {
     write_to_DB("CKPI_TEST", DEMOCKPI)
 }
@@ -173,14 +177,19 @@ function clearAll() {
     });
 }
 
-const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi];
-let i = 0;
-function timeout() {
-    setTimeout(function () {
-        functions[i]();
-        i++;
-        i < functions.length && timeout();
-    }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+if (require.main === module) {
+        const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi];
+    let i = 0;
+    function timeout() {
+        setTimeout(function () {
+            functions[i]();
+            i++;
+            i < functions.length && timeout();
+        }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+    }
+    timeout();
 }
-timeout();
+
+
+module.exports.writeNewKPI = writeNewKPI
 
