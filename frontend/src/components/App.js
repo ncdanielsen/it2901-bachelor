@@ -1,17 +1,17 @@
-import React from "react";
+import React from "react"
 
-import styles from "./App.module.css";
+import styles from "./App.module.css"
 
-import { history } from "../store/configureStore";
-import { Route, Switch, Redirect } from "react-router"; // react-router v4
-import { ConnectedRouter } from "connected-react-router";
+import { history } from "../store/configureStore"
+import { Route, Switch, Redirect } from "react-router" // react-router v4
+import { ConnectedRouter } from "connected-react-router"
 
-import Header from "./Header";
-import MainView from "./Home/MainView";
-import Profile from "./Profile/Profile";
-import About from "./About/About";
-import Faq from "./Faq/Faq";
-import Login from "./Login";
+import Header from "./Header"
+import MainView from "./Home/MainView"
+import Profile from "./Profile/Profile"
+import About from "./About/About"
+import Faq from "./FAQ/FAQ"
+import Login from "./Login"
 
 const App = () => (
   <div className={styles.App}>
@@ -32,6 +32,6 @@ const App = () => (
       </Switch>
     </ConnectedRouter>
   </div>
-);
+)
 
-export default App;
+export default App

@@ -50,6 +50,9 @@ class Header extends Component {
           <img src={menuLogo} className={styles.humburger} alt="menu logo" />
         </div>}
         <div className={styles.headerRightSide}>
+          <div onClick={() => this.props.push("/Faq")} className={styles.link}>
+            FAQ
+          </div>
           <div
             onClick={() => this.props.push("/about")}
             className={styles.link}
@@ -61,9 +64,6 @@ class Header extends Component {
             className={styles.link}
           >
             Profile
-          </div>
-          <div onClick={() => this.props.push("/Faq")} className={styles.link}>
-            FAQ
           </div>
         </div>
 

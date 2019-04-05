@@ -1,17 +1,24 @@
-.FaqMain {
+.FaqContainer {
   position: relative;
-  text-align: center;
-  padding-left: 256px;
-  width: 75%;
+  width: 100%;
   height: 90%;
+  display: flex;
+  justify-content: center;
   overflow-y: scroll;
+}
+
+.FaqMain {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  max-width: 800px;
   line-height: 32px;
   font-size: 80%;
 }
 .FaqMain h1 {
-  color: rgba(0, 0, 0, 0.6);
-  line-height: 64px;
-  font-size: 48px;
+  color: rgb(70,70,70);
+  line-height: 60px;
+  font-size: 38px;
 }
 .FaqMain h3 {
   font-weight: bold;

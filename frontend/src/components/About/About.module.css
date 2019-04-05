@@ -1,14 +1,25 @@
-.AboutMain {
+.AboutContainer {
   position: relative;
-  text-align: center;
   width: 100%;
   height: 90%;
-  overflow-y: auto;
-  line-height: 32px;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
 }
+
+.AboutMain {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  max-width: 800px;
+  line-height: 32px;
+  font-size: 80%;
+}
+
 .AboutMain h1 {
-  font-size: 48px;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(70,70,70);
+  line-height: 60px;
+  font-size: 38px;
 }
 
 .paddingBottom {
