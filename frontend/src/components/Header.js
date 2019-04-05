@@ -33,7 +33,6 @@ class Header extends Component {
       this.props.push("/")
     }
   }
-
   render() {
     return (
       <div className={styles.Header}>
@@ -51,6 +50,9 @@ class Header extends Component {
           <img src={menuLogo} className={styles.humburger} alt="menu logo" />
         </div>}
         <div className={styles.headerRightSide}>
+          <div onClick={() => this.props.push("/Faq")} className={styles.link}>
+            FAQ
+          </div>
           <div
             onClick={() => this.props.push("/about")}
             className={styles.link}
@@ -66,7 +68,7 @@ class Header extends Component {
         </div>
 
       </div>
-    )
+    );
   }
 }
 
