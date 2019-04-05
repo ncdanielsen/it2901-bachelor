@@ -20,20 +20,38 @@ export default function serverReducer(state = initialState, action) {
       return {...state, kpis: action.payload}
     case types.GET_KPI_LIST_FAILURE:
       return state
+
     case types.GET_KPI_CATEGORIES_STARTED:
       return state
     case types.GET_KPI_CATEGORIES_SUCCESS:
       return {...state, kpiCategories: action.payload}
     case types.GET_KPI_CATEGORIES_FAILURE:
       return state
+    case types.SAVE_UPDATED_R_KPI_SET_STARTED: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_R_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_R_KPI_SET_FAILURE: // will be useful for showing spinning wheel
+      return state
+    case types.GET_R_KPI_SETS_STARTED:
+      return state
+    case types.GET_R_KPI_SETS_SUCCESS:
+      return {...state, rKpiSets: action.payload}
+    case types.GET_R_KPI_SETS_FAILURE:
+      return state
+
     case types.GET_rKPI_DATA:
       return {...state, rKpiSets: action.payload}
+
     case types.GET_cKPI_DATA:
       return {...state, cKpiSets: action.payload}
+
     case types.UPDATE_CURRENT_rKPI_NAME:
       return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}
+
     case types.UPDATE_CURRENT_cKPI_NAME:
       return {...state, current_cKpiName: (action.payload.name === state.current_cKpiName ? "" : action.payload.name)}
+
     case types.UPDATE_KPI_IS_SELECTED:
       const kpiIndex = state.currentKpisSelected.findIndex(selectedKpi => selectedKpi === action.payload.kpiName)
       let currentKpisSelected
@@ -48,6 +66,7 @@ export default function serverReducer(state = initialState, action) {
         currentKpisSelected = [action.payload.kpiName]
       }
       return {...state, currentKpisSelected}
+
     case types.UPDATE_MULTI_SELECT:
       let newState = {...{}, ...state}
       if (!action.payload.multiSelect && newState.currentKpisSelected.length > 1) {
@@ -59,6 +78,7 @@ export default function serverReducer(state = initialState, action) {
       }
       newState.multiSelect = action.payload.multiSelect
       return newState
+      
     default:
       return state
   }

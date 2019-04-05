@@ -5,7 +5,6 @@ import styles from "./SideMenu.module.css"
 
 //import { kpiCategories } from '../../data/data' // will be replaced with data from server
 
-import { updateGraphIndex } from '../../actions/graphReducerActions'
 import { getKpiList, getKpiCategories, updateKpiIsSelected, updateMultiSelect } from '../../actions/serverReducerActions'
 
 
@@ -23,20 +22,23 @@ function mapStateToProps(state) {
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length - 1]
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
+  const isKPIDataPath = currentPathEnd === "";
   return {
-    graphIndex: state.graphReducer.graphIndex,
-    numberOfDataSets: state.graphReducer.numberOfDataSets,
     isMyDataPath,
     isRefDataPath,
+    isKPIDataPath,
+    currentPath,
+    currentPathEnd,
     kpiCategories: state.serverReducer.kpiCategories,
     currentKpisSelected: state.serverReducer.currentKpisSelected,
-    multiSelect: state.serverReducer.multiSelect
+    multiSelect: state.serverReducer.multiSelect,
+    current_rKpiName: state.serverReducer.current_rKpiName,
+    current_cKpiName: state.serverReducer.current_cKpiName,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateGraphIndex: (graphIndex) => dispatch(updateGraphIndex(graphIndex)),
     updateKpiIsSelected: (kpiName, isSelected) => dispatch(updateKpiIsSelected(kpiName, isSelected)),
     push: (url) => dispatch(push(url)),
     replace: (url) => dispatch(replace(url)),
@@ -67,17 +69,14 @@ class SideMenu extends Component {
       openKpiCategory: index === this.state.openKpiCategory ? -1 : index
     })
 
-  // temprorary implementation of updateChosenKpiInCategory. To be changed.
-  updateChosenKpiInCategory = (kpi, kpiIsSelected) => {
-    //this.props.updateGraphIndex(Math.min(this.props.numberOfDataSets-1, i))
-    this.props.updateKpiIsSelected(kpi, kpiIsSelected)
-  }
+  updateChosenKpiInCategory = (kpi, kpiIsSelected) => this.props.updateKpiIsSelected(kpi, kpiIsSelected)
 
   // open or close myData and refData
   goTo = path => {
     if (
       (path === "myData" && this.props.isMyDataPath) ||
-      (path === "refData" && this.props.isRefDataPath)
+      (path === "refData" && this.props.isRefDataPath) ||
+      (path === "" && this.props.isKPIDataPath)
     ) {
       this.props.replace("/home/")
     } else {
@@ -88,48 +87,59 @@ class SideMenu extends Component {
   render() {
     return (
       <div className={styles.SideMenuContainer}>
+        {console.log(this.props.currentPathEnd)}
+        {console.log(this.props.currentPath)}
+        {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
-          nameOfChosenSource="My_new_building_1"
+          nameOfChosenSource={this.props.current_cKpiName === "" ? "Source not selected" : this.props.current_cKpiName}
           select={() => this.goTo("myData")}
           isActive={this.props.isMyDataPath}
         />
         <DataSource
           title="Reference Data"
-          nameOfChosenSource="Perleporten"
+          nameOfChosenSource={this.props.current_rKpiName === "" ? "Source not selected" : this.props.current_rKpiName}
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
 
-        <div className={styles.kpiContainer}>
-        <div className={styles.buttonTitle+" "+styles.kpiTitle}>
-          KPI
-        </div>
-        <div>
-          <label htmlFor="multiSelect">Multi-Select</label>
-          <input
-            type="checkbox"
-            id="multiSelect"
-            name="drone"
-            value="multiSelect"
-            checked={this.props.multiSelect}
-            onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
-            onChange={() => {}}
-          />
-        </div>
-          <div className={styles.kpiContent}>
-            {Object.keys(this.props.kpiCategories).map((category, i) => (
-              <KpiCategory
-                key={i}
-                category={this.props.kpiCategories[category]}
-                categoryIsSelected={this.state.openKpiCategory === i}
-                selectCategory={() => this.openCategory(i)}
-                currentKpisSelected={this.props.currentKpisSelected}
-                selectKpi={this.updateChosenKpiInCategory}
-              />
-            ))}
+        <DataSource
+          title="KPI Overview"
+          nameOfChosenSource=""
+          select={() => this.goTo("/")}
+          isActive={this.props.isKPIDataPath}
+        />
+
+
+        {this.props.isKPIDataPath &&
+          <div className={styles.kpiContainer}>
+            <label htmlFor="multiSelect">Multi-Select</label>
+            <input
+              type="checkbox"
+              id="multiSelect"
+              name="drone"
+              value="multiSelect"
+              checked={this.props.multiSelect}
+              onClick={() => this.props.updateMultiSelect(!this.props.multiSelect)}
+              onChange={() => {}}
+            />
+            <div>
+              <div className={styles.kpiContent}>
+                {Object.keys(this.props.kpiCategories).map((category, i) => (
+                  <KpiCategory
+                    key={i}
+                    category={this.props.kpiCategories[category]}
+                    categoryIsSelected={this.state.openKpiCategory === i}
+                    selectCategory={() => this.openCategory(i)}
+                    currentKpisSelected={this.props.currentKpisSelected}
+                    selectKpi={this.updateChosenKpiInCategory}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        }
+
       </div>
     )
   }
@@ -139,3 +149,13 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SideMenu)
+
+
+/*
+
+<div className={styles.kpiContainer}>
+          <div className={styles.buttonTitle+" "+styles.kpiTitle} onClick={() => console.log("KPI Overview")}>
+            KPI Overview
+          </div>
+        <div>
+*/
