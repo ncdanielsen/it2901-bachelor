@@ -48,8 +48,6 @@ class RefData extends Component {
     this.props.updateCurrentInputView("new_rKpi")
   }
 
-  hideInputView = () => this.props.updateCurrentInputView("none")
-
   render() {
     return (
       <div className={styles.refDataContainer + (this.props.showSideMenu ? "" : (" " + styles.refDataContainerFullScreen))}>
@@ -71,13 +69,7 @@ class RefData extends Component {
           </div>
           <div className={styles.paddingBottom} />
         </div>
-        {
-          this.props.currentInputView !== "none" && <div className={styles.inputViewContainer}>
-            <div className={styles.darkBg} onClick={this.hideInputView} />
-            <KpiSetInputView type={this.props.currentInputView} />
-            <div className={styles.smallPaddingBottom} />
-          </div>
-        }
+        {this.props.currentInputView !== "none" && <KpiSetInputView />}
       </div>
     )
   }

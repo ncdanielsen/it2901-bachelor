@@ -1,3 +1,21 @@
+.inputViewContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background: rgba(0,0,0,0.35);
+}
+
+.darkBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+}
 
 .kpiSet {
   position: relative;
@@ -97,4 +115,9 @@
 
 .saveButton {
   background: rgb(74, 149, 255);
+}
+
+.smallPaddingBottom {
+  height: 4vh;
+  width: 100%;
 }

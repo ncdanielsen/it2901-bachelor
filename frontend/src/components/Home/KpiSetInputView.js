@@ -9,7 +9,8 @@ import { get } from 'lodash'
 import styles from './KpiSetInputView.module.css'
 
 function mapStateToProps(state, ownProps) {
-  if (ownProps.type === "new_rKpi") {
+  const currentInputView = state.uiReducer.currentInputView
+  if (currentInputView === "new_rKpi") {
     const currentInput_rKpi = state.uiReducer.currentInput_rKpi
     const inputs = [
       {name: "Name", type: "text"},
@@ -23,7 +24,7 @@ function mapStateToProps(state, ownProps) {
       kpiCategories: state.serverReducer.kpiCategories,
       buttons: ["cancel", "create"]
     }
-  } else if (ownProps.type === "edit_rKpi") {
+  } else if (currentInputView === "edit_rKpi") {
     const currentInput_rKpi = state.uiReducer.currentInput_rKpi
     const inputs = [
       {name: "Name", type: "text"},
@@ -61,9 +62,7 @@ class KpiSetInputView extends Component {
     this.props.setEmtpy_rKpi()
   }
 
-  cancel = () => {
-    this.props.updateCurrentInputView("none")
-  }
+  cancel = () => this.props.updateCurrentInputView("none")
 
   create = () => {
     //this.refs.form.submit()
@@ -78,91 +77,95 @@ class KpiSetInputView extends Component {
 
   render() {
     return (
-      <div className={styles.kpiSet}>
-        <div className={styles.title}>{this.props.title}</div>
-        <div className={styles.separationLine} />
-        <form ref="form">
-          <div className={styles.inputsContainer}>
-            {
-              this.props.inputs.map((input, index) => (
-                <label key={index} className={styles.label}>
-                  <div className={styles.inputItem}>
-                    <div className={styles.inputTitle}><b>{input.name}</b></div>
-                    {(input.type === "text"/* || input.type === "number"*/) && <input
-                      type={input.type}
-                      value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
-                      onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
-                      className={styles.inputField}
-                    />}
-                    {input.type === "textarea" && <textarea
-                      value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
-                      onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
-                      className={styles.inputField + " " + styles.textarea}
-                    />}
-                  </div>
-                </label>
-              ))
-            }
-          </div>
+      <div className={styles.inputViewContainer}>
+        <div className={styles.darkBg} onClick={this.cancel} />
+        <div className={styles.kpiSet}>
+          <div className={styles.title}>{this.props.title}</div>
           <div className={styles.separationLine} />
-          <div>
-            {
-              Object.keys(this.props.kpiCategories).map((kpiCategoryKey, i) => {
-                const kpiCategory = this.props.kpiCategories[kpiCategoryKey]
-                return (
-                  <div key={i} className={styles.kpiCategoryContainer}>
-                    <div className={styles.kpiCategoryTitle}>{kpiCategory.name}</div>
-                    <div className={styles.inputsContainer}>
-                      {
-                        get(kpiCategory, 'kpi_names', []).map((kpi, j) => {
-                          const valueIndex = this.props.currentInput_rKpi.values.findIndex(rKpi => rKpi.name === kpi.name)
-                          const value = valueIndex === -1 ? "-1" : get(this.props.currentInput_rKpi, "values[" + valueIndex + "].value", 0)
-                          return (
-                            <label key={j} className={styles.label}>
-                              <div className={styles.inputItem}>
-                                <div className={styles.inputTitle}><b>{kpi.name}</b><br />{" [" + kpi.unit + "]"}</div>
-                                <input
-                                  type="number"
-                                  value={value}
-                                  onChange={(e) => this.props.updateR_KpiInputValue(kpi.name, get(e, 'target.value', ""))}
-                                  className={styles.inputField}
-                                />
-                              </div>
-                            </label>
-                          )
-                        })
-                      }
+          <form ref="form">
+            <div className={styles.inputsContainer}>
+              {
+                this.props.inputs.map((input, index) => (
+                  <label key={index} className={styles.label}>
+                    <div className={styles.inputItem}>
+                      <div className={styles.inputTitle}><b>{input.name}</b></div>
+                      {(input.type === "text"/* || input.type === "number"*/) && <input
+                        type={input.type}
+                        value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
+                        onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
+                        className={styles.inputField}
+                      />}
+                      {input.type === "textarea" && <textarea
+                        value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
+                        onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
+                        className={styles.inputField + " " + styles.textarea}
+                      />}
                     </div>
-                    <div className={styles.separationLine} />
+                  </label>
+                ))
+              }
+            </div>
+            <div className={styles.separationLine} />
+            <div>
+              {
+                Object.keys(this.props.kpiCategories).map((kpiCategoryKey, i) => {
+                  const kpiCategory = this.props.kpiCategories[kpiCategoryKey]
+                  return (
+                    <div key={i} className={styles.kpiCategoryContainer}>
+                      <div className={styles.kpiCategoryTitle}>{kpiCategory.name}</div>
+                      <div className={styles.inputsContainer}>
+                        {
+                          get(kpiCategory, 'kpi_names', []).map((kpi, j) => {
+                            const valueIndex = this.props.currentInput_rKpi.values.findIndex(rKpi => rKpi.name === kpi.name)
+                            const value = valueIndex === -1 ? "-1" : get(this.props.currentInput_rKpi, "values[" + valueIndex + "].value", 0)
+                            return (
+                              <label key={j} className={styles.label}>
+                                <div className={styles.inputItem}>
+                                  <div className={styles.inputTitle}><b>{kpi.name}</b><br />{" [" + kpi.unit + "]"}</div>
+                                  <input
+                                    type="number"
+                                    value={value}
+                                    onChange={(e) => this.props.updateR_KpiInputValue(kpi.name, get(e, 'target.value', ""))}
+                                    className={styles.inputField}
+                                  />
+                                </div>
+                              </label>
+                            )
+                          })
+                        }
+                      </div>
+                      <div className={styles.separationLine} />
+                    </div>
+                  )
+                })
+              }
+              </div>
+            </form>
+
+          <div className={styles.buttonsContainer}>
+            {
+              this.props.buttons.map((button, i) => {
+                if (button === "cancel") {
+                  return <div key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
+                    Cancel
                   </div>
-                )
+                } else if (button === "create") {
+                  return <div key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
+                    Create
+                  </div>
+                } else if (button === "save") {
+                  return <div key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
+                    Save
+                  </div>
+                } else {
+                  return <div />
+                }
               })
             }
-            </div>
-          </form>
+          </div>
 
-        <div className={styles.buttonsContainer}>
-          {
-            this.props.buttons.map((button, i) => {
-              if (button === "cancel") {
-                return <div key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
-                  Cancel
-                </div>
-              } else if (button === "create") {
-                return <div key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
-                  Create
-                </div>
-              } else if (button === "save") {
-                return <div key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
-                  Save
-                </div>
-              } else {
-                return <div />
-              }
-            })
-          }
         </div>
-
+        <div className={styles.smallPaddingBottom} />
       </div>
     )
   }
