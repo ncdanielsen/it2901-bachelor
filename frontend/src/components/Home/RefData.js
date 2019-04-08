@@ -53,7 +53,7 @@ class RefData extends Component {
   render() {
     return (
       <div className={styles.refDataContainer + (this.props.showSideMenu ? "" : (" " + styles.refDataContainerFullScreen))}>
-        <div className={this.props.currentInputView ? styles.overflowHidden : ""}>
+        <div className={this.props.currentInputView !== "none" ? styles.overflowHidden : ""}>
           <UploadNewKpiSet text="existing sets of reference KPIs" uploadNew={this.uploadNew_rKpiSet} />
           <div className={styles.kpiSets}>
             {this.props.rKpiSets.map((kpiSet, index) => (
