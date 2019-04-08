@@ -140,10 +140,67 @@ Return KPI data for neighborhood as a JSON.
     values: [float] // list of floats
     times: [float] // list of floats (unix time)
 }]
+```
+
 
 
 
 ## Upload-functions
+
+
+### ../users/signup
+
+POST request that takes in email and password, and creates a user.
+
+**User format**
+``` JS
+[{
+    _id: mongoose.Schema.Types.ObjectId, // automatic and unique id created by mongoose.
+    email: String, // is unique.
+    password: String, // is currently not hashed and is stored as plain text. No real life information should be stored.
+    superuser: boolean, // is meant to determine if the user should have access to restricted data. Currently there is no way to make a user into a superuser outside of the backend.
+    admin: boolean // is meant to give authorized users the ability to create and delete other users. Currently there is no way to make a user into an admin outside of the backend. 
+
+}]
+```
+**Upload format:**
+
+``` json
+{
+    email: String, // is unique.
+    password: String, // is currently not hashed and is stored as plain text. No real life information should be stored.
+}
+```
+
+
+### ../users/login
+
+POST request that takes in email and password, and checks the info against the database. Returns a token that is encoded.
+
+**Data format:**
+
+``` json
+{
+    email: String, 
+    password: String 
+
+}
+```
+
+
+### ../users/delete/{userID}
+
+Delete request that deletes the user specified in the url. Valid token must be included in the header authorization field
+
+**Data format:**
+
+``` json
+[{
+    Authorization: "Bearer " + token 
+}]
+```
+
+
 
 > Not yet defined 
 

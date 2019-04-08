@@ -94,7 +94,7 @@ router.post('/signup', (req, res, next) => {
 
 
 
-router.delete("/:userID", check_token, (req, res, next)=>{
+router.delete("/delete/:userID", check_token, (req, res, next)=>{
   user_model.find({ email: req.userData.email })
     .exec()
     .then(user => {
