@@ -22,9 +22,14 @@ var cors = require('cors')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const buildingkpi = require("./routes/building_kpi")
+const neighbourhoodkpi = require("./routes/neighbourhoodkpi")
+const demoCKPI = require("./routes/demo-ckpi")
+const demoRKPI = require("./routes/demo-rkpi")
 
 const kpi_list = require('./routes/kpi_metadata');
 var app = express();
@@ -39,10 +44,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/kpi-list', kpi_list);
+app.use('/buildingkpi', buildingkpi)
+app.use("/neighbourhoodkpi", neighbourhoodkpi)
+app.use("/demo-ckpi", demoCKPI)
+app.use("/demo-rkpi", demoRKPI)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
