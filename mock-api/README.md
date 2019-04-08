@@ -145,6 +145,7 @@ Return KPI data for neighborhood as a JSON.
 
 
 
+
 ## Upload-functions
 
 
@@ -165,11 +166,11 @@ POST request that takes in email and password, and creates a user.
 ```
 **Upload format:**
 
-``` json
-{
+``` JS
+[{
     email: String, // is unique.
     password: String, // is currently not hashed and is stored as plain text. No real life information should be stored.
-}
+}]
 ```
 
 
@@ -179,12 +180,12 @@ POST request that takes in email and password, and checks the info against the d
 
 **Data format:**
 
-``` json
-{
+``` JS
+[{
     email: String, 
     password: String 
 
-}
+}]
 ```
 
 
@@ -192,13 +193,22 @@ POST request that takes in email and password, and checks the info against the d
 
 Delete request that deletes the user specified in the url. Valid token must be included in the header authorization field
 
-**Data format:**
 
-``` json
+
+## Middleware-functions
+
+### check_auth
+Every route that has this function additionally needs a valid token to work. This token must be located in the header authorization field.
+
+**Header data format:**
+
+``` JS
 [{
     Authorization: "Bearer " + token 
 }]
 ```
+
+
 
 
 
