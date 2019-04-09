@@ -93,6 +93,26 @@ router.post('/signup', (req, res, next) => {
 });
 
 
+router.post("/profile", check_token, (req, res, next)=>{
+  user_model.find({ _id: req.userData.ID })
+    .exec()
+    .then(user => {
+      if(user.length > 0){
+        res.json({
+          _id: req.userData.ID,
+          email: req.userData.email,
+          superuser: req.userData.superuser,
+          admin: req.userData.admin
+        })
+      }
+      else{
+        return res.status(401).json({
+          message: "Authorisation failed!"
+        });
+      }
+    })
+  
+});
 
 router.delete("/delete/:userID", check_token, (req, res, next)=>{
   user_model.find({ email: req.userData.email })

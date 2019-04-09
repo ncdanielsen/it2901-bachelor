@@ -178,12 +178,21 @@ POST request that takes in email and password, and creates a user.
 
 POST request that takes in email and password, and checks the info against the database. Returns a token that is encoded.
 
-**Data format:**
+**Upload data format:**
 
 ``` JS
 [{
     email: String, 
     password: String 
+
+}]
+```
+**Return data format:**
+
+``` JS
+[{
+    message: String, 
+    token: String 
 
 }]
 ```
@@ -197,7 +206,7 @@ Delete request that deletes the user specified in the url. Valid token must be i
 
 ## Middleware-functions
 
-### check_auth
+### check_token_validity
 Every route that has this function additionally needs a valid token to work. This token must be located in the header authorization field.
 
 **Header data format:**
