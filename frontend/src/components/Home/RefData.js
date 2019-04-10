@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { replace } from 'connected-react-router'
 
 import { updateCurrent_rKpiName } from '../../actions/serverReducerActions'
-import { setEmtpy_rKpi, updateCurrentInputView, setCurrentInput_rKpi } from '../../actions/uiReducerActions'
+import { setEmtpy_rKpi, updateCurrentInputViewRefData, setCurrentInput_rKpi } from '../../actions/uiReducerActions'
 
 import styles from './RefData.module.css'
 
@@ -17,7 +17,7 @@ function mapStateToProps(state) {
     current_rKpiName: state.serverReducer.current_rKpiName,
     rKpiSets: state.serverReducer.rKpiSets,
     showSideMenu: state.uiReducer.showSideMenu,
-    currentInputView: state.uiReducer.currentInputView
+    currentInputViewRefData: state.uiReducer.currentInputViewRefData
   }
 }
 
@@ -26,32 +26,32 @@ function mapDispatchToProps(dispatch) {
     replace: (url) => dispatch(replace(url)),
     updateCurrent_rKpiName: name => dispatch(updateCurrent_rKpiName(name)),
     setEmtpy_rKpi: () => dispatch(setEmtpy_rKpi()),
-    updateCurrentInputView: currentInputView => dispatch(updateCurrentInputView(currentInputView)),
+    updateCurrentInputViewRefData: currentInputView => dispatch(updateCurrentInputViewRefData(currentInputView)),
     setCurrentInput_rKpi: rKpiSet => dispatch(setCurrentInput_rKpi(rKpiSet))
   }
 }
 
 class RefData extends Component {
 
+  uploadNew_rKpiSet = () => {
+    this.props.setEmtpy_rKpi()
+    this.props.updateCurrentInputViewRefData("new_rKpi")
+  }
+
   editKpiSet = kpiSetName => {
     const kpiSetIndex = this.props.rKpiSets.findIndex(rKpiSet => rKpiSet.name === kpiSetName)
     if (kpiSetIndex !== -1) {
       this.props.setCurrentInput_rKpi(this.props.rKpiSets[kpiSetIndex])
-      this.props.updateCurrentInputView("edit_rKpi")
+      this.props.updateCurrentInputViewRefData("edit_rKpi")
     }
   }
 
   selectKpiSet = kpiSetName => this.props.updateCurrent_rKpiName(kpiSetName)
 
-  uploadNew_rKpiSet = () => {
-    this.props.setEmtpy_rKpi()
-    this.props.updateCurrentInputView("new_rKpi")
-  }
-
   render() {
     return (
       <div className={styles.refDataContainer + (this.props.showSideMenu ? "" : (" " + styles.refDataContainerFullScreen))}>
-        <div className={this.props.currentInputView !== "none" ? styles.overflowHidden : ""}>
+        <div className={this.props.currentInputViewRefData !== "none" ? styles.overflowHidden : ""}>
           <UploadNewKpiSet text="existing sets of reference KPIs" uploadNew={this.uploadNew_rKpiSet} />
           <div className={styles.kpiSets}>
             {this.props.rKpiSets.map((kpiSet, index) => (
@@ -69,7 +69,7 @@ class RefData extends Component {
           </div>
           <div className={styles.paddingBottom} />
         </div>
-        {this.props.currentInputView !== "none" && <KpiSetInputView />}
+        {this.props.currentInputViewRefData !== "none" && <KpiSetInputView type="refData" />}
       </div>
     )
   }

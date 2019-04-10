@@ -1,58 +1,118 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { updateR_KpiInputValue, setEmtpy_rKpi, updateCurrentInputView } from '../../actions/uiReducerActions'
-//import { saveUpdated_rKpiSet } from '../../actions/serverReducerActions' // uncomment when server is ready
+import {
+  updateCurrentInputViewMyData,
+  updateCurrentInputViewRefData,
+  setEmtpy_rKpi,
+  update_rKpiInputValue,
+  setEmtpy_cKpi,
+  update_cKpiInputValue,
+  insertNew_cKpiValues
+} from '../../actions/uiReducerActions'
+//import { saveUpdated_rKpiSet, saveUpdated_cKpiSet } from '../../actions/serverReducerActions' // uncomment when server is ready
 
 import { get } from 'lodash'
 
 import styles from './KpiSetInputView.module.css'
 
 function mapStateToProps(state, ownProps) {
-  const currentInputView = state.uiReducer.currentInputView
+  const currentInputView = ownProps.type === "myData" ? state.uiReducer.currentInputViewMyData : state.uiReducer.currentInputViewRefData
   if (currentInputView === "new_rKpi") {
-    const currentInput_rKpi = state.uiReducer.currentInput_rKpi
+    const currentInputKpi = state.uiReducer.currentInput_rKpi
     const inputs = [
       {name: "Name", type: "text"},
       {name: "Description", type: "textarea"},
       //{name: "Owner", type: "text"}
     ]
     return {
+      currentInputView,
       title: "Create New Reference KPI Set",
       inputs,
-      currentInput_rKpi,
+      currentInputKpi,
       kpiCategories: state.serverReducer.kpiCategories,
       buttons: ["cancel", "create"]
     }
   } else if (currentInputView === "edit_rKpi") {
-    const currentInput_rKpi = state.uiReducer.currentInput_rKpi
+    const currentInputKpi = state.uiReducer.currentInput_rKpi
     const inputs = [
       {name: "Name", type: "text"},
       {name: "Description", type: "textarea"},
       //{name: "Owner", type: "text"}
     ]
     return {
+      currentInputView,
       title: "Edit Reference KPI Set",
       inputs,
-      currentInput_rKpi,
+      currentInputKpi,
       kpiCategories: state.serverReducer.kpiCategories,
       buttons: ["cancel", "save"] // "delete"
     }
+  } else if (currentInputView === "new_cKpi") {
+    const currentInputKpi = state.uiReducer.currentInput_cKpi
+    const inputs = [
+      {name: "Name", type: "text"},
+      {name: "Description", type: "textarea"},
+      //{name: "Owner", type: "text"}
+    ]
+    return {
+      currentInputView,
+      title: "Create New Calculated KPI Set",
+      inputs,
+      currentInputKpi,
+      kpiCategories: {},
+      buttons: ["cancel", "create"] // "delete"
+    }
+  } else if (currentInputView === "edit_cKpi") {
+    const currentInputKpi = state.uiReducer.currentInput_cKpi
+    const inputs = [
+      {name: "Name", type: "text"},
+      {name: "Description", type: "textarea"},
+      //{name: "Owner", type: "text"}
+    ]
+    return {
+      currentInputView,
+      title: "Edit Calculated KPI Set",
+      inputs,
+      currentInputKpi,
+      kpiCategories: {},
+      buttons: ["cancel", "save"] // "delete"
+    }
   } else {
-    return {}
+    return { // shouldn't happen
+      currentInputView,
+      title: "Unknown KPI set",
+      inputs: [],
+      kpiCategories: [],
+      buttons: ["cancel"]
+    }
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateR_KpiInputValue: (keyName, newValue) => dispatch(updateR_KpiInputValue(keyName, newValue)),
+    updateKpiInputValue: (keyName, newValue, currentInputView) => {
+      if (currentInputView === "new_rKpi" || currentInputView === "edit_rKpi") {
+        dispatch(update_rKpiInputValue(keyName, newValue))
+      } else if (currentInputView === "new_cKpi" || currentInputView === "edit_cKpi") {
+        dispatch(update_cKpiInputValue(keyName, newValue))
+      }
+    },
     setEmtpy_rKpi: () => dispatch(setEmtpy_rKpi()),
-    updateCurrentInputView: currentInputView => dispatch(updateCurrentInputView(currentInputView)),
+    setEmtpy_cKpi: () => dispatch(setEmtpy_cKpi()),
+    updateCurrentInputViewMyData: currentInputView => dispatch(updateCurrentInputViewMyData(currentInputView)),
+    updateCurrentInputViewRefData: currentInputView => dispatch(updateCurrentInputViewRefData(currentInputView)),
     createNew_rKpiSet: (new_rKpiSet) => console.log("new_rKpiSet", new_rKpiSet),
+    createNew_cKpiSet: (new_cKpiSet) => console.log("new_cKpiSet", new_cKpiSet),
     saveUpdated_rKpiSet: (updated_rKpiSet) => {
       //dispatch(saveUpdated_rKpiSet(updated_rKpiSet)) // uncomment when server is ready
       console.log("saveUpdated_rKpiSet", updated_rKpiSet)
-    }
+    },
+    saveUpdated_cKpiSet: (updated_cKpiSet) => {
+      //dispatch(saveUpdated_cKpiSet(updated_cKpiSet)) // uncomment when server is ready
+      console.log("saveUpdated_cKpiSet", updated_cKpiSet)
+    },
+    insertNew_cKpiValues: values => dispatch(insertNew_cKpiValues(values))
   }
 }
 
@@ -60,19 +120,48 @@ class KpiSetInputView extends Component {
 
   componentWillUnmount() {
     this.props.setEmtpy_rKpi()
+    this.props.setEmtpy_cKpi()
   }
 
-  cancel = () => this.props.updateCurrentInputView("none")
+  cancel = () => {
+    if (this.props.currentInputView === "new_rKpi" || this.props.currentInputView === "edit_rKpi") {
+      this.props.updateCurrentInputViewRefData("none")
+    } else if (this.props.currentInputView === "new_cKpi" || this.props.currentInputView === "edit_cKpi") {
+      this.props.updateCurrentInputViewMyData("none")
+    }
+  }
 
   create = () => {
-    //this.refs.form.submit()
-    this.props.createNew_rKpiSet(this.props.currentInput_rKpi)
-    this.props.updateCurrentInputView("none")
+    if (this.props.currentInputView === "new_rKpi") {
+      this.props.createNew_rKpiSet(this.props.currentInputKpi)
+      this.props.updateCurrentInputViewRefData("none")
+    } else if (this.props.currentInputView === "new_cKpi") {
+      this.props.createNew_cKpiSet(this.props.currentInputKpi)
+      this.props.updateCurrentInputViewMyData("none")
+    }
+
   }
 
   save = () => {
-    this.props.saveUpdated_rKpiSet(this.props.currentInput_rKpi)
-    this.props.updateCurrentInputView("none")
+    if (this.props.currentInputView === "edit_rKpi") {
+      this.props.saveUpdated_rKpiSet(this.props.currentInputKpi)
+      this.props.updateCurrentInputViewRefData("none")
+    } else if (this.props.currentInputView === "edit_cKpi") {
+      this.props.saveUpdated_cKpiSet(this.props.currentInputKpi)
+      this.props.updateCurrentInputViewMyData("none")
+    }
+  }
+
+  uploadOnChange = (e) => {
+    const file = get(e, 'target.files[0]', "")
+    let fr = new FileReader()
+    fr.onload = this.receivedText
+    fr.readAsText(file)
+  }
+
+  receivedText = (e) => {
+    const values = JSON.parse(get(e, "target.result", "[]"))
+    this.props.insertNew_cKpiValues(values)
   }
 
   render() {
@@ -82,7 +171,7 @@ class KpiSetInputView extends Component {
         <div className={styles.kpiSet}>
           <div className={styles.title}>{this.props.title}</div>
           <div className={styles.separationLine} />
-          <form ref="form">
+          <form>
             <div className={styles.inputsContainer}>
               {
                 this.props.inputs.map((input, index) => (
@@ -91,13 +180,13 @@ class KpiSetInputView extends Component {
                       <div className={styles.inputTitle}><b>{input.name}</b></div>
                       {(input.type === "text"/* || input.type === "number"*/) && <input
                         type={input.type}
-                        value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
-                        onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
+                        value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
+                        onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField}
                       />}
                       {input.type === "textarea" && <textarea
-                        value={get(this.props.currentInput_rKpi, '[' + input.name.toLowerCase() + ']', "")}
-                        onChange={(e) => this.props.updateR_KpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""))}
+                        value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
+                        onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField + " " + styles.textarea}
                       />}
                     </div>
@@ -116,8 +205,8 @@ class KpiSetInputView extends Component {
                       <div className={styles.inputsContainer}>
                         {
                           get(kpiCategory, 'kpi_names', []).map((kpi, j) => {
-                            const valueIndex = this.props.currentInput_rKpi.values.findIndex(rKpi => rKpi.name === kpi.name)
-                            const value = valueIndex === -1 ? "-1" : get(this.props.currentInput_rKpi, "values[" + valueIndex + "].value", 0)
+                            const valueIndex = get(this.props, 'currentInputKpi.values', []).findIndex(rKpi => rKpi.name === kpi.name)
+                            const value = valueIndex === -1 ? "-1" : get(this.props.currentInputKpi, "values[" + valueIndex + "].value", 0)
                             return (
                               <label key={j} className={styles.label}>
                                 <div className={styles.inputItem}>
@@ -125,7 +214,7 @@ class KpiSetInputView extends Component {
                                   <input
                                     type="number"
                                     value={value}
-                                    onChange={(e) => this.props.updateR_KpiInputValue(kpi.name, get(e, 'target.value', ""))}
+                                    onChange={(e) => this.props.updateKpiInputValue(kpi.name, get(e, 'target.value', ""), this.props.currentInputView)}
                                     className={styles.inputField}
                                   />
                                 </div>
@@ -139,6 +228,29 @@ class KpiSetInputView extends Component {
                   )
                 })
               }
+
+              {(this.props.currentInputView === "new_cKpi" || this.props.currentInputView === "edit_cKpi") && (
+                <div>
+                  <div className={styles.uploadContainer}>
+                    <label htmlFor="kpiSetSourceFile"><b>{this.props.currentInputView === "new_cKpi" ? "Upload new data set" : "Update data set"}</b></label>
+                    <br /><br />
+                    <input
+                      type="file"
+                      id="kpiSetSourceFile"
+                      name="kpiSetSourceFile"
+                      //accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                      accept=".json, application/json"
+                      onChange={this.uploadOnChange}
+                    />
+                  </div>
+                  <div className={styles.separationLine} />
+                  <div className={styles.formatInstructionsContainer}>
+                    JSON Format:
+                    <pre>{JSON.stringify([{name: "Exact KPI Name",data: [{time: 0, value: 10}]}], null, 2) }</pre>
+                  </div>
+                  <div className={styles.separationLine} />
+                </div>
+              )}
               </div>
             </form>
 
