@@ -9,4 +9,5 @@ module.exports.kpi_meta_schema = new Schema({
     type: String,
     timeseries: Boolean,
     description: String,
+    restricted: {type: "boolean", default: false, required: true},
 });

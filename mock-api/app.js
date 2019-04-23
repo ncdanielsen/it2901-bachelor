@@ -31,6 +31,9 @@ const neighbourhoodkpi = require("./routes/neighbourhoodkpi")
 const demoCKPI = require("./routes/demo-ckpi")
 const demoRKPI = require("./routes/demo-rkpi")
 
+const check_token = require("./middleware/check_token_validity")
+const check_auth = require("./middleware/check_auth")
+
 const kpi_list = require('./routes/kpi_metadata');
 var app = express();
 app.use(cors());
@@ -49,6 +52,7 @@ app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(check_token)
 app.use('/kpi-list', kpi_list);
 app.use('/buildingkpi', buildingkpi)
 app.use("/neighbourhoodkpi", neighbourhoodkpi)
