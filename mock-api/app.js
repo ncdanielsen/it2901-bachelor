@@ -31,6 +31,8 @@ const neighbourhoodkpi = require("./routes/neighbourhoodkpi")
 const demoCKPI = require("./routes/demo-ckpi")
 const demoRKPI = require("./routes/demo-rkpi")
 
+const uploadKPI = require("./routes/upload")
+
 const check_token = require("./middleware/check_token_validity")
 const check_auth = require("./middleware/check_auth")
 
@@ -58,6 +60,7 @@ app.use('/buildingkpi', buildingkpi)
 app.use("/neighbourhoodkpi", neighbourhoodkpi)
 app.use("/demo-ckpi", demoCKPI)
 app.use("/demo-rkpi", demoRKPI)
+app.use("/upload", uploadKPI)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

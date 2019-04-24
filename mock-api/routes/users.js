@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-const user_schema = require('../schemas/user_schema');
 const config = require('../config.json');
 const jwt = require("jsonwebtoken")
 const check_token = require("../middleware/check_token_validity")
