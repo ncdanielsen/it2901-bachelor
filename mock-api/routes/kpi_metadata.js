@@ -35,6 +35,11 @@ router.get('/neighbourhoods', function (req, res, err) {
     })
 });
 
+router.get('/buildings', function (req, res, err) {
+    retriever.retrieve_buildings((data) => {
+        res.json(data);
+    })
+});
 
 
 

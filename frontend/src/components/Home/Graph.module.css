@@ -8,3 +8,13 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.GraphContainerFullScreen {
+  width: 100%;
+}
+
+.chartTypeDropDown {
+  position: absolute;
+  top: 13%;
+  right: 2.5%;
+}

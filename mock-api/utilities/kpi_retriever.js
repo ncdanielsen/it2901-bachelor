@@ -24,6 +24,7 @@ class kpi_retriever {
         this.kpi_meta_model = this.connection.model('KPI Metadata', kpi_meta_schema, 'kpi_TEST');
         this.kpi_cat_model = this.connection.model('KPI Categories', kpi_cat_schema, 'kpi_cat_TEST');
         this.neighbourhood_model = this.connection.model('Neighbourhoods', neighbourhood_schema, 'neighborhoods_TEST');
+        this.building_model = this.connection.model('Buildings', neighbourhood_schema, 'buildings_TEST');
         this.buildingkpi_model = this.connection.model("Building KPIs", buildingkpi_schema, "buildingkpi_TEST")
         this.neighbourhoodkpi_model = this.connection.model("Neighbourhood KPIs", neighbourhoodkpi_schema, "neighbourhoodkpi_TEST")
         this.ckpi_model = this.connection.model("Demo CKPIs", ckpi_schema, "CKPI_TEST")
@@ -50,6 +51,7 @@ class kpi_retriever {
         })
     }
 
+    
 
     retrieve_kpi_categories(callback) {
         this.kpi_cat_model.find({})
@@ -65,6 +67,7 @@ class kpi_retriever {
         })
     }
 
+
     retrieve_ckpi(callback) { 
         this.ckpi_model.find({}, function(err, ckpis) {
             callback(ckpis)
@@ -74,6 +77,12 @@ class kpi_retriever {
     retrieve_rkpi(callback) { 
         this.rkpi_model.find({}, function(err, rkpis) {
             callback(rkpis)
+        })
+    }
+
+    retrieve_buildings(callback) {
+        this.building_model.find({}, function (err, buildings) {
+            callback(buildings);
         })
     }
 }

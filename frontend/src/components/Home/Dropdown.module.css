@@ -1,0 +1,35 @@
+
+.chartTypeDropdown {
+  border: 1px solid rgb(74, 149, 255);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dropdownTitle {
+  background: rgb(74, 149, 255);
+  color: white;
+  padding: 5px 15px;
+  min-height: 30px;
+  line-height: 30px;
+  /*cursor: pointer;*/
+}
+
+.dropdownOptions {
+  border-top: 1px solid rgb(74, 149, 255);
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.dropdownOption {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dropdownOption:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+
+.activeOption {
+  background: #57A7ED !important;
+  color: white;
+}

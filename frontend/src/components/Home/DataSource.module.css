@@ -1,0 +1,41 @@
+.Button {
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-left: 10%;
+  padding-right: 10%;
+  width: calc(80% - 2px + 2px); /* +2px for border drawing in corners*/
+  /*border-bottom: 2px solid rgb(200, 200, 200);*/
+  background: white;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.rkpiButton {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+  width: calc(80% - 2px + 2px); /* +2px for border drawing in corners*/
+  background: white;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+
+.Button:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+
+.ButtonSelected {
+  background: #5393b4 !important;
+  color: white;
+}
+
+.buttonTitle {
+  font-weight: bold;
+  line-height: 35px;
+}
+
+.buttonContent {
+  line-height: 35px;
+}
