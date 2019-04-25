@@ -3,8 +3,7 @@
   padding-bottom: 15px;
   padding-left: 10%;
   padding-right: 10%;
-  width: calc(80% + 2px); /* +2px for border drawing in corners*/
-  /*border-bottom: 2px solid rgb(200, 200, 200);*/
+  width: calc 80%; 
   background: white;
   pointer-events: all;
   cursor: pointer;
