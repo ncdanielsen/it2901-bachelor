@@ -1,6 +1,7 @@
 import * as types from '../actionTypes/uiReducerTypes'
 
 import { get, has, set } from 'lodash'
+import moment from 'moment'
 
 const currentInput_rKpi = { // default values in form when creating new rKpi
   name: "",
@@ -24,11 +25,17 @@ const initialState = {
   currentInputView: "none", // possible values: none || new_rKpi || edit_rKpi
   chartType: "Radar",
   currentInput_rKpi: {...currentInput_rKpi, ...{}},
-  currentInput_cKpi: {}
+  currentInput_cKpi: {},
+  fromDateTime: moment(new Date().getTime()), 
+  toDateTime: moment(new Date().getTime())
 }
 
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
+    case types.UPDATE_SELECTED_FROM_DATETIME:
+      return {...state, fromDateTime: get(action.payload, 'fromDateTime', moment(new Date().getTime()))}
+    case types.UPDATE_SELECTED_TO_DATETIME:
+      return {...state, toDateTime: get(action.payload, 'toDateTime', moment(new Date().getTime()))}
     case types.UPDATE_SHOW_SIDE_MENU:
       return {...state, showSideMenu: get(action.payload, 'showSideMenu', true)}
     case types.UPDATE_CHART_TYPE:

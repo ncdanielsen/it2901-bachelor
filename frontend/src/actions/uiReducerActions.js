@@ -52,3 +52,21 @@ export function setCurrentInput_rKpi(rKpiSet) {
     }
   }
 }
+
+export function updateSelectedFromDateTime(fromDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_FROM_DATETIME,
+    payload: {
+      fromDateTime
+    }
+  }
+}
+
+export function updateSelectedToDateTime(toDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_TO_DATETIME,
+    payload: {
+      toDateTime
+    }
+  }
+}

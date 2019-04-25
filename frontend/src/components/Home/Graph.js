@@ -6,10 +6,12 @@ import { updateChartType } from '../../actions/uiReducerActions'
 import LineGraph from './LineGraph.js'
 import RadarGraph from './RadarGraph.js'
 import Dropdown from './Dropdown.js'
+import TimeDateSelection from './TimeDateSelection.js'
 
 import styles from './Graph.module.css'
 
 import { get } from 'lodash'
+
 
 function mapStateToProps(state) {
   const currentKpisSelected = state.serverReducer.currentKpisSelected
@@ -33,28 +35,29 @@ function mapStateToProps(state) {
     currentKpisSelected,
     current_cKpiSet,
     rKpis,
-    showSideMenu: state.uiReducer.showSideMenu
+    showSideMenu: state.uiReducer.showSideMenu,
+    currentSelectedFromDateTime: state.uiReducer.fromDateTime,
+    currentSelectedToDateTime: state.uiReducer.toDateTime
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateChartType: (chartType) => dispatch(updateChartType(chartType))
+    updateChartType: (chartType) => dispatch(updateChartType(chartType)),
   }
 }
 
-/*function dataIsDefined() {
-  if (this.props.cKpis.length == 0 || this.props.ckpiData.lenght == 0) {
-    return "undefined"
-  }
-}*/
 
 class Graph extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {width: window.innerWidth, height: window.innerHeight} // for resize rerender
+    this.state = {
+      width: window.innerWidth, height: window.innerHeight, // for resize rerender
+    } 
   }
+
+ 
 
   updateDimensions = () => this.setState({width: window.innerWidth, height: window.innerHeight})
   componentWillMount = () => this.updateDimensions()
@@ -63,6 +66,9 @@ class Graph extends Component {
 
   updateChartType = (chartType) => this.props.updateChartType(chartType)
 
+  
+  
+  
   render() {
 
     if (this.props.currentKpisSelected.length === 0) {
@@ -84,19 +90,23 @@ class Graph extends Component {
         currentKpisSelected={this.props.currentKpisSelected}
       />)
 
-    } else { // if more than one KPI is selected in the side menu
+    } else { // if more than two KPI is selected in the side menu
       plot = (<RadarGraph
         chartSize={chartSize}
         currentKpisSelected={this.props.currentKpisSelected}
         rKpis={this.props.rKpis} 
         cKpiSet={this.props.current_cKpiSet}
         kpis={this.props.kpis}
+        fromDateTime={this.props.currentSelectedFromDateTime}
+        toDateTime={this.props.currentSelectedToDateTime}
       />)
-
    }
 
     return (
       <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
+        <div className={styles.timeDatePicker}>
+          <TimeDateSelection />
+        </div>
         {plot}
         {this.props.currentKpisSelected.length > 2 && (<div className={styles.chartTypeDropDown}>
           <Dropdown
@@ -107,9 +117,10 @@ class Graph extends Component {
           />
         </div>)}
       </div>
-
     )
   }
 }
 
+
 export default connect(mapStateToProps, mapDispatchToProps)(Graph)
+

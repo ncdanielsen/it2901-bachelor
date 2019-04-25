@@ -7,10 +7,10 @@ import { get } from 'lodash'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 
 
-function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
+function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime) {
   let data = []
-  let to = 50
-  let from = 0
+  let to = toDateTime
+  let from = fromDateTime
  
   // filters through currently selected KPIs and adds a json object for each KPI to the data list
   Object.keys(kpis).filter(kpi => currentKpisSelected.includes(kpis[kpi].name))
@@ -35,12 +35,14 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
-    // check to see if calculated KPI data are available for current KPI
+    // check to see if calculated KPI data are available for currently selected KPI and datetime
     if (kpi.length !== 0) { 
       let list_values = []  
       kpi[0].data.filter(value => value.time >= from && value.time <= to)
                  .forEach(value => list_values.push(value.value))
-      data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+      if (list_values.length !== 0) {
+        data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+      }
       
     } else {
       data[i].cKPIvalue = 0
@@ -76,7 +78,8 @@ export default class RadarGraph extends Component {
 
   render() {
     
-    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected)
+    console.log(this.props.fromDateTime.format())
+    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
 
     return (
         
