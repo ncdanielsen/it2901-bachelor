@@ -1,36 +1,38 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import styles from './MainView.module.css'
+import styles from "./MainView.module.css";
 
-import { Route, Switch } from 'react-router' // react-router v4
+import { Route, Switch } from "react-router"; // react-router v4
 
-import { getrKpiDataEnergy, getcKpiDataEnergy } from '../../actions/serverReducerActions'
+import {
+  getrKpiDataEnergy,
+  getcKpiDataEnergy
+} from "../../actions/serverReducerActions";
 
-import SideMenu from './SideMenu'
-import Graph from './Graph'
+import SideMenu from "./SideMenu";
+import Graph from "./Graph";
 
-import RefData from './RefData'
-import MyData from './MyData'
+import RefData from "./RefData";
+import MyData from "./MyData";
 
 function mapStateToProps(state) {
   return {
     showSideMenu: state.uiReducer.showSideMenu
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getrKpiDataEnergy: () => dispatch(getrKpiDataEnergy()),
     getcKpiDataEnergy: () => dispatch(getcKpiDataEnergy())
-  }
+  };
 }
 
 class MainView extends Component {
-
   componentWillMount() {
-    this.props.getrKpiDataEnergy()
-    this.props.getcKpiDataEnergy()
+    this.props.getrKpiDataEnergy();
+    this.props.getcKpiDataEnergy();
   }
 
   render() {
@@ -44,11 +46,14 @@ class MainView extends Component {
           <Route exact path="/home" component={Graph} />
           <Route exact path="/home/refData" component={RefData} />
           <Route exact path="/home/myData" component={MyData} />
-          <Route render={() => (<div>Unknown route</div>)} />
+          <Route render={() => <div>Unknown route</div>} />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainView);

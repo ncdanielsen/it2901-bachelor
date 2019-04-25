@@ -3,7 +3,7 @@
   padding-bottom: 15px;
   padding-left: 10%;
   padding-right: 10%;
-  width: calc(80% - 2px + 2px); /* +2px for border drawing in corners*/
+  width: calc(80% + 2px); /* +2px for border drawing in corners*/
   /*border-bottom: 2px solid rgb(200, 200, 200);*/
   background: white;
   pointer-events: all;
@@ -15,12 +15,11 @@
   padding-bottom: 10px;
   padding-left: 10%;
   padding-right: 10%;
-  width: calc(80% - 2px + 2px); /* +2px for border drawing in corners*/
+  width: calc(80% + 2px); /* +2px for border drawing in corners*/
   background: white;
   pointer-events: all;
   cursor: pointer;
 }
-
 
 .Button:hover {
   background: rgba(128, 128, 128, 0.2);

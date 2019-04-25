@@ -1,4 +1,3 @@
-
 .chartTypeDropdown {
   border: 1px solid rgb(74, 149, 255);
   border-radius: 5px;
@@ -30,6 +29,6 @@
 }
 
 .activeOption {
-  background: #57A7ED !important;
+  background: #57a7ed !important;
   color: white;
 }

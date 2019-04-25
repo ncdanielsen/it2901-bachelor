@@ -1,8 +1,6 @@
-//import React from "react"; // get the React object from the react module
-
 import React, { Component } from "react";
 import styles from "./About.module.css";
-//import About from "./About";
+//Might want to add contact info at some point.
 
 class About extends Component {
   render() {
@@ -12,10 +10,12 @@ class About extends Component {
           <h1>ABOUT</h1>
           <div>
             <p>
-              This is a placeholder for the about page. This page will contain brief information of the ZEN project, purpose and stakeholders.
+              This is a placeholder for the about page. This page will contain
+              brief information of the ZEN project, purpose and stakeholders.
             </p>
             <p>
-              <strong>Credits:</strong> Might want to include credits (the team members, as well as advisors)
+              <strong>Credits:</strong> Might want to include credits (the team
+              members, as well as advisors)
             </p>
             <h5>
               <strong>
