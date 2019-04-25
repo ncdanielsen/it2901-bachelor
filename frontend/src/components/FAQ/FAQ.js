@@ -68,7 +68,7 @@ class Faq extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 

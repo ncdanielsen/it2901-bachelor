@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
-import { updateChartType } from "../../actions/uiReducerActions";
+import { updateChartType } from "../../actions/uiReducerActions"
 
-import LineGraph from "./LineGraph.js";
-import RadarGraph from "./RadarGraph.js";
-import Dropdown from "./Dropdown.js";
+import LineGraph from "./LineGraph.js"
+import RadarGraph from "./RadarGraph.js"
+import Dropdown from "./Dropdown.js"
 
-import styles from "./Graph.module.css";
+import styles from "./Graph.module.css"
 
-import { get } from "lodash";
+import { get } from "lodash"
 
 function mapStateToProps(state) {
   const currentKpisSelected = state.serverReducer.currentKpisSelected;
-  let rKpis = {};
+  let rKpis = {}
   currentKpisSelected.forEach(kpiSelected => {
     const current_rKpiSetIndex = state.serverReducer.rKpiSets.findIndex(
       rKpiSet => rKpiSet.name === state.serverReducer.current_rKpiName
@@ -24,10 +24,10 @@ function mapStateToProps(state) {
         : state.serverReducer.rKpiSets[current_rKpiSetIndex];
     get(current_rKpiSet, "values", []).forEach(rKpi => {
       if (rKpi.name === kpiSelected) {
-        rKpis[kpiSelected] = rKpi.value;
+        rKpis[kpiSelected] = rKpi.value
       }
-    });
-  });
+    })
+  })
 
   const current_cKpiSetIndex = state.serverReducer.cKpiSets.findIndex(
     cKpiSet => cKpiSet.name === state.serverReducer.current_cKpiName
@@ -44,7 +44,7 @@ function mapStateToProps(state) {
     current_cKpiSet,
     rKpis,
     showSideMenu: state.uiReducer.showSideMenu
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -62,18 +62,18 @@ function mapDispatchToProps(dispatch) {
 class Graph extends Component {
   constructor(props) {
     super(props);
-    this.state = { width: window.innerWidth, height: window.innerHeight }; // for resize rerender
+    this.state = { width: window.innerWidth, height: window.innerHeight } // for resize rerender
   }
 
   updateDimensions = () =>
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  componentWillMount = () => this.updateDimensions();
+    this.setState({ width: window.innerWidth, height: window.innerHeight })
+  componentWillMount = () => this.updateDimensions()
   componentDidMount = () =>
-    window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener("resize", this.updateDimensions)
   componentWillUnmount = () =>
-    window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener("resize", this.updateDimensions)
 
-  updateChartType = chartType => this.props.updateChartType(chartType);
+  updateChartType = chartType => this.props.updateChartType(chartType)
 
   render() {
     if (this.props.currentKpisSelected.length === 0) {
