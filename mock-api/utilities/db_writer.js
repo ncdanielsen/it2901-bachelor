@@ -61,6 +61,27 @@ function writeNewKPI(entry) {
     write_to_DB("RKPI_TEST", [entry])
 }
 
+function updateCKPI(entry) { 
+    let db = client.db(db_name);
+
+    db.collection("CKPI_TEST").updateOne({_id: entry._id}, entry, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+      });
+}
+
+function updateRKPI(entry) { 
+    let db = client.db(db_name);
+
+    db.collection("CKPI_TEST").updateOne({_id: entry._id}, entry, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+      });
+}
+
+
 function write_demo_ckpi() {
     write_to_DB("CKPI_TEST", DEMOCKPI)
 }
@@ -191,5 +212,7 @@ if (require.main === module) {
 }
 
 
-module.exports.writeNewKPI = writeNewKPI
+module.exports.writeNewKPI = writeNewKPI;
+module.exports.updateRKPI = updateRKPI;
+module.exports.updateCKPI = updateCKPI; 
 
