@@ -39,17 +39,29 @@ export default function serverReducer(state = initialState, action) {
       return {...state, rKpiSets: action.payload}
     case types.GET_R_KPI_SETS_FAILURE:
       return state
+    case types.SAVE_UPDATED_C_KPI_SET_STARTED: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_C_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
+      return state
+    case types.SAVE_UPDATED_C_KPI_SET_FAILURE: // will be useful for showing spinning wheel
+      return state
+    case types.GET_C_KPI_SETS_STARTED:
+      return state
+    case types.GET_C_KPI_SETS_SUCCESS:
+      return {...state, rKpiSets: action.payload}
+    case types.GET_C_KPI_SETS_FAILURE:
+      return state
 
-    case types.GET_rKPI_DATA:
+    case types.GET_R_KPI_DATA:
       return {...state, rKpiSets: action.payload}
 
-    case types.GET_cKPI_DATA:
+    case types.GET_C_KPI_DATA:
       return {...state, cKpiSets: action.payload}
 
-    case types.UPDATE_CURRENT_rKPI_NAME:
+    case types.UPDATE_CURRENT_R_KPI_NAME:
       return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}
 
-    case types.UPDATE_CURRENT_cKPI_NAME:
+    case types.UPDATE_CURRENT_C_KPI_NAME:
       return {...state, current_cKpiName: (action.payload.name === state.current_cKpiName ? "" : action.payload.name)}
 
     case types.UPDATE_KPI_IS_SELECTED:
@@ -78,7 +90,7 @@ export default function serverReducer(state = initialState, action) {
       }
       newState.multiSelect = action.payload.multiSelect
       return newState
-      
+
     default:
       return state
   }
