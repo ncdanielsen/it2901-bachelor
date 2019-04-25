@@ -24,7 +24,6 @@ router.get('/', function(req, res, next) {
   });
 
 router.post("/rkpi", upload.single("file"), async function(req, res, next){
-    //TO-DO: Change "owner" from string to the id of the user who uploaded it.
     const fileRows = [];
     csv.fromPath(req.file.path)
             .on("data", async function(data) {
@@ -36,18 +35,18 @@ router.post("/rkpi", upload.single("file"), async function(req, res, next){
             })
     await sleep(1000);
     
-    let verdi = await check_format(fileRows);
+    let correctFormat = await check_format(fileRows);
     
     await sleep(1000);
 
-    if(verdi == true){
+    if(correctFormat == true){
         const rkpi = new rkpi_model({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             created: new Date(),
             last_updated: new Date(),
             access_type: req.body.access_type,
-            owner: req.body.owner,
+            owner: req.userData.ID,
             description: req.body.description,
             values: fileRows
         });
