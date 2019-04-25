@@ -1,14 +1,23 @@
 context("Header Tests", () =>{
-    describe("Test About", function() {
+
+    describe("Test FAQ", function() {
     
         beforeEach(function() {
             cy.visit("http://localhost:3000/home/")
         })
     
-        it("Expect true=true", function(){
-            expect(true).to.equal(true)
+        it("Click about, expects change in URL", function(){
+            cy.get("div").contains("FAQ").click()
+            cy.url().should("include", "/Faq")
             
+        })
     
+    })
+
+    describe("Test About", function() {
+    
+        beforeEach(function() {
+            cy.visit("http://localhost:3000/home/")
         })
     
         it("Click about, expects change in URL", function(){

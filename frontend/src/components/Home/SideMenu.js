@@ -86,7 +86,7 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <div className={styles.SideMenuContainer}>
+      <div id="SideBar" className={styles.SideMenuContainer}>
         {console.log(this.props.currentPathEnd)}
         {console.log(this.props.currentPath)}
         {console.log(this.props.isKPIDataPath)}
@@ -139,7 +139,7 @@ class SideMenu extends Component {
             </div>
           </div>
         }
-
+      
       </div>
     )
   }
