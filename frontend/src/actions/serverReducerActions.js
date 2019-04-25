@@ -25,8 +25,45 @@ const getKpiListSuccess = data => ({type: types.GET_KPI_LIST_SUCCESS, payload: {
 const getKpiListFailure = error => ({type: types.GET_KPI_LIST_FAILURE, payload: {error}})
 
 
-export const getrKpiDataEnergy = () => ({type: types.GET_R_KPI_DATA, payload: mock_rkpi_data})
-export const getcKpiDataEnergy = () => ({type: types.GET_C_KPI_DATA, payload: mock_ckpi_data})
+export const getrKpiDataEnergy = () => {
+  return dispatch => {
+    dispatch(getrKpiDataEnergyStarted())
+    axios
+      .get("http://localhost:4000/rkpi")
+      .then(res => {
+        dispatch(getrKpiDataEnergySuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(getrKpiDataEnergyFailure(err.message))
+      })
+  }
+}
+
+export const getrKpiDataEnergyStarted = () => ({type: types.GET_R_KPI_DATA_STARTED})
+export const getrKpiDataEnergySuccess = data => ({type: types.GET_R_KPI_DATA_SUCCESS, payload: data})
+export const getrKpiDataEnergyFailure = error => ({type: types.GET_R_KPI_DATA_FAILURE, payload: {error}})
+
+
+
+export const getcKpiDataEnergy = () => {
+  return dispatch => {
+    dispatch(getcKpiDataEnergyStarted())
+    axios
+      .get("http://localhost:4000/ckpi")
+      .then(res => {
+        dispatch(getcKpiDataEnergySuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(getcKpiDataEnergyFailure(err.message))
+      })
+  }
+}
+
+export const getcKpiDataEnergyStarted = () => ({type: types.GET_C_KPI_DATA_STARTED})
+export const getcKpiDataEnergySuccess = data => ({type: types.GET_C_KPI_DATA_SUCCESS, payload: data})
+export const getcKpiDataEnergyFailure = error => ({type: types.GET_C_KPI_DATA_FAILURE, payload: {error}})
+
+
 
 export const updateCurrent_rKpiName = (name) => ({type: types.UPDATE_CURRENT_R_KPI_NAME, payload: {name}})
 export const updateCurrent_cKpiName = (name) => ({type: types.UPDATE_CURRENT_C_KPI_NAME, payload: {name}})

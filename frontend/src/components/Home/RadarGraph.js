@@ -11,11 +11,10 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
   let data = []
   let to = 50
   let from = 0
- 
+
   // filters through currently selected KPIs and adds a json object for each KPI to the data list
   Object.keys(kpis).filter(kpi => currentKpisSelected.includes(kpis[kpi].name))
                    .forEach(kpi => data.push({name: kpis[kpi].name, cKPIvalue: 0, rKPIvalue: 0, fullMark: 0}))
-  
 
   // for each selected KPI add reference KPI data, fullmark and calculated KPI data if available
   for (let i = 0; i < data.length; i++) {
@@ -24,24 +23,25 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
     if (rKpis[data[i].name] === undefined) {
       data[i].rKPIvalue = 0
     } else {
-      data[i].rKPIvalue = rKpis[data[i].name] 
+      data[i].rKPIvalue = rKpis[data[i].name]
     }
-    
-    data[i].fullMark = 8000 
 
-    
+    data[i].fullMark = 8000
+
+
     //console.log(get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
     // check to see if calculated KPI data are available for current KPI
-    if (kpi.length !== 0) { 
-      let list_values = []  
-      kpi[0].data.filter(value => value.time >= from && value.time <= to)
+    if (kpi.length !== 0) {
+      let list_values = []
+      console.log("kpi", kpi);
+      get(kpi, '[0].data', []).filter(value => value.time >= from && value.time <= to)
                  .forEach(value => list_values.push(value.value))
-      data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
-      
+      data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length)
+
     } else {
       data[i].cKPIvalue = 0
     }
@@ -51,7 +51,7 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
   // {name, cKPIvalue, rKPIvalue, fullMark}
   // cKPIvalue must be aggregated from time series data
   // refverdi må alltid være større enn fullmark
-
+  console.log("data!!!!!!", data);
   return data
 }
 
@@ -64,22 +64,22 @@ export default class RadarGraph extends Component {
 
   /*
     currentKpisSelected={this.props.currentKpisSelected}
-    rKpis={this.props.rKpis} 
+    rKpis={this.props.rKpis}
     cKpiSet={this.props.current_cKpiSet}
     kpis={this.props.kpis}
-  */ 
+  */
 
   // data --> must containt label(kpi-metadata), rKPI-value and cKPI-value
   // {name, score, full, data: []}
 
-  
+
 
   render() {
-    
+
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected)
 
     return (
-        
+
         <div>
             <RadarChart
               cx={this.props.chartSize*0.5*1.2}
@@ -93,7 +93,7 @@ export default class RadarGraph extends Component {
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
                 <Radar name="Calculated KPI" dataKey="cKPIvalue" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="red" fill="#82ca9d" fillOpacity={0.0} />  
+                <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="red" fill="#82ca9d" fillOpacity={0.0} />
                 <Tooltip />
                 <Legend />
             </RadarChart>

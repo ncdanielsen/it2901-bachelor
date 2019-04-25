@@ -21,6 +21,22 @@ export default function serverReducer(state = initialState, action) {
     case types.GET_KPI_LIST_FAILURE:
       return state
 
+    case  types.GET_R_KPI_DATA_STARTED:
+      return state
+    case  types.GET_R_KPI_DATA_SUCCESS:
+      console.log("GET_R_KPI_DATA_SUCCESS", action)
+      return {...state, rKpiSets: action.payload}
+    case  types.GET_R_KPI_DATA_FAILURE:
+      return state
+
+    case  types.GET_C_KPI_DATA_STARTED:
+      return state
+    case  types.GET_C_KPI_DATA_SUCCESS:
+      console.log("GET_C_KPI_DATA_SUCCESS", action)
+      return {...state, cKpiSets: action.payload}
+    case  types.GET_C_KPI_DATA_FAILURE:
+      return state
+
     case types.GET_KPI_CATEGORIES_STARTED:
       return state
     case types.GET_KPI_CATEGORIES_SUCCESS:
@@ -48,15 +64,9 @@ export default function serverReducer(state = initialState, action) {
     case types.GET_C_KPI_SETS_STARTED:
       return state
     case types.GET_C_KPI_SETS_SUCCESS:
-      return {...state, rKpiSets: action.payload}
+      return {...state, cKpiSets: action.payload}
     case types.GET_C_KPI_SETS_FAILURE:
       return state
-
-    case types.GET_R_KPI_DATA:
-      return {...state, rKpiSets: action.payload}
-
-    case types.GET_C_KPI_DATA:
-      return {...state, cKpiSets: action.payload}
 
     case types.UPDATE_CURRENT_R_KPI_NAME:
       return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}

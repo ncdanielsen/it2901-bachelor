@@ -46,7 +46,7 @@ export default class LineGraph extends Component {
               {currentKpisSelected.map((currentKpiSelected, i) => {
                 const referenceLineValue = get(this.props.rKpis, '[' + currentKpiSelected + ']', "rKpiValueNotFound")
                 if (referenceLineValue === "rKpiValueNotFound") {
-                  return <div />
+                  return <div key={i} />
                 } else {
                   const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
                   const unit = kpiIndex === -1 ? "nameNotFound" : get(kpis[kpiIndex], 'unit', "nameNotFound")
