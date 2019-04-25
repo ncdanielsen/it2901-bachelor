@@ -88,7 +88,7 @@ export const getKpiCategories = () => {
   }
 }
 const getKpiCategoriesStarted = () => ({type: types.GET_KPI_CATEGORIES_STARTED})
-const getKpiCategoriesSuccess = data => ({type: types.GET_KPI_CATEGORIES_SUCCESS, payload: {...data}})
+const getKpiCategoriesSuccess = data => ({type: types.GET_KPI_CATEGORIES_SUCCESS, payload: data})
 const getKpiCategoriesFailure = error => ({type: types.GET_KPI_CATEGORIES_FAILURE, payload: {error}})
 
 
@@ -117,11 +117,11 @@ export const saveUpdated_rKpiSet = (updated_rKpiSet) => {
 }
 
 const saveUpdated_rKpiSetStarted = () => ({type: types.SAVE_UPDATED_R_KPI_SET_STARTED})
-const saveUpdated_rKpiSetSuccess = data => ({type: types.SAVE_UPDATED_R_KPI_SET_SUCCESS, payload: {...data}})
+const saveUpdated_rKpiSetSuccess = data => ({type: types.SAVE_UPDATED_R_KPI_SET_SUCCESS, payload: data})
 const saveUpdated_rKpiSetFailure = error => ({type: types.SAVE_UPDATED_R_KPI_SET_FAILURE, payload: {error}})
 
 const get_rKpiSetsStarted = () => ({type: types.GET_R_KPI_SETS_STARTED})
-const get_rKpiSetsSuccess = data => ({type: types.GET_R_KPI_SETS_SUCCESS, payload: {...data}})
+const get_rKpiSetsSuccess = data => ({type: types.GET_R_KPI_SETS_SUCCESS, payload: data})
 const get_rKpiSetsFailure = error => ({type: types.GET_R_KPI_SETS_FAILURE, payload: {error}})
 
 
@@ -153,9 +153,9 @@ export const saveUpdated_cKpiSet = (updated_cKpiSet) => {
 }
 
 const saveUpdated_cKpiSetStarted = () => ({type: types.SAVE_UPDATED_C_KPI_SET_STARTED})
-const saveUpdated_cKpiSetSuccess = data => ({type: types.SAVE_UPDATED_C_KPI_SET_SUCCESS, payload: {...data}})
+const saveUpdated_cKpiSetSuccess = data => ({type: types.SAVE_UPDATED_C_KPI_SET_SUCCESS, payload: data})
 const saveUpdated_cKpiSetFailure = error => ({type: types.SAVE_UPDATED_C_KPI_SET_FAILURE, payload: {error}})
 
 const get_cKpiSetsStarted = () => ({type: types.GET_C_KPI_SETS_STARTED})
-const get_cKpiSetsSuccess = data => ({type: types.GET_C_KPI_SETS_SUCCESS, payload: {...data}})
+const get_cKpiSetsSuccess = data => ({type: types.GET_C_KPI_SETS_SUCCESS, payload: data})
 const get_cKpiSetsFailure = error => ({type: types.GET_C_KPI_SETS_FAILURE, payload: {error}})
