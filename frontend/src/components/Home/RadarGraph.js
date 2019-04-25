@@ -9,7 +9,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'r
 
 function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
   let data = []
-  let to = 50
+  let to = 2451602800//50
   let from = 0
 
   // filters through currently selected KPIs and adds a json object for each KPI to the data list

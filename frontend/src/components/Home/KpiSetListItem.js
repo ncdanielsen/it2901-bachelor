@@ -19,7 +19,7 @@ const NameAndDates = ({kpiSetName, dateCreated, dateLastUpdated}) => (
   </div>
 )
 
-const Building = ({buildingName, viewBuildingDetails}) => (
+/*const Building = ({buildingName, viewBuildingDetails}) => (
   <div className={styles.kpiSection}>
     <div className={styles.kpiNameLabel}>Building</div>
     <div className={styles.kpiName}>{buildingName}</div>
@@ -27,7 +27,7 @@ const Building = ({buildingName, viewBuildingDetails}) => (
       View Details
     </div>
   </div>
-)
+)*/
 
 const DataOwner = ({owner}) => (
   <div className={styles.kpiSection}>

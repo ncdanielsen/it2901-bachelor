@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as types from "../actionTypes/serverReducerTypes"
-import { mock_rkpi_data } from "../data/mock_rkpi_data"
-import { mock_ckpi_data } from "../data/mock_ckpi_data"
+//import { mock_rkpi_data } from "../data/mock_rkpi_data"
+//import { mock_ckpi_data } from "../data/mock_ckpi_data"
 
 export const getKpiList = () => {
   return dispatch => {
