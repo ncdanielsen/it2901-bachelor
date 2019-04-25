@@ -77,11 +77,34 @@ const data = () => {
 }
 
 module.exports = [
-  {name: "Energy need", data: data()},
-  {name: "Energy use", data: data()},
-  {name: "Energy generation", data: data()},
-  {name: "Delivered energy", data: data()},
-  {name: "Exported energy", data: data()},
-  {name: "Self consumption", data: data()},
-  {name: "Self generation", data: data()}
+	{
+	 name: "My name for the data set",
+	 description: "Some description",
+	 created: Math.ceil((new Date()).getTime()/1000),
+	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+	 values: [
+	   {name: "Energy need", data: data()},
+	   {name: "Energy use", data: data()},
+	   {name: "Energy generation", data: data()},
+	   {name: "Delivered energy", data: data()},
+	   {name: "Exported energy", data: data()},
+	   {name: "Self consumption", data: data()},
+	   {name: "Self generation", data: data()},
+	 ]
+	},
+	{
+	 name: "And this is the second one",
+	 description: "Some description 2",
+	 created: Math.ceil((new Date()).getTime()/1000),
+	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+	 values: [
+	   {name: "Energy need", score: 120, full: 150, data: data()},
+	   {name: "Energy use", score: 98, full: 150, data: data()},
+	   /*{name: "Energy generation", score: 86, full: 150, data: data()},*/
+	   {name: "Delivered energy", score: 99, full: 150, data: data()},
+	   {name: "Exported energy", score: 85, full: 150, data: data()},
+	   {name: "Self consumption", score: 65, full: 150, data: data()},
+	   {name: "Self generation", score: 25, full: 150, data: data()},
+	 ]
+	}
 ]
