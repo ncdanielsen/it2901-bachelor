@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const KPI_Retreiver = require('../utilities/kpi_retriever');
 const retriever = new KPI_Retreiver();
-const kpiAdder = require("../utilities/rkpi_updater");
+const kpiAdder = require("../utilities/ckpi_updater");
 const adder = new kpiAdder();
 
 const validate = (jsonData) => {
-  if (jsonData.hasOwnProperty("name") && jsonData.hasOwnProperty("values")) {
+  if (jsonData.hasOwnProperty("name") && jsonData.hasOwnProperty("description")) {
     return true
   }
   return false

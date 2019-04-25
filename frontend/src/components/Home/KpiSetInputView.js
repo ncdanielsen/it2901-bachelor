@@ -10,7 +10,7 @@ import {
   update_cKpiInputValue,
   insertNew_cKpiValues
 } from '../../actions/uiReducerActions'
-//import { saveUpdated_rKpiSet, saveUpdated_cKpiSet } from '../../actions/serverReducerActions' // uncomment when server is ready
+import { saveUpdated_rKpiSet, saveUpdated_cKpiSet } from '../../actions/serverReducerActions' // uncomment when server is ready
 
 import { get } from 'lodash'
 
@@ -102,15 +102,21 @@ function mapDispatchToProps(dispatch) {
     setEmtpy_cKpi: () => dispatch(setEmtpy_cKpi()),
     updateCurrentInputViewMyData: currentInputView => dispatch(updateCurrentInputViewMyData(currentInputView)),
     updateCurrentInputViewRefData: currentInputView => dispatch(updateCurrentInputViewRefData(currentInputView)),
-    createNew_rKpiSet: (new_rKpiSet) => console.log("new_rKpiSet", new_rKpiSet),
-    createNew_cKpiSet: (new_cKpiSet) => console.log("new_cKpiSet", new_cKpiSet),
+    createNew_rKpiSet: (new_rKpiSet) => {
+      console.log("new_rKpiSet", new_rKpiSet)
+      dispatch(saveUpdated_rKpiSet(new_rKpiSet))
+    },
+    createNew_cKpiSet: (new_cKpiSet) => {
+      console.log("new_cKpiSet", new_cKpiSet)
+      dispatch(saveUpdated_cKpiSet(new_cKpiSet))
+    },
     saveUpdated_rKpiSet: (updated_rKpiSet) => {
-      //dispatch(saveUpdated_rKpiSet(updated_rKpiSet)) // uncomment when server is ready
       console.log("saveUpdated_rKpiSet", updated_rKpiSet)
+      dispatch(saveUpdated_rKpiSet(updated_rKpiSet))
     },
     saveUpdated_cKpiSet: (updated_cKpiSet) => {
-      //dispatch(saveUpdated_cKpiSet(updated_cKpiSet)) // uncomment when server is ready
       console.log("saveUpdated_cKpiSet", updated_cKpiSet)
+      dispatch(saveUpdated_cKpiSet(updated_cKpiSet))
     },
     insertNew_cKpiValues: values => dispatch(insertNew_cKpiValues(values))
   }

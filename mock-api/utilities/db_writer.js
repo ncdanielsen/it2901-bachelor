@@ -57,8 +57,12 @@ function write_to_DB(collection, json_data) {
     })
 }
 
-function writeNewKPI(entry) {
+function writeNewRKPI(entry) {
     write_to_DB("RKPI_TEST", [entry])
+}
+
+function writeNewCKPI(entry) {
+    write_to_DB("CKPI_TEST", [entry])
 }
 
 function write_demo_ckpi() {
@@ -191,5 +195,5 @@ if (require.main === module) {
 }
 
 
-module.exports.writeNewKPI = writeNewKPI
-
+module.exports.writeNewRKPI = writeNewRKPI
+module.exports.writeNewCKPI = writeNewCKPI
