@@ -18,6 +18,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const config = require('../config.json');
 
+
 // Connection URL etc
 const url = config.DATABASE_URL;
 const db_name = config.DATABASE_NAME;
@@ -25,6 +26,8 @@ const db_name = config.DATABASE_NAME;
 const KPI_LIST = require('../mock-data/kpi-list.json');
 const BUILDING_KPIS = require("../mock-data/buildingkpi.json")
 const NEIGHBOURHOOD_KPIS = require("../mock-data/neighbourhoodkpi.json")
+const DEMOCKPI = require("../mock-data/mock_ckpi_data")
+const DEMORKPI = require("../mock-data/mock_rkpi_data")
 
 /*
     Sending data to database:
@@ -39,6 +42,7 @@ const NEIGHBOURHOOD_KPIS = require("../mock-data/neighbourhoodkpi.json")
     NOTE: This does NOT prevent duplicates! Inserting 10 documents 3 times will give 30 documents. Use the mongo client
     in your terminal to wipe any collections before re-inserting data.
  */
+
 function write_to_DB(collection, json_data) {
     MongoClient.connect(url, function(err, client){
         //assert.equal(null, err);
@@ -51,6 +55,18 @@ function write_to_DB(collection, json_data) {
             client.close();
         });
     })
+}
+
+function writeNewKPI(entry) {
+    write_to_DB("RKPI_TEST", [entry])
+}
+
+function write_demo_ckpi() {
+    write_to_DB("CKPI_TEST", DEMOCKPI)
+}
+
+function write_demo_rkpi() {
+    write_to_DB("RKPI_TEST", DEMORKPI)
 }
 
 function write_kpi_list(){
@@ -161,14 +177,19 @@ function clearAll() {
     });
 }
 
-const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs];
-let i = 0;
-function timeout() {
-    setTimeout(function () {
-        functions[i]();
-        i++;
-        i < functions.length && timeout();
-    }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+if (require.main === module) {
+        const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi];
+    let i = 0;
+    function timeout() {
+        setTimeout(function () {
+            functions[i]();
+            i++;
+            i < functions.length && timeout();
+        }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+    }
+    timeout();
 }
-timeout();
+
+
+module.exports.writeNewKPI = writeNewKPI
 
