@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { get } from 'lodash'
+
 import { updateCurrent_cKpiName } from '../../actions/serverReducerActions'
 import {
   setEmtpy_cKpi,
@@ -65,6 +67,7 @@ class MyData extends Component {
                 isCalculatedKpi={true}
                 showOwner={false}
                 kpiSet={kpiSet}
+                description={get(kpiSet, 'description', '')}
                 editKpiSet={() => this.editKpiSet(kpiSet.name)}
                 selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
                 viewBuildingDetails={() => this.viewBuildingDetails(kpiSet.name)}
