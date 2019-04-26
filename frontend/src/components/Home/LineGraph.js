@@ -22,12 +22,16 @@ export default class LineGraph extends Component {
       const current_cKpi = current_cKpiIndex === -1 ? [] : cKpiValues[current_cKpiIndex]
       const current_cKpiData = get(current_cKpi, 'data', [])
       current_cKpiData.forEach((current_cKpiDataPoint, index) => {
-        if (i === 0) {
-          let timeAndValue = {time: current_cKpiDataPoint["time"]}
-          timeAndValue["dataKey" + i] = current_cKpiDataPoint["value"]
-          data.push(timeAndValue)
-        } else {
-          data[index]["dataKey" + i] = current_cKpiDataPoint["value"] // assumes time data indexes match
+
+        if (current_cKpiDataPoint["time"] >= this.props.fromDateTime.unix() && current_cKpiDataPoint["time"] <= this.props.toDateTime.unix()) {
+          if (i === 0) {
+            let timeAndValue = {time: current_cKpiDataPoint["time"]} // only gets time from the first selected kpi
+            timeAndValue["dataKey" + i] = current_cKpiDataPoint["value"]
+            data.push(timeAndValue)
+            console.log(data)
+          } else {
+            data[index]["dataKey" + i] = current_cKpiDataPoint["value"] // assumes time data indexes match for all KPI data from different KPIs
+          }
         }
       })
     })

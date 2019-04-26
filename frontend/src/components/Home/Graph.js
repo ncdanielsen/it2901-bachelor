@@ -88,6 +88,8 @@ class Graph extends Component {
         rKpis={this.props.rKpis}
         cKpiSet={this.props.current_cKpiSet}
         currentKpisSelected={this.props.currentKpisSelected}
+        fromDateTime={this.props.currentSelectedFromDateTime}
+        toDateTime={this.props.currentSelectedToDateTime}
       />)
 
     } else { // if more than two KPI is selected in the side menu

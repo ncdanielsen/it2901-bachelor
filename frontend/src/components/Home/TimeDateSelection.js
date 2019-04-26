@@ -33,7 +33,7 @@ class TimeDateSelection extends Component {
 
     render() {
 
-        console.log(this.props.currentSelectedFromDateTime.unix())
+        //console.log(this.props.currentSelectedFromDateTime.unix())
 
         return (
             <div className={styles.timeDatePicker}>

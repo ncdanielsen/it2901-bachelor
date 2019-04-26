@@ -9,14 +9,14 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'r
 
 function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime) {
   let data = []
-  let to = toDateTime
-  let from = fromDateTime
+  // need unix time here since time is stored as unix in the database
+  let to = toDateTime.unix()
+  let from = fromDateTime.unix()
  
   // filters through currently selected KPIs and adds a json object for each KPI to the data list
   Object.keys(kpis).filter(kpi => currentKpisSelected.includes(kpis[kpi].name))
                    .forEach(kpi => data.push({name: kpis[kpi].name, cKPIvalue: 0, rKPIvalue: 0, fullMark: 0}))
   
-
   // for each selected KPI add reference KPI data, fullmark and calculated KPI data if available
   for (let i = 0; i < data.length; i++) {
 
@@ -42,6 +42,7 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
                  .forEach(value => list_values.push(value.value))
       if (list_values.length !== 0) {
         data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+        console.log(data[i].cKPIvalue)
       }
       
     } else {
@@ -78,7 +79,7 @@ export default class RadarGraph extends Component {
 
   render() {
     
-    console.log(this.props.fromDateTime.format())
+    console.log(this.props.fromDateTime.unix())
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
 
     return (
