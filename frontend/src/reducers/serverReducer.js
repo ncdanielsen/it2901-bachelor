@@ -1,7 +1,12 @@
 import * as types from '../actionTypes/serverReducerTypes'
 
+import axios from 'axios'
+
+import { get } from 'lodash'
+
 const initialState = {
   isLoggedIn: false,
+  token: "",
   kpis: [],
   kpiCategories: [],
   rKpiSets: [],
@@ -15,8 +20,36 @@ const initialState = {
 
 export default function serverReducer(state = initialState, action) {
   switch (action.type) {
+    //case types.LOGIN_SUCCESS:
+      //return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
+
+    case types.LOGIN_STARTED:
+      console.log("LOGIN_STARTED", action)
+      return state
     case types.LOGIN_SUCCESS:
-      return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
+      console.log("LOGIN_SUCCESS", action)
+      const token = get(action, 'payload.token', "")
+      axios.defaults.headers.common['Authorization'] = "Bearer " + token
+      return {...state, isLoggedIn: true, token}
+    case types.LOGIN_FAILURE:
+      console.log("LOGIN_FAILURE", action)
+      return state
+
+
+
+    case types.CREATE_USER_STARTED:
+      console.log("CREATE_USER_STARTED", action)
+      return state
+    case types.CREATE_USER_SUCCESS:
+      console.log("CREATE_USER_SUCCESS", action)
+      return state
+    case types.CREATE_USER_FAILURE:
+      console.log("CREATE_USER_FAILURE", action)
+      return state
+
+    case types.LOGOUT:
+      return {...state, isLoggedIn: false, token: ""}
+
     case types.GET_KPI_LIST_STARTED:
       return state
     case types.GET_KPI_LIST_SUCCESS:

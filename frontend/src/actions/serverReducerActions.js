@@ -1,26 +1,54 @@
 import axios from 'axios'
 import * as types from "../actionTypes/serverReducerTypes"
 
+import { push } from "connected-react-router"
 
-
-export const login = (username, password) => {
-  return {type: types.LOGIN_SUCCESS} // temporary, change later
-  /*return dispatch => {
-    dispatch(getKpiListStarted())
+export const login = (email, password) => {
+  return dispatch => {
+    dispatch(loginStarted())
     axios
-      .post("http://localhost:4000/login", {username, password})
+      .post("http://localhost:4000/users/login", {email, password})
       .then(res => {
-        dispatch(getKpiListSuccess(res.data))
+        dispatch(loginSuccess(res.data))
+        dispatch(push("/"))
       })
       .catch(err => {
-        dispatch(getKpiListFailure(err.message))
+        dispatch(loginFailure(err.message))
       })
-  }*/
+  }
 }
 
 const loginStarted = () => ({type: types.LOGIN_STARTED})
 const loginSuccess = data => ({type: types.LOGIN_SUCCESS, payload: data})
 const loginFailure = error => ({type: types.LOGIN_FAILURE, payload: {error}})
+
+
+export const createUser = (email, password) => {
+  return dispatch => {
+    dispatch(createUserStarted())
+    axios
+      .post("http://localhost:4000/users/signup", {email, password})
+      .then(res => {
+        dispatch(createUserSuccess(res.data))
+        dispatch(login(email, password))
+      })
+      .catch(err => {
+        dispatch(createUserFailure(err.message))
+      })
+  }
+}
+
+const createUserStarted = () => ({type: types.CREATE_USER_STARTED})
+const createUserSuccess = data => ({type: types.CREATE_USER_SUCCESS, payload: data})
+const createUserFailure = error => ({type: types.CREATE_USER_FAILURE, payload: {error}})
+
+
+export const logout = (email, password) => {
+  return dispatch => {
+    dispatch({type: types.LOGOUT})
+    dispatch(push("/"))
+  }
+}
 
 
 export const getKpiList = () => {

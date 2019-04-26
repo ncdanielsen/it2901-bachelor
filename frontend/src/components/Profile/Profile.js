@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import { push } from "connected-react-router"
-import { login } from '../../actions/serverReducerActions'
+import { logout } from '../../actions/serverReducerActions'
 
 import styles from './Profile.module.css'
 
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(login("", "")),// NB NB should add dedicated logout
+    logout: () => dispatch(logout()),
     push: newUrl => dispatch(push(newUrl))
   }
 }

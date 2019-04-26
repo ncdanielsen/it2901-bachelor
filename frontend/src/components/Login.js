@@ -3,9 +3,7 @@ import { connect } from "react-redux"
 
 import { get } from 'lodash'
 
-import { push } from "connected-react-router"
-
-import { login } from '../actions/serverReducerActions'
+import { login, createUser } from '../actions/serverReducerActions'
 
 import zenLogo from "../images/zen.png"
 import fmeLogo from "../images/fme.png"
@@ -18,8 +16,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: (username="", password="") => dispatch(login(username, password)),
-    push: newUrl => dispatch(push(newUrl))
+    login: (email, password) => dispatch(login(email, password)),
+    createUser: (email, password) => dispatch(createUser(email, password))
   }
 }
 
@@ -29,22 +27,22 @@ class Login extends Component {
     super(props)
 
     this.state = {
-      loginUsername: "",
+      loginEmail: "",
       loginPassword: "",
-      createNewUserUsername: "",
+      createNewUserEmail: "",
       createNewUserPassword: ""
     }
   }
 
   updateField = (e, fieldName) => {
     const newValue = get(e, 'target.value', "")
-    if (fieldName === "loginUsername") {
-      this.setState({loginUsername: newValue})
-    } else if (fieldName === "loginUsername") {
+    if (fieldName === "loginEmail") {
+      this.setState({loginEmail: newValue})
+    } else if (fieldName === "loginPassword") {
       this.setState({loginPassword: newValue})
-    } else if (fieldName === "loginUsername") {
-      this.setState({createNewUserUsername: newValue})
-    } else if (fieldName === "loginUsername") {
+    } else if (fieldName === "createNewUserEmail") {
+      this.setState({createNewUserEmail: newValue})
+    } else if (fieldName === "createNewUserPassword") {
       this.setState({createNewUserPassword: newValue})
     } else {
       // unknown field name
@@ -54,15 +52,12 @@ class Login extends Component {
 
   login = (e) => {
     e.preventDefault()
-    this.props.login()
-    this.props.push("/")
+    this.props.login(this.state.loginEmail, this.state.loginPassword)
   }
 
   createNewUser = (e) => {
     e.preventDefault()
-    console.log("createNewUser")
-    this.props.login() // NB NB temporary
-    this.props.push("/") // NB NB temporary
+    this.props.createUser(this.state.createNewUserEmail, this.state.createNewUserPassword)
   }
 
   render () {
@@ -77,10 +72,10 @@ class Login extends Component {
             <div className={styles.login}>
               <form id="login" onSubmit={this.login} ref="login">
                 <label>
-                  <div className={styles.label}>Username</div>
+                  <div className={styles.label}>Email</div>
                   <input
-                    onChange={(e) => this.updateField(e, "loginUsername")}
-                    id="loginUsername"
+                    onChange={(e) => this.updateField(e, "loginEmail")}
+                    id="loginEmail"
                     className={styles.formInput}
                     type="text"
                   />
@@ -109,10 +104,10 @@ class Login extends Component {
             <div className={styles.login}>
               <form onSubmit={this.createNewUser}>
                 <label>
-                  <div className={styles.label}>Username</div>
+                  <div className={styles.label}>Email</div>
                   <input
-                    onChange={(e) => this.updateField(e, "createNewUserUsername")}
-                    id="createNewUserUsername"
+                    onChange={(e) => this.updateField(e, "createNewUserEmail")}
+                    id="createNewUserEmail"
                     className={styles.formInput}
                     type="text"
                   />
