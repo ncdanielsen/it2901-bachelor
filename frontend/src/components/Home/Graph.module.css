@@ -1,6 +1,7 @@
 
 .GraphContainer {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 75%;
@@ -18,3 +19,4 @@
   top: 13%;
   right: 2.5%;
 }
+
