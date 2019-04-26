@@ -21,23 +21,31 @@ export default class LineGraph extends Component {
       const current_cKpiIndex = cKpiValues.findIndex(cKpiValue => cKpiValue.name === currentKpiSelected)
       const current_cKpi = current_cKpiIndex === -1 ? [] : cKpiValues[current_cKpiIndex]
       const current_cKpiData = get(current_cKpi, 'data', [])
-      current_cKpiData.forEach((current_cKpiDataPoint, index) => {
+      
+      let dataIndex = 0 // index for dataitems as they are added to the data list 
 
+      current_cKpiData.forEach((current_cKpiDataPoint, index) => {
+        
+        // check for data within the selected timeframe 
         if (current_cKpiDataPoint["time"] >= this.props.fromDateTime.unix() && current_cKpiDataPoint["time"] <= this.props.toDateTime.unix()) {
-          if (i === 0) {
-            let timeAndValue = {time: current_cKpiDataPoint["time"]} // only gets time from the first selected kpi
-            timeAndValue["dataKey" + i] = current_cKpiDataPoint["value"]
-            data.push(timeAndValue)
-            console.log(data)
-          } else {
-            data[index]["dataKey" + i] = current_cKpiDataPoint["value"] // assumes time data indexes match for all KPI data from different KPIs
+          
+          if (i === 0) { // only gets time from the first selected kpi, assume all KPIs have the same times
+            let timeValue = {time: current_cKpiDataPoint["time"]}
+            data.push(timeValue)
           }
+          
+          data[dataIndex]["dataKey" + i] = current_cKpiDataPoint["value"] 
+          dataIndex += 1
         }
+        
       })
     })
+    
+  
 
     return (
       <div>
+          {console.log(data)}
           <LineChart width={this.props.width} height={this.props.height} data={data}>
               <XAxis
                 allowDataOverflow
@@ -76,7 +84,7 @@ export default class LineGraph extends Component {
                 })
               }
               <Legend />
-              <Brush />
+              
           </LineChart>
       </div>
     )}
