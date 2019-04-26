@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const user_schema = require('../schemas/user_schema');
 
 module.exports = (req, res, next) => {
     try{
