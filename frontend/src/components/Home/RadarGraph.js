@@ -80,7 +80,7 @@ export default class RadarGraph extends Component {
 
     return (
         
-        <div>
+        <div id='radarGraphId'>
             <RadarChart
               cx={this.props.chartSize*0.5*1.2}
               cy={this.props.chartSize*0.5}

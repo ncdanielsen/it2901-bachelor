@@ -1,4 +1,7 @@
 context("SideMenu Tests", () =>{
+
+    //Tests currentlu dont take login into account, and assume there is data sets readily available
+
     describe("Test collapsible", function() {
     
         beforeEach(function() {
@@ -29,23 +32,28 @@ context("SideMenu Tests", () =>{
             cy.get('#SideBar > :nth-child(1)').should("be.visible")
             cy.get('#SideBar > :nth-child(1)').click()
             cy.url().should("include", "/myData")
+            cy.contains("Upload New")
         })
 
         it("Selects a source. Expects text under 'My Data source' to no longer be 'Source not selected'", function(){
-            cy.get('#SideBar > :nth-child(1)').should("be.visible")
-            //cy.get(':nth-child(1) > :nth-child(1) > .DataSource_buttonContent__4tMfg').should('contain', "Source not selected")
-            cy.get('#SideBar > :nth-child(1)').click()
-            /*
-            cy.get(':nth-child(1) > .KpiSetListItem_kpiButtonSection__2cUpu > .KpiSetListItem_kpiOptionBottom__3FBp0 > .KpiSetListItem_selectButton__afkQI')
-            .click()
-            cy.get(':nth-child(1) > :nth-child(1) > .DataSource_buttonContent__4tMfg').should('not.contain', "Source not selected")
-            */
+            //Checks that no data source is selected
+            cy.get('#selectedDataSource').should('contain', 'Source not selected')
+            
+            //Selects a data source
+            cy.contains('Source not selected').should('be.visible')
+            cy.contains('My Data Source').click()
+            cy.contains('Select').first().click()
+
+            //Checks that data source has been chosen
+            cy.get('#selectedDataSource').should('not.contain', 'Source not selected')
+           
         })
 
         it("Clicks on 'Reference Data', then checks url", function(){
             cy.get('#SideBar > :nth-child(2)').should("be.visible")
             cy.get('#SideBar > :nth-child(2)').click()
             cy.url().should("include", "/refData")
+            cy.contains("Upload New")
         })
     })
 
@@ -73,18 +81,24 @@ context("SideMenu Tests", () =>{
         })
         it("Test Single-select", function(){
             //Not working atm
-            cy.get('#selectedKpi').should('not.be.visible')
             cy.get('#SideBar > :nth-child(3)').click()
-            cy.get('#selectedKpi').should('be.visible')
-            //cy.get('.Kpi_kpiIsSelected__1uwJJ').should("not.be.visible")
-            //cy.get('.KpiCategory_categorySubBox__2WWTi > :nth-child(1)').click().should("be.visible")
-            //cy.get('.Kpi_kpiIsSelected__1uwJJ').should("be.visible")
+            cy.get('#selectedKpi').first().should('have.css', 'background-color').and('equal', "rgba(0, 0, 0, 0)")
+            cy.get('#kpiBoxes > :nth-child(1)').click()
+            cy.get('#selectedKpi').first().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
         })
         it("Test Multi-select", function(){
+            //Open Kpi Selection
             cy.get('#SideBar > :nth-child(3)').click()
+
+            //Check that none of the boxes have been selected
+            cy.get('#kpiBoxes > :nth-child(1)').should('have.css', 'background-color').and('equal', "rgba(0, 0, 0, 0)")
+            cy.get('#kpiBoxes > :nth-child(2)').should('have.css', 'background-color').and('equal', "rgba(0, 0, 0, 0)")
+            
+            //Click 'Multi-Select' and click the two first kpi-boxes. 
+            //Check that they have been selected by comparing colour. Should be #53b49b
             cy.get('#multiSelect').click()
-            
-            
+            cy.get('#kpiBoxes > :nth-child(1)').click().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
+            cy.get('#kpiBoxes > :nth-child(2)').click().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
         })
 
     })

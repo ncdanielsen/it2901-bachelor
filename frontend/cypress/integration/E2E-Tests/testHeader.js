@@ -3,10 +3,11 @@ context("Header Tests", () =>{
     describe("Test FAQ", function() {
     
         beforeEach(function() {
-            cy.visit("http://localhost:3000/home/")
+            cy.visit("http://localhost:3000/Faq/")
         })
     
         it("Click about, expects change in URL", function(){
+            cy.visit("http://localhost:3000/home/")
             cy.get("div").contains("FAQ").click()
             cy.url().should("include", "/Faq")
             
@@ -19,11 +20,16 @@ context("Header Tests", () =>{
         beforeEach(function() {
             cy.visit("http://localhost:3000/home/")
         })
-    
+
         it("Click about, expects change in URL", function(){
             cy.get("div").contains("About").click()
             cy.url().should("include", "/about")
             
+        })
+
+        it("Check About Title", function(){
+            cy.visit("http://localhost:3000/about/")
+            cy.contains("About")            
         })
     
     })
