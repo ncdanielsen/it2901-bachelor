@@ -222,12 +222,13 @@ const get_rKpiSetsFailure = error => ({type: types.GET_R_KPI_SETS_FAILURE, paylo
 export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_cKpiSetStarted())
-    axios.post("http://localhost:4000/ckpi", updated_cKpiSet)
+    axios[editExisting ? "put" : "post"]("http://localhost:4000/ckpi", updated_cKpiSet)
     .then(function (result) {
       saveUpdated_cKpiSetSuccess(result.data)
 
       dispatch(get_cKpiSetsStarted())
-      axios[editExisting ? "put" : "post"]("http://localhost:4000/ckpi")
+      axios
+        .get("http://localhost:4000/ckpi")
         .then(res => {
           dispatch(get_cKpiSetsSuccess(res.data))
         })

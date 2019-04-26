@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 
 router.post("/", function (req, res) {
   if (validate(req.body)) {
-    updater.addNewKPI(req.body)
+    updater.addNewCKPI(req.body)
     res.send("200")
   }
   else {
