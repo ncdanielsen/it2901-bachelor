@@ -1,3 +1,3 @@
-# it2901-zen
+# Bachelor project it2901-zen
 
-**Note: Current source code is the work done by the master's student Andreas Ystmark. At a later time, it can be fully replaced with our own code. ** 
+In this repo you'll find a frontend and a mock backend.
