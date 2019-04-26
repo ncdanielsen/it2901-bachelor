@@ -1,4 +1,3 @@
-
 import React, { Component } from "react"
 import styles from "./FAQ.module.css"
 
@@ -24,12 +23,24 @@ class Faq extends Component {
               <h3>What is "Reference Data"?</h3>
               <p>The Reference Data view is accessed by clicking on the "Reference Data" button in the side menu, and the functionality that it offers is two-fold. Firstly, it lets the user specify which set of KPIs is to be used for the visualisations. Secondly, given appropriate authorisation, it lets the user upload reference KPIs so that they can be shared with user-specied groups.</p>
               <br />
-              <h3>How to compare two KPIs</h3>
-              <p>heyhey</p>
-              <br />
-              <h3>Something more</h3>
-              <p>yoyoyo</p>
-              <div className={styles.paddingBottom} />
+          <h3>How to compare KPI values</h3>
+            <p>
+              To compare a KPI value to reference KPI how multiple KPI values in
+              the view, toggle "multi-select". The reference KPI(s) will
+              automatically be added, if a reference data source is chosen. Both
+              line and radar charts are available.
+            </p>
+            <br />
+            <h3>
+              I have selected a KPI to view from the side menu bars, but no data
+              shows up. What's wrong?
+            </h3>
+            <p>
+              Make sure KPI data is selected in My Data Source. No data will
+              show up if no source is selected. <br /> If a specific KPI don't
+              show up, the KPI set for source might either lack data for the
+              KPI, or something might be wrong in the formating.
+            </p>
             </div>
           </div>
         </div>
@@ -38,4 +49,4 @@ class Faq extends Component {
   }
 }
 
-export default Faq
+export default Faq;
