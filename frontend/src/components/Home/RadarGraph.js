@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 
 import { get } from 'lodash'
 
-//import styles from './RadarGraph.module.css'
-
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 
 
@@ -29,8 +27,6 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     
     data[i].fullMark = 8000 
 
-    
-    //console.log(get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
@@ -42,7 +38,6 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
                  .forEach(value => list_values.push(value.value))
       if (list_values.length !== 0) {
         data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
-        console.log(data[i].cKPIvalue)
       }
       
     } else {
@@ -50,36 +45,15 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     }
   }
 
-  //console.log(data)
-  // {name, cKPIvalue, rKPIvalue, fullMark}
-  // cKPIvalue must be aggregated from time series data
-  // refverdi må alltid være større enn fullmark
-
   return data
 }
 
 
 
-
 export default class RadarGraph extends Component {
-
-  // receives: rKpis, cKpiSet, kpis (need for labels)
-
-  /*
-    currentKpisSelected={this.props.currentKpisSelected}
-    rKpis={this.props.rKpis} 
-    cKpiSet={this.props.current_cKpiSet}
-    kpis={this.props.kpis}
-  */ 
-
-  // data --> must containt label(kpi-metadata), rKPI-value and cKPI-value
-  // {name, score, full, data: []}
-
   
-
   render() {
     
-    console.log(this.props.fromDateTime.unix())
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
 
     return (

@@ -46,7 +46,6 @@ export default class LineGraph extends Component {
 
     return (
       <div>
-          {console.log(data)}
           <LineChart width={this.props.width} height={this.props.height} data={data}>
               <XAxis
                 allowDataOverflow
