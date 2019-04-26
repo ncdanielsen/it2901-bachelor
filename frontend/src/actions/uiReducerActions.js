@@ -70,8 +70,25 @@ export function setCurrentInput_cKpi(cKpiSet) {
       cKpiSet
     }
   }
-}
+} 
 
+export function updateSelectedFromDateTime(fromDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_FROM_DATETIME,
+    payload: {
+      fromDateTime
+    }
+  }
+}    
+ 
+export function updateSelectedToDateTime(toDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_TO_DATETIME,
+    payload: {
+      toDateTime
+    }
+  }
+}  
 
 export function setEmtpy_cKpi() {
   return {

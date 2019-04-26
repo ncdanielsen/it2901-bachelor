@@ -28,13 +28,13 @@
 */
 
 const data = () => ([
-  {time: 0, value: Math.random()*2400},
-  {time: 20, value: Math.random()*1398},
-  {time: 50, value: Math.random()*9800},
-  {time: 100, value: Math.random()*3908},
-  {time: 1000, value: Math.random()*4800},
-  {time: 1110, value: Math.random()*3800},
-  {time: 1120, value: Math.random()*4300}
+  {time: 1555273560, value: Math.random()*2400},
+  {time: 1555446360, value: Math.random()*1398},
+  {time: 1555619160, value: Math.random()*9800},
+  {time: 1555791960, value: Math.random()*3908},
+  {time: 1555964760, value: Math.random()*4800},
+  {time: 1556137560, value: Math.random()*3800},
+  {time: 1556310360, value: Math.random()*4300}
 ])
 
 

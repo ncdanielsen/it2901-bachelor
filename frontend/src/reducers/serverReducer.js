@@ -1,7 +1,23 @@
 import * as types from '../actionTypes/serverReducerTypes'
 
+import { setCookie, deleteCookie, getCookie } from '../utils'
+
+import axios from 'axios'
+
+import { get } from 'lodash'
+
+
+
+const tokenFromCookie = getCookie("access_token")
+const tokenFromCookieIsSet = tokenFromCookie !== ""
+
+if (tokenFromCookieIsSet) {
+  axios.defaults.headers.common['Authorization'] = "Bearer " + tokenFromCookie
+}
+
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: tokenFromCookieIsSet,
+  userInfo: {},
   kpis: [],
   kpiCategories: [],
   rKpiSets: [],
@@ -15,8 +31,60 @@ const initialState = {
 
 export default function serverReducer(state = initialState, action) {
   switch (action.type) {
+    //case types.LOGIN_SUCCESS:
+      //return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
+
+    case types.LOGIN_STARTED:
+      console.log("LOGIN_STARTED", action)
+      return state
     case types.LOGIN_SUCCESS:
-      return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
+      console.log("LOGIN_SUCCESS", action)
+      const token = get(action, 'payload.token', "")
+      axios.defaults.headers.common['Authorization'] = "Bearer " + token
+      setCookie("access_token", token, 50)
+      return {...state, isLoggedIn: true}
+    case types.LOGIN_FAILURE:
+      console.log("LOGIN_FAILURE", action)
+      return state
+
+    case types.LOGOUT:
+      deleteCookie("access_token")
+      return {...state, isLoggedIn: false}
+
+
+    case types.GET_USER_INFO_STARTED:
+      console.log("GET_USER_INFO_STARTED", action)
+      return state
+    case types.GET_USER_INFO_SUCCESS:
+      console.log("GET_USER_INFO_SUCCESS", action)
+      return {...state, userInfo: get(action, "payload", {})}
+    case types.GET_USER_INFO_FAILURE:
+      console.log("GET_USER_INFO_FAILURE", action)
+      return state
+
+
+    /*case types.DELETE_USER_STARTED:
+      console.log("DELETE_USER_STARTED", action)
+      return state
+    case types.DELETE_USER_SUCCESS:
+      console.log("DELETE_USER_SUCCESS", action)
+      return state
+    case types.DELETE_USER_FAILURE:
+      console.log("DELETE_USER_FAILURE", action)
+      return state*/
+
+
+    case types.CREATE_USER_STARTED:
+      console.log("CREATE_USER_STARTED", action)
+      return state
+    case types.CREATE_USER_SUCCESS:
+      console.log("CREATE_USER_SUCCESS", action)
+      return state
+    case types.CREATE_USER_FAILURE:
+      console.log("CREATE_USER_FAILURE", action)
+      return state
+
+
     case types.GET_KPI_LIST_STARTED:
       return state
     case types.GET_KPI_LIST_SUCCESS:

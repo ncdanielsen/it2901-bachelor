@@ -1,26 +1,99 @@
 import axios from 'axios'
 import * as types from "../actionTypes/serverReducerTypes"
 
+import { push } from "connected-react-router"
 
 
-export const login = (username, password) => {
-  return {type: types.LOGIN_SUCCESS} // temporary, change later
-  /*return dispatch => {
-    dispatch(getKpiListStarted())
+
+export const login = (email, password) => {
+  return dispatch => {
+    dispatch(loginStarted())
     axios
-      .post("http://localhost:4000/login", {username, password})
+      .post("http://localhost:4000/users/login", {email, password})
       .then(res => {
-        dispatch(getKpiListSuccess(res.data))
+        dispatch(loginSuccess(res.data))
+        dispatch(push("/"))
       })
       .catch(err => {
-        dispatch(getKpiListFailure(err.message))
+        dispatch(loginFailure(err.message))
       })
-  }*/
+  }
 }
 
 const loginStarted = () => ({type: types.LOGIN_STARTED})
 const loginSuccess = data => ({type: types.LOGIN_SUCCESS, payload: data})
-const loginFailure = error => ({type: types.LOGIN_FAILURE, payload: {error}})
+const loginFailure = error => {
+  alert("Login failed")
+  return {type: types.LOGIN_FAILURE, payload: {error}}
+}
+
+
+export const createUser = (email, password) => {
+  return dispatch => {
+    dispatch(createUserStarted())
+    axios
+      .post("http://localhost:4000/users/signup", {email, password})
+      .then(res => {
+        dispatch(createUserSuccess(res.data))
+        dispatch(login(email, password))
+      })
+      .catch(err => {
+        dispatch(createUserFailure(err.message))
+      })
+  }
+}
+
+const createUserStarted = () => ({type: types.CREATE_USER_STARTED})
+const createUserSuccess = data => ({type: types.CREATE_USER_SUCCESS, payload: data})
+const createUserFailure = error => ({type: types.CREATE_USER_FAILURE, payload: {error}})
+
+
+export const logout = () => {
+  return dispatch => {
+    dispatch({type: types.LOGOUT})
+    dispatch(push("/"))
+  }
+}
+
+
+
+
+export const getUserInfo = () => {
+  return dispatch => {
+    dispatch(getUserInfoStarted())
+    axios
+      .get("http://localhost:4000/users/profile")
+      .then(res => {
+        dispatch(getUserInfoSuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(getUserInfoFailure(err.message))
+      })
+  }
+}
+
+const getUserInfoStarted = () => ({type: types.GET_USER_INFO_STARTED})
+const getUserInfoSuccess = data => ({type: types.GET_USER_INFO_SUCCESS, payload: data})
+const getUserInfoFailure = error => ({type: types.GET_USER_INFO_FAILURE, payload: {error}})
+
+export const deleteUser = (userId) => {
+  return dispatch => {
+    dispatch(deleteUserStarted())
+    axios
+      .delete("http://localhost:4000/users/delete/" + userId)
+      .then(res => {
+        dispatch(deleteUserSuccess(res.data))
+        dispatch(logout())
+      })
+      .catch(err => {
+        dispatch(deleteUserFailure(err.message))
+      })
+  }
+}
+
+const deleteUserStarted = () => ({type: types.DELETE_USER_STARTED})
+const deleteUserSuccess = data => ({type: types.DELETE_USER_SUCCESS, payload: data})
+const deleteUserFailure = error => ({type: types.DELETE_USER_FAILURE, payload: {error}})
 
 
 export const getKpiList = () => {
@@ -110,10 +183,10 @@ const getKpiCategoriesFailure = error => ({type: types.GET_KPI_CATEGORIES_FAILUR
 
 
 
-export const saveUpdated_rKpiSet = (updated_rKpiSet) => {
+export const saveUpdated_rKpiSet = (updated_rKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_rKpiSetStarted())
-    axios.post("http://localhost:4000/rkpi", updated_rKpiSet)
+    axios[editExisting ? "put" : "post"]("http://localhost:4000/rkpi", updated_rKpiSet)
     .then(function (result) {
       saveUpdated_rKpiSetSuccess(result.data)
 
@@ -146,7 +219,7 @@ const get_rKpiSetsFailure = error => ({type: types.GET_R_KPI_SETS_FAILURE, paylo
 
 
 
-export const saveUpdated_cKpiSet = (updated_cKpiSet) => {
+export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_cKpiSetStarted())
     axios.post("http://localhost:4000/ckpi", updated_cKpiSet)
@@ -154,8 +227,7 @@ export const saveUpdated_cKpiSet = (updated_cKpiSet) => {
       saveUpdated_cKpiSetSuccess(result.data)
 
       dispatch(get_cKpiSetsStarted())
-      axios
-        .get("http://localhost:4000/ckpi")
+      axios[editExisting ? "put" : "post"]("http://localhost:4000/ckpi")
         .then(res => {
           dispatch(get_cKpiSetsSuccess(res.data))
         })
