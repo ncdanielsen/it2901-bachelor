@@ -23,7 +23,7 @@ router.get("/", function(req, res, next) {
 
 router.post("/", function(req, res) {
   if (validate(req.body)) {
-    adder.addNewKPI(req.body);
+    adder.addNewRKPI(req.body);
     res.send("200");
   } else {
     res.send("The JSON specified has the wrong format.");

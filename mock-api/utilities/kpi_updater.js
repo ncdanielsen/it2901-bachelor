@@ -1,7 +1,11 @@
 dbWriter = require("./db_writer.js");
-class kpiAdder {
-  addNewKPI(entry) {
+class kpiUpdater {
+  addNewRKPI(entry) {
     dbWriter.writeNewRKPI(entry);
+  }
+
+  addNewCKPI(entry) { 
+    dbWriter.writeNewCKPI(entry);
   }
 
   updateRKPI(entry) {
@@ -13,4 +17,4 @@ class kpiAdder {
   }
 }
 
-module.exports = kpiAdder;
+module.exports = kpiUpdater;

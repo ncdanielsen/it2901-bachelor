@@ -63,6 +63,9 @@ function writeNewRKPI(entry) {
     write_to_DB("RKPI_TEST", [entry])
 }
 
+function writeNewCKPI(entry) {
+    write_to_DB("CKPI_TEST", [entry])
+}
 function updateCKPI(entry) {
     MongoClient.connect(url, function (err, client) {
         let db = client.db(db_name);
@@ -227,7 +230,8 @@ if (require.main === module) {
 }
 
 
-module.exports.writeNewKPI = writeNewKPI;
+module.exports.writeNewRKPI = writeNewRKPI;
+module.exports.writeNewCKPI = writeNewCKPI;
 module.exports.updateRKPI = updateRKPI;
 module.exports.updateCKPI = updateCKPI;
 
