@@ -1,6 +1,7 @@
 import * as types from '../actionTypes/serverReducerTypes'
 
 const initialState = {
+  isLoggedIn: false,
   kpis: [],
   kpiCategories: [],
   rKpiSets: [],
@@ -14,6 +15,8 @@ const initialState = {
 
 export default function serverReducer(state = initialState, action) {
   switch (action.type) {
+    case types.LOGIN_SUCCESS:
+      return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
     case types.GET_KPI_LIST_STARTED:
       return state
     case types.GET_KPI_LIST_SUCCESS:

@@ -1,7 +1,27 @@
 import axios from 'axios'
 import * as types from "../actionTypes/serverReducerTypes"
-//import { mock_rkpi_data } from "../data/mock_rkpi_data"
-//import { mock_ckpi_data } from "../data/mock_ckpi_data"
+
+
+
+export const login = (username, password) => {
+  return {type: types.LOGIN_SUCCESS} // temporary, change later
+  /*return dispatch => {
+    dispatch(getKpiListStarted())
+    axios
+      .post("http://localhost:4000/login", {username, password})
+      .then(res => {
+        dispatch(getKpiListSuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(getKpiListFailure(err.message))
+      })
+  }*/
+}
+
+const loginStarted = () => ({type: types.LOGIN_STARTED})
+const loginSuccess = data => ({type: types.LOGIN_SUCCESS, payload: data})
+const loginFailure = error => ({type: types.LOGIN_FAILURE, payload: {error}})
+
 
 export const getKpiList = () => {
   return dispatch => {
@@ -16,9 +36,6 @@ export const getKpiList = () => {
       })
   }
 }
-
-// TODO: get data from server when it is available, only mockdata in local file now
-
 
 const getKpiListStarted = () => ({type: types.GET_KPI_LIST_STARTED})
 const getKpiListSuccess = data => ({type: types.GET_KPI_LIST_SUCCESS, payload: {...data}})
