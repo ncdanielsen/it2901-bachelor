@@ -36,7 +36,7 @@ class Profile extends Component {
               <h1>Profile</h1>
             </div>
             <div>
-              <h3>Name</h3>
+              <h3>Email</h3>
               <p>User One</p>
               <div className={styles.paddingBottom} />
             </div>

@@ -17,8 +17,8 @@ const user_model = require("../schemas/user_schema");
 mongoose.connect(url + "zen_category_TEST", { useNewUrlParser: true });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', check_token, function(req, res, next) {
+  res.send('ok');
 });
 
 router.post("/login", function(req, res, next){

@@ -1,12 +1,22 @@
 import * as types from '../actionTypes/serverReducerTypes'
 
+import { setCookie, deleteCookie, getCookie } from '../utils'
+
 import axios from 'axios'
 
 import { get } from 'lodash'
 
+
+
+const tokenFromCookie = getCookie("access_token")
+const tokenFromCookieIsSet = tokenFromCookie !== ""
+
+if (tokenFromCookieIsSet) {
+  axios.defaults.headers.common['Authorization'] = "Bearer " + tokenFromCookie
+}
+
 const initialState = {
-  isLoggedIn: false,
-  token: "",
+  isLoggedIn: tokenFromCookieIsSet,
   kpis: [],
   kpiCategories: [],
   rKpiSets: [],
@@ -30,11 +40,15 @@ export default function serverReducer(state = initialState, action) {
       console.log("LOGIN_SUCCESS", action)
       const token = get(action, 'payload.token', "")
       axios.defaults.headers.common['Authorization'] = "Bearer " + token
-      return {...state, isLoggedIn: true, token}
+      setCookie("access_token", token, 50)
+      return {...state, isLoggedIn: true}
     case types.LOGIN_FAILURE:
       console.log("LOGIN_FAILURE", action)
       return state
 
+    case types.LOGOUT:
+      deleteCookie("access_token")
+      return {...state, isLoggedIn: false}
 
 
     case types.CREATE_USER_STARTED:
@@ -47,8 +61,6 @@ export default function serverReducer(state = initialState, action) {
       console.log("CREATE_USER_FAILURE", action)
       return state
 
-    case types.LOGOUT:
-      return {...state, isLoggedIn: false, token: ""}
 
     case types.GET_KPI_LIST_STARTED:
       return state
