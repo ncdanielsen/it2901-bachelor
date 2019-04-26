@@ -183,10 +183,10 @@ const getKpiCategoriesFailure = error => ({type: types.GET_KPI_CATEGORIES_FAILUR
 
 
 
-export const saveUpdated_rKpiSet = (updated_rKpiSet) => {
+export const saveUpdated_rKpiSet = (updated_rKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_rKpiSetStarted())
-    axios.post("http://localhost:4000/rkpi", updated_rKpiSet)
+    axios[editExisting ? "put" : "post"]("http://localhost:4000/rkpi", updated_rKpiSet)
     .then(function (result) {
       saveUpdated_rKpiSetSuccess(result.data)
 
@@ -219,7 +219,7 @@ const get_rKpiSetsFailure = error => ({type: types.GET_R_KPI_SETS_FAILURE, paylo
 
 
 
-export const saveUpdated_cKpiSet = (updated_cKpiSet) => {
+export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_cKpiSetStarted())
     axios.post("http://localhost:4000/ckpi", updated_cKpiSet)
@@ -227,8 +227,7 @@ export const saveUpdated_cKpiSet = (updated_cKpiSet) => {
       saveUpdated_cKpiSetSuccess(result.data)
 
       dispatch(get_cKpiSetsStarted())
-      axios
-        .get("http://localhost:4000/ckpi")
+      axios[editExisting ? "put" : "post"]("http://localhost:4000/ckpi")
         .then(res => {
           dispatch(get_cKpiSetsSuccess(res.data))
         })
