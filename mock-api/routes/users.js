@@ -92,7 +92,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 
-router.post("/profile", check_token, (req, res, next)=>{
+router.get("/profile", check_token, (req, res, next)=>{
   user_model.find({ _id: req.userData.ID })
     .exec()
     .then(user => {

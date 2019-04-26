@@ -17,6 +17,7 @@ if (tokenFromCookieIsSet) {
 
 const initialState = {
   isLoggedIn: tokenFromCookieIsSet,
+  userInfo: {},
   kpis: [],
   kpiCategories: [],
   rKpiSets: [],
@@ -49,6 +50,28 @@ export default function serverReducer(state = initialState, action) {
     case types.LOGOUT:
       deleteCookie("access_token")
       return {...state, isLoggedIn: false}
+
+
+    case types.GET_USER_INFO_STARTED:
+      console.log("GET_USER_INFO_STARTED", action)
+      return state
+    case types.GET_USER_INFO_SUCCESS:
+      console.log("GET_USER_INFO_SUCCESS", action)
+      return {...state, userInfo: get(action, "payload", {})}
+    case types.GET_USER_INFO_FAILURE:
+      console.log("GET_USER_INFO_FAILURE", action)
+      return state
+
+
+    /*case types.DELETE_USER_STARTED:
+      console.log("DELETE_USER_STARTED", action)
+      return state
+    case types.DELETE_USER_SUCCESS:
+      console.log("DELETE_USER_SUCCESS", action)
+      return state
+    case types.DELETE_USER_FAILURE:
+      console.log("DELETE_USER_FAILURE", action)
+      return state*/
 
 
     case types.CREATE_USER_STARTED:

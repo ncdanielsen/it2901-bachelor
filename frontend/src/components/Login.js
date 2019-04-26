@@ -77,7 +77,7 @@ class Login extends Component {
                     onChange={(e) => this.updateField(e, "loginEmail")}
                     id="loginEmail"
                     className={styles.formInput}
-                    type="text"
+                    type="email"
                   />
                 </label>
                 <label>
@@ -109,7 +109,7 @@ class Login extends Component {
                     onChange={(e) => this.updateField(e, "createNewUserEmail")}
                     id="createNewUserEmail"
                     className={styles.formInput}
-                    type="text"
+                    type="email"
                   />
                 </label>
                 <label>

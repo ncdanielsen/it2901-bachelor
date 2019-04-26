@@ -22,7 +22,10 @@ export const login = (email, password) => {
 
 const loginStarted = () => ({type: types.LOGIN_STARTED})
 const loginSuccess = data => ({type: types.LOGIN_SUCCESS, payload: data})
-const loginFailure = error => ({type: types.LOGIN_FAILURE, payload: {error}})
+const loginFailure = error => {
+  alert("Login failed")
+  return {type: types.LOGIN_FAILURE, payload: {error}}
+}
 
 
 export const createUser = (email, password) => {
@@ -45,12 +48,52 @@ const createUserSuccess = data => ({type: types.CREATE_USER_SUCCESS, payload: da
 const createUserFailure = error => ({type: types.CREATE_USER_FAILURE, payload: {error}})
 
 
-export const logout = (email, password) => {
+export const logout = () => {
   return dispatch => {
     dispatch({type: types.LOGOUT})
     dispatch(push("/"))
   }
 }
+
+
+
+
+export const getUserInfo = () => {
+  return dispatch => {
+    dispatch(getUserInfoStarted())
+    axios
+      .get("http://localhost:4000/users/profile")
+      .then(res => {
+        dispatch(getUserInfoSuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(getUserInfoFailure(err.message))
+      })
+  }
+}
+
+const getUserInfoStarted = () => ({type: types.GET_USER_INFO_STARTED})
+const getUserInfoSuccess = data => ({type: types.GET_USER_INFO_SUCCESS, payload: data})
+const getUserInfoFailure = error => ({type: types.GET_USER_INFO_FAILURE, payload: {error}})
+
+export const deleteUser = (userId) => {
+  return dispatch => {
+    dispatch(deleteUserStarted())
+    axios
+      .delete("http://localhost:4000/users/delete/" + userId)
+      .then(res => {
+        dispatch(deleteUserSuccess(res.data))
+        dispatch(logout())
+      })
+      .catch(err => {
+        dispatch(deleteUserFailure(err.message))
+      })
+  }
+}
+
+const deleteUserStarted = () => ({type: types.DELETE_USER_STARTED})
+const deleteUserSuccess = data => ({type: types.DELETE_USER_SUCCESS, payload: data})
+const deleteUserFailure = error => ({type: types.DELETE_USER_FAILURE, payload: {error}})
 
 
 export const getKpiList = () => {
