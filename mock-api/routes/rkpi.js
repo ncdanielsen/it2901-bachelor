@@ -4,8 +4,8 @@ const retriever = new KPI_Retreiver();
 const express = require("express");
 const router = express.Router();
 
-const kpiAdder = require("../utilities/rkpi_updater");
-const adder = new kpiAdder();
+const kpiUpdater = require("../utilities/kpi_updater");
+const updater = new kpiUpdater();
 
 const validate = (jsonData) => {
   if (jsonData.hasOwnProperty("lastUpdated") && jsonData.hasOwnProperty("owner") && jsonData.hasOwnProperty("created") &&
@@ -29,5 +29,15 @@ router.post("/", function(req, res) {
     res.send("The JSON specified has the wrong format.");
   }
 });
+
+router.put("/", function(req, res) {
+  if (validate(req.body)) {
+    updater.updateRKPI(req.body)
+    res.send("200")
+  }
+  else {
+    res.send("Wrong data format")
+  }
+})
 
 module.exports = router;
