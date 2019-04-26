@@ -7,5 +7,6 @@ module.exports.neighbourhood_schema = new Schema({
     neigh_id: Number,
     buildings: [{
         building_id: Number
-    }]
+    }],
+    restricted: {type: "boolean", default: false, required: true}
 });
