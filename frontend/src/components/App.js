@@ -7,6 +7,10 @@ import { history } from "../store/configureStore"
 import { Route, Switch, Redirect } from "react-router" // react-router v4
 import { ConnectedRouter } from "connected-react-router"
 
+import axios from 'axios'
+import { getCookie } from '../utils'
+import { logout } from '../actions/serverReducerActions'
+
 import MainView from "./Home/MainView"
 import Profile from "./Profile/Profile"
 import About from "./About/About"
@@ -22,10 +26,28 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    logout: () => dispatch(logout())
+  }
 }
 
 class App extends Component {
+
+  componentWillMount() {
+    // check if token is valid
+    const tokenFromCookie = getCookie("access_token")
+    if (tokenFromCookie !== "") {
+      axios
+        .get("http://localhost:4000/users/")
+        .then(res => {
+          // all is fine
+        })
+        .catch(err => {
+          this.props.logout()
+        })
+    }
+  }
+
   render () {
     if (!this.props.isLoggedIn) {
       return (

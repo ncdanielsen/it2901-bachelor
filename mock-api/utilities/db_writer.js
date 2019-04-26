@@ -227,7 +227,7 @@ if (require.main === module) {
 }
 
 
-module.exports.writeNewKPI = writeNewKPI;
+//module.exports.writeNewKPI = writeNewKPI;
 module.exports.updateRKPI = updateRKPI;
 module.exports.updateCKPI = updateCKPI;
 
