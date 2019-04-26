@@ -1,0 +1,58 @@
+.loginContainer {
+  text-align: center;
+  width: 100vw;
+  padding-top: 60px;
+  /*height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;*/
+}
+
+.login {
+  border: 1px solid rgb(230,230,230);
+  border-radius: 8px;
+  padding: 20px;
+  display: inline-block;
+}
+
+.formInput {
+  margin-bottom: 10px;
+}
+
+.label {
+  line-height: 15px;
+  padding-bottom: 8px;
+}
+
+.logoContainer {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.inputs {
+  display: inline-flex;
+  align-items: center;
+}
+
+.loginButton {
+  display: inline-block;
+  margin-top: 5px;
+  min-height: 30px;
+  line-height: 30px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: rgb(74, 149, 255);
+  color: white;
+  cursor: pointer;
+}
+
+.orText {
+  display: inline-block;
+  margin-left: 25px;
+  margin-right: 25px;
+}

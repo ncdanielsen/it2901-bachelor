@@ -1,9 +1,9 @@
 .Header {
-  height: calc(10% - 1px);
-  padding-left: 7.5%;
-  padding-right: 7.5%;
-  width: 85%;
-  border-bottom: 1px solid rgb(100,100,100);
+  height: calc(10vh - 1px);
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 90%;
+  border-bottom: 1px solid rgb(100, 100, 100);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -13,6 +13,7 @@
 
 .HeaderLogo {
   height: 100%;
+  margin-right: 10px;
   display: flex;
   align-items: center;
 }
@@ -21,6 +22,7 @@
   display: inline-block;
   height: 65%;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .headerRightSide {
@@ -39,6 +41,15 @@
   background: rgba(128, 128, 128, 0.2);
 }
 
+.humburger {
+  display: inline-block;
+  height: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .link {
   cursor: pointer;
 }
+
+.link:hover {background: rgba(128, 128, 128, 0.2);}

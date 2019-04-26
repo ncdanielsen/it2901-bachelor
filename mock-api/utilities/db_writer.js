@@ -59,7 +59,7 @@ function write_to_DB(collection, json_data) {
     })
 }
 
-function writeNewKPI(entry) {
+function writeNewRKPI(entry) {
     write_to_DB("RKPI_TEST", [entry])
 }
 
