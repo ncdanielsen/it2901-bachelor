@@ -112,7 +112,7 @@ class SideMenu extends Component {
 
 
         {this.props.isKPIDataPath &&
-          <div className={styles.kpiContainer}>
+          <div id="kpiContainerId" className={styles.kpiContainer}>
             <label htmlFor="multiSelect">Multi-Select</label>
             <input
               type="checkbox"

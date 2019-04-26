@@ -6,6 +6,7 @@ import styles from "./Kpi.module.css"
 const Kpi = ({ kpi, kpiIsSelected, selectKpi }) => (
   <div
     onClick={selectKpi}
+    id="selectedKpi"
     className={
       kpiIsSelected ? styles.kpi + " " + styles.kpiIsSelected : styles.kpi
     }

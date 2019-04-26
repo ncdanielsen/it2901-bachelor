@@ -55,15 +55,27 @@ context("SideMenu Tests", () =>{
         })
 
         it("Clicks on 'Kpi Overview', then checks if kpi selection appears", function(){
+            cy.visit("http://localhost:3000/home/myData")
+
+            //Make sure that kpi selection is not visible
+            cy.get('#kpiContainerId').should("not.be.visible")
+            cy.get('#kpiBoxes').should('not.be.visible')
+
+            //Click on 'Kpi Overview'
             cy.get('#SideBar > :nth-child(3)').should("be.visible")
             cy.get('#SideBar > :nth-child(3)').click()
-            //The code below and other code like it are not consistent across different sessions, therefore unusable and needs to be replaced
-            //cy.get('.SideMenu_kpiContainer__2CQyM').should("be.visible")
-            //cy.get('.SideMenu_kpiContainer__2CQyM').children().should("be.visible")
+            
+            //Kpi selection should now be visible 
+            cy.get('#kpiContainerId').should("be.visible")
+            cy.get('#kpiContainerId').children().should("be.visible")
+            cy.get('#kpiBoxes').children().should('be.visible')
             
         })
         it("Test Single-select", function(){
+            //Not working atm
+            cy.get('#selectedKpi').should('not.be.visible')
             cy.get('#SideBar > :nth-child(3)').click()
+            cy.get('#selectedKpi').should('be.visible')
             //cy.get('.Kpi_kpiIsSelected__1uwJJ').should("not.be.visible")
             //cy.get('.KpiCategory_categorySubBox__2WWTi > :nth-child(1)').click().should("be.visible")
             //cy.get('.Kpi_kpiIsSelected__1uwJJ').should("be.visible")
