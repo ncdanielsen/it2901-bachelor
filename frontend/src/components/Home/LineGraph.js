@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
+import moment from 'moment'
 import { get } from 'lodash'
 
 //import styles from './LineGraph.module.css'
-import { LineChart, XAxis, YAxis, Legend, ReferenceLine, Tooltip, CartesianGrid, Line, Brush } from 'recharts'
+import { LineChart, XAxis, YAxis, Legend, ReferenceLine, Tooltip, CartesianGrid, Line } from 'recharts'
 
 const strokeColors = ["#3B5EB0", "#44B03B", "#A93BB0", "#3BAEB0", "#B06D3B"]
 
@@ -30,7 +31,7 @@ export default class LineGraph extends Component {
         if (current_cKpiDataPoint["time"] >= this.props.fromDateTime.unix() && current_cKpiDataPoint["time"] <= this.props.toDateTime.unix()) {
           
           if (i === 0) { // only gets time from the first selected kpi, assume all KPIs have the same times
-            let timeValue = {time: current_cKpiDataPoint["time"]}
+            let timeValue = {time: moment.unix(current_cKpiDataPoint["time"]).format("Do MMM YY")}
             data.push(timeValue)
           }
           

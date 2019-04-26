@@ -26,7 +26,7 @@ const initialState = {
   chartType: "Radar",
   currentInput_rKpi: {...currentInput_rKpi, ...{}},
   currentInput_cKpi: {},
-  fromDateTime: moment(new Date().getTime()), 
+  fromDateTime: moment(new Date().getTime()).subtract(7, 'days'), // set to one week before the current date
   toDateTime: moment(new Date().getTime())
 }
 
