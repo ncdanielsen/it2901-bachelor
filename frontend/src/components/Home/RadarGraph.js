@@ -10,6 +10,7 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
   // need unix time here since time is stored as unix in the database
   let to = toDateTime.unix()
   let from = fromDateTime.unix()
+  let fullmark = 0
  
   // filters through currently selected KPIs and adds a json object for each KPI to the data list
   Object.keys(kpis).filter(kpi => currentKpisSelected.includes(kpis[kpi].name))
@@ -22,10 +23,13 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     if (rKpis[data[i].name] === undefined) {
       data[i].rKPIvalue = 0
     } else {
-      data[i].rKPIvalue = rKpis[data[i].name]
+      if (rKpis[data[i].name] > fullmark) { // if reference value is larger than current fullmark --> update fullmark
+        fullmark = rKpis[data[i].name]
+      }
+      data[i].rKPIvalue = rKpis[data[i].name] 
     }
 
-    data[i].fullMark = 8000
+    data[i].fullMark = fullmark + 1000
 
 
     // get current kpi in iteration
