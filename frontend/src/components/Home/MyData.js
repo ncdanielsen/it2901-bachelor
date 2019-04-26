@@ -1,58 +1,82 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { get } from 'lodash'
+
 import { updateCurrent_cKpiName } from '../../actions/serverReducerActions'
+import {
+  setEmtpy_cKpi,
+  updateCurrentInputViewMyData,
+  setCurrentInput_cKpi
+} from '../../actions/uiReducerActions'
 
 import styles from './MyData.module.css'
 
-//import { replace } from 'connected-react-router'
-
 import UploadNewKpiSet from './UploadNewKpiSet'
 import KpiSetListItem from './KpiSetListItem'
+import KpiSetInputView from './KpiSetInputView'
 
 function mapStateToProps(state) {
   return {
     current_cKpiName: state.serverReducer.current_cKpiName,
-    kpiSets: state.serverReducer.cKpiSets,
-    showSideMenu: state.uiReducer.showSideMenu
+    cKpiSets: state.serverReducer.cKpiSets,
+    showSideMenu: state.uiReducer.showSideMenu,
+    currentInputViewMyData: state.uiReducer.currentInputViewMyData
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    //replace: (url) => dispatch(replace(url)),
-    updateCurrent_cKpiName: name => dispatch(updateCurrent_cKpiName(name))
+    updateCurrent_cKpiName: name => dispatch(updateCurrent_cKpiName(name)),
+    updateCurrentInputViewMyData: currentInputView => dispatch(updateCurrentInputViewMyData(currentInputView)),
+    setEmtpy_cKpi: () => dispatch(setEmtpy_cKpi()),
+    setCurrentInput_cKpi: cKpiSet => dispatch(setCurrentInput_cKpi(cKpiSet))
   }
 }
 
 class MyData extends Component {
 
-  //close = () => this.props.replace("/")
-
   viewBuildingDetails = kpiSetName => console.log("viewBuildingDetails, kpiSetName:", kpiSetName)
-  editKpiSet = kpiSetName => console.log("editKpiSet, kpiSetName:", kpiSetName)
+
+  uploadNew_cKpiSet = () => {
+    this.props.setEmtpy_cKpi()
+    this.props.updateCurrentInputViewMyData("new_cKpi")
+  }
+
+  editKpiSet = kpiSetName => {
+    const kpiSetIndex = this.props.cKpiSets.findIndex(cKpiSet => cKpiSet.name === kpiSetName)
+    if (kpiSetIndex !== -1) {
+      this.props.setCurrentInput_cKpi(this.props.cKpiSets[kpiSetIndex])
+      this.props.updateCurrentInputViewMyData("edit_cKpi")
+    }
+  }
+
+
   selectKpiSet = kpiSetName => this.props.updateCurrent_cKpiName(kpiSetName)
 
   render() {
     return (
       <div className={styles.myDataContainer + (this.props.showSideMenu ? "" : (" " + styles.myDataContainerFullScreen))}>
-        {/*<div onClick={this.close} className={styles.closeButtonMyData}>X</div>*/}
-        <UploadNewKpiSet uploadNew={() => console.log("uploadNew")} text="existing sets of calculated KPIs" />
-        <div className={styles.kpiSets}>
-          {this.props.kpiSets.map((kpiSet, index) => (
-            <KpiSetListItem
-              key={index}
-              kpiSetIsSelected={kpiSet.name === this.props.current_cKpiName}
-              isCalculatedKpi={true}
-              showOwner={false}
-              kpiSet={kpiSet}
-              editKpiSet={() => this.editKpiSet(kpiSet.name)}
-              selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
-              viewBuildingDetails={() => this.viewBuildingDetails(kpiSet.name)}
-            />
-          ))}
+        <div className={this.props.currentInputViewMyData !== "none" ? styles.overflowHidden : ""}>
+          <UploadNewKpiSet uploadNew={this.uploadNew_cKpiSet} text="existing sets of calculated KPIs" />
+          <div className={styles.kpiSets}>
+            {this.props.cKpiSets.map((kpiSet, index) => (
+              <KpiSetListItem
+                key={index}
+                kpiSetIsSelected={kpiSet.name === this.props.current_cKpiName}
+                isCalculatedKpi={true}
+                showOwner={false}
+                kpiSet={kpiSet}
+                description={get(kpiSet, 'description', '')}
+                editKpiSet={() => this.editKpiSet(kpiSet.name)}
+                selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
+                viewBuildingDetails={() => this.viewBuildingDetails(kpiSet.name)}
+              />
+            ))}
+          </div>
+          <div className={styles.paddingBottom} />
         </div>
-        <div className={styles.paddingBottom} />
+        {this.props.currentInputViewMyData !== "none" && <KpiSetInputView type="myData" />}
       </div>
     )
   }

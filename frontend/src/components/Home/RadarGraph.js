@@ -22,15 +22,16 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     if (rKpis[data[i].name] === undefined) {
       data[i].rKPIvalue = 0
     } else {
-      data[i].rKPIvalue = rKpis[data[i].name] 
+      data[i].rKPIvalue = rKpis[data[i].name]
     }
-    
-    data[i].fullMark = 8000 
+
+    data[i].fullMark = 8000
 
 
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
+    /*
     // check to see if calculated KPI data are available for currently selected KPI and datetime
     if (kpi.length !== 0) { 
       let list_values = []  
@@ -39,7 +40,16 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
       if (list_values.length !== 0) {
         data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
       }
-      
+    */  
+    // check to see if calculated KPI data are available for currently selected KPI and datetime
+    if (kpi.length !== 0) {
+      let list_values = []
+      get(kpi, '[0].data', []).filter(value => value.time >= from && value.time <= to)
+                 .forEach(value => list_values.push(value.value))
+      if (list_values.length !== 0) {
+        data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+      }
+
     } else {
       data[i].cKPIvalue = 0
     }
@@ -57,7 +67,7 @@ export default class RadarGraph extends Component {
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
 
     return (
-        
+
         <div>
             <RadarChart
               cx={this.props.chartSize*0.5*1.2}
@@ -71,7 +81,7 @@ export default class RadarGraph extends Component {
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
                 <Radar name="Calculated KPI" dataKey="cKPIvalue" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="red" fill="#82ca9d" fillOpacity={0.0} />  
+                <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="red" fill="#82ca9d" fillOpacity={0.0} />
                 <Tooltip />
                 <Legend />
             </RadarChart>

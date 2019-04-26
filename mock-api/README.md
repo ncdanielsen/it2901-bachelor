@@ -40,6 +40,9 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 > NOTE: This is a defintion to mock the real rest API. Changes may occur 
 
 ## Download functions
+### ../ckpi/ returns a set of predefined CKPI values. Will be updated in the future.
+
+### ../rkpi/ returns a set of predefined RKPI values. Will be updated in the future.
 
 ### ../kpi-list/categories
 
@@ -146,6 +149,8 @@ Return KPI data for neighborhood as a JSON.
 
 
 
+
+
 ## Upload-functions
 
 
@@ -178,12 +183,21 @@ POST request that takes in email and password, and creates a user.
 
 POST request that takes in email and password, and checks the info against the database. Returns a token that is encoded.
 
-**Data format:**
+**Upload data format:**
 
 ``` JS
 [{
     email: String, 
     password: String 
+
+}]
+```
+**Return data format:**
+
+``` JS
+[{
+    message: String, 
+    token: String 
 
 }]
 ```
@@ -197,7 +211,7 @@ Delete request that deletes the user specified in the url. Valid token must be i
 
 ## Middleware-functions
 
-### check_auth
+### check_token_validity
 Every route that has this function additionally needs a valid token to work. This token must be located in the header authorization field.
 
 **Header data format:**

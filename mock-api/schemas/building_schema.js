@@ -9,5 +9,6 @@ module.exports.building_schema = new Schema({
         address: String,
         zip: Number,
         city: String
-    }
+    },
+    restricted: {type: "boolean", default: false, required: true}
 });
