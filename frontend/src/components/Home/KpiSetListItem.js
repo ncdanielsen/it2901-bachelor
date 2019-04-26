@@ -19,7 +19,7 @@ const NameAndDates = ({kpiSetName, dateCreated, dateLastUpdated}) => (
   </div>
 )
 
-const Building = ({buildingName, viewBuildingDetails}) => (
+/*const Building = ({buildingName, viewBuildingDetails}) => (
   <div className={styles.kpiSection}>
     <div className={styles.kpiNameLabel}>Building</div>
     <div className={styles.kpiName}>{buildingName}</div>
@@ -27,7 +27,7 @@ const Building = ({buildingName, viewBuildingDetails}) => (
       View Details
     </div>
   </div>
-)
+)*/
 
 const DataOwner = ({owner}) => (
   <div className={styles.kpiSection}>
@@ -62,9 +62,10 @@ const KpiSetListItem = ({kpiSetIsSelected, isCalculatedKpi, showOwner=false, kpi
   <div className={(isCalculatedKpi ? styles.kpiSet : styles.rKpiSet) + (kpiSetIsSelected ? (" " + styles.kpiSetSelected) : "")}>
     <NameAndDates kpiSetName={kpiSet.name} dateCreated={kpiSet.created} dateLastUpdated={kpiSet.lastUpdated} />
     {
-      isCalculatedKpi
+      <Description description={description}  />
+      /*isCalculatedKpi
       ? <Building buildingName={kpiSet.building.name} viewBuildingDetails={viewBuildingDetails} />
-      : <Description description={description}  />
+      : <Description description={description}  />*/
     }
     {
       showOwner

@@ -60,12 +60,11 @@ function isValidDate(d) {
 const data = () => {
   datapoints = []
   for(let year=2016; year < 2020; year++) {
-    console.log(year)
     months.forEach(month => {
       for(let day=1; day < 32; day++) {
         date = new Date(`${month} ${day}, ${year}`)
         if (isValidDate(date)) {
-          datapoint = {time: date.getTime()/1000, value: Math.random()*year}
+          datapoint = {time: Math.ceil(date.getTime()/1000), value: Math.random()*year}
           datapoints.push(datapoint)
           if (date === 2 && month === "May" && year === 2019) {
             return datapoints
@@ -78,11 +77,34 @@ const data = () => {
 }
 
 module.exports = [
-  {name: "Energy need", data: data()},
-  {name: "Energy use", data: data()},
-  {name: "Energy generation", data: data()},
-  {name: "Delivered energy", data: data()},
-  {name: "Exported energy", data: data()},
-  {name: "Self consumption", data: data()},
-  {name: "Self generation", data: data()}
+	{
+	 name: "My name for the data set",
+	 description: "Some description",
+	 created: Math.ceil((new Date()).getTime()/1000),
+	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+	 values: [
+	   {name: "Energy need", data: data()},
+	   {name: "Energy use", data: data()},
+	   {name: "Energy generation", data: data()},
+	   {name: "Delivered energy", data: data()},
+	   {name: "Exported energy", data: data()},
+	   {name: "Self consumption", data: data()},
+	   {name: "Self generation", data: data()},
+	 ]
+	},
+	{
+	 name: "And this is the second one",
+	 description: "Some description 2",
+	 created: Math.ceil((new Date()).getTime()/1000),
+	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+	 values: [
+	   {name: "Energy need",  data: data()},
+	   {name: "Energy use",  data: data()},
+	   {name: "Energy generation", data: data()},
+	   {name: "Delivered energy", data: data()},
+	   {name: "Exported energy", data: data()},
+	   {name: "Self consumption", data: data()},
+	   {name: "Self generation", data: data()},
+	 ]
+	}
 ]

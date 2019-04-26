@@ -1,52 +1,29 @@
-import React, { Component } from "react";
-import styles from "./FAQ.module.css";
-/*The questions and answers written here are merely general guidelines and explainations on how to use various
-components on the site. Meant for the end user. Feel free to edit.
-*/
+import React, { Component } from "react"
+import styles from "./FAQ.module.css"
+
+import Header from "../Header"
+
 class Faq extends Component {
   render() {
     return (
-      <div className={styles.FaqContainer}>
-        <div className={styles.FaqMain}>
-          <div>
-            <h1>Frequently Asked Questions</h1>
-          </div>
-          <div>
-            <h3>What is a "KPI"?</h3>
-            <p>
-              KPI stand for Key Performance Indicators. This is a type of metric
-              that evaluates performance. <br /> For the ZEN project, a KPI
-              measures some aspect of a city, neighbourhood or building to help
-              determine whether the entity of interest meets the characteristics
-              that dene a zero-emission neighbourhood. These characteristics are
-              not yet publicly available.
-            </p>
-            <br />
-            <h3>What is "My Data Source" and how do I use it?</h3>
-            <p>
-              The My Data Source view lets the user specify which data is to be
-              visualized. The data can either be from the publicly available ZEN
-              buildings, or they can be uploaded by the user. Additionally, in
-              the future, functionality to view data that has been shared by
-              other users should be supported.
-            </p>
-            <br />
-            <h3>What is "Reference Data" and how do I use it?</h3>
-            <p>
-              A reference KPI is a type of blueprint number. This number is used
-              as a reference for the KPIs that are calculated for the cities,
-              neighbourhoods or buildings based on data, for example from
-              various sensors placed in a building. The reference KPIs are what
-              the calculated KPIs are measured against. <br /> The Reference
-              Data view is accessed by clicking on the "Reference Data" button
-              in the side menu, and the functionality that it offers is
-              two-fold. Firstly, it lets the user specify which set of KPIs is
-              to be used for the visualisations. Secondly, given appropriate
-              authorisation, it lets the user upload reference KPIs so that they
-              can be shared with user-specied groups.
-            </p>
-            <br />
-            <h3>How to compare KPI values</h3>
+      <div>
+        <Header />
+        <div className={styles.FaqContainer}>
+          <div className={styles.FaqMain}>
+            <div>
+              <h1>Frequently Asked Questions</h1>
+            </div>
+            <div>
+              <h3>What is a "KPI"?</h3>
+              <p>KPI stand for Key Performance Indicators. This is a type of metric that evaluates performance. <br /> For the ZEN project, a KPI measures some aspect of a city, neighbourhood or building to help determine whether the entity of interest meets the characteristics that dene a zero-emission neighbourhood. These characteristics are not yet publicly available.</p>
+              <br />
+              <h3>What is "My Data Source"?</h3>
+              <p>The My Data Source view lets the user specify which data is to be visualized. The data can either be from the publicly available ZEN buildings, or they can be uploaded by the user. Additionally, in the future, functionality to view data that has been shared by other users should be supported.</p>
+              <br />
+              <h3>What is "Reference Data"?</h3>
+              <p>The Reference Data view is accessed by clicking on the "Reference Data" button in the side menu, and the functionality that it offers is two-fold. Firstly, it lets the user specify which set of KPIs is to be used for the visualisations. Secondly, given appropriate authorisation, it lets the user upload reference KPIs so that they can be shared with user-specied groups.</p>
+              <br />
+          <h3>How to compare KPI values</h3>
             <p>
               To compare a KPI value to reference KPI how multiple KPI values in
               the view, toggle "multi-select". The reference KPI(s) will
@@ -64,7 +41,7 @@ class Faq extends Component {
               show up, the KPI set for source might either lack data for the
               KPI, or something might be wrong in the formating.
             </p>
-            <div className={styles.paddingBottom} />
+            </div>
           </div>
         </div>
       </div>

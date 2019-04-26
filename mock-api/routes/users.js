@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-const user_schema = require('../schemas/user_schema');
 const config = require('../config.json');
 const jwt = require("jsonwebtoken")
 const check_token = require("../middleware/check_token_validity")
@@ -18,8 +17,8 @@ const user_model = require("../schemas/user_schema");
 mongoose.connect(url + "zen_category_TEST", { useNewUrlParser: true });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', check_token, function(req, res, next) {
+  res.send('ok');
 });
 
 router.post("/login", function(req, res, next){
@@ -93,6 +92,26 @@ router.post('/signup', (req, res, next) => {
 });
 
 
+router.get("/profile", check_token, (req, res, next)=>{
+  user_model.find({ _id: req.userData.ID })
+    .exec()
+    .then(user => {
+      if(user.length > 0){
+        res.json({
+          _id: req.userData.ID,
+          email: req.userData.email,
+          superuser: req.userData.superuser,
+          admin: req.userData.admin
+        })
+      }
+      else{
+        return res.status(401).json({
+          message: "Authorisation failed!"
+        });
+      }
+    })
+  
+});
 
 router.delete("/delete/:userID", check_token, (req, res, next)=>{
   user_model.find({ email: req.userData.email })

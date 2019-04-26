@@ -1,34 +1,34 @@
 module.exports = [
   {
     name: "Some name",
-    created: new Date(),
-    lastUpdated: new Date(),
+    created: Math.ceil(new Date().getTime()/1000),
+    lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Private",
     description: "A set of KPIs for buildings built before 1980 and in a temperated location.",
     values: [
-      {name: "Energy need", value: 1500},
-      {name: "Energy use", value: 3000},
-      {name: "Energy generation", value: 4000},
-      {name: "Delivered energy", value: 2000},
-      {name: "Exported energy", value: 1000},
-      {name: "Self consumption", value: 70},
-      {name: "Self generation", value: 50},
+      {name: "Energy need", value: 1500, weight: 1},
+      {name: "Energy use", value: 3000, weight: 1},
+      {name: "Energy generation", value: 4000, weight: 1},
+      {name: "Delivered energy", value: 2000, weight: 1},
+      {name: "Exported energy", value: 1000, weight: 1},
+      {name: "Self consumption", value: 70, weight: 1},
+      {name: "Self generation", value: 50, weight: 1},
     ]
   },
   {
     name: "Another name",
-    created: new Date(),
-    lastUpdated: new Date(),
+    created: Math.ceil(new Date().getTime()/1000),
+    lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Shared",
     description: "Another nice and useful set of KPIs.",
     values: [
-      {name: "Energy need", value: 1200},
-      {name: "Energy use", value: 8000},
-      {name: "Energy generation", value: 1000},
-      {name: "Delivered energy", value: 9000},
-      {name: "Exported energy", value: 3000},
-      {name: "Self consumption", value: 10},
-      {name: "Self generation", value: 90},
+      {name: "Energy need", value: 1200, weight: 1},
+      {name: "Energy use", value: 8000, weight: 1},
+      {name: "Energy generation", value: 1000, weight: 1},
+      {name: "Delivered energy", value: 9000, weight: 1},
+      {name: "Exported energy", value: 3000, weight: 1},
+      {name: "Self consumption", value: 10, weight: 1},
+      {name: "Self generation", value: 90, weight: 1},
     ]
   }
 ]

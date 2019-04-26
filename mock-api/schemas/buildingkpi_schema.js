@@ -7,4 +7,5 @@ module.exports.building_schema = new Schema({
     kpi_id: Number,
     values: [Number],
     times: [Number],
+    restricted: {type: "boolean", default: false, required: true}
 });

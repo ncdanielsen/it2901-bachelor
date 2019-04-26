@@ -19,7 +19,7 @@ export function updateChartType(chartType) {
 }
 
 
-export function updateR_KpiInputValue(keyName, newValue) {
+export function update_rKpiInputValue(keyName, newValue) {
   return {
     type: types.UPDATE_R_KPI_INPUT_VALUE,
     payload: {
@@ -35,9 +35,19 @@ export function setEmtpy_rKpi() {
   }
 }
 
-export function updateCurrentInputView(currentInputView) {
+export function updateCurrentInputViewMyData(currentInputView) {
   return {
-    type: types.UPDATE_CURRENT_INPUT_VIEW,
+    type: types.UPDATE_CURRENT_INPUT_VIEW_MY_DATA,
+    payload: {
+      currentInputView
+    }
+  }
+}
+
+
+export function updateCurrentInputViewRefData(currentInputView) {
+  return {
+    type: types.UPDATE_CURRENT_INPUT_VIEW_REF_DATA,
     payload: {
       currentInputView
     }
@@ -49,6 +59,58 @@ export function setCurrentInput_rKpi(rKpiSet) {
     type: types.SET_CURRENT_INPUT_R_KPI,
     payload: {
       rKpiSet
+    }
+  }
+}
+
+export function setCurrentInput_cKpi(cKpiSet) {
+  return {
+    type: types.SET_CURRENT_INPUT_C_KPI,
+    payload: {
+      cKpiSet
+    }
+  }
+} 
+
+export function updateSelectedFromDateTime(fromDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_FROM_DATETIME,
+    payload: {
+      fromDateTime
+    }
+  }
+}    
+ 
+export function updateSelectedToDateTime(toDateTime) {
+  return {
+    type: types.UPDATE_SELECTED_TO_DATETIME,
+    payload: {
+      toDateTime
+    }
+  }
+}  
+
+export function setEmtpy_cKpi() {
+  return {
+    type: types.SET_EMPTY_C_KPI,
+    payload: {}
+  }
+}
+
+export function update_cKpiInputValue(keyName, newValue) {
+  return {
+    type: types.UPDATE_C_KPI_INPUT_VALUE,
+    payload: {
+      keyName, newValue
+    }
+  }
+}
+
+export function insertNew_cKpiValues(cKPIs) {
+  return {
+    type: types.INSERT_NEW_C_KPI_VALUES,
+    payload: {
+      cKPIs
     }
   }
 }
