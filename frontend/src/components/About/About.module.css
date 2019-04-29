@@ -30,3 +30,10 @@
 .heading {
   font-weight: bold, sans-serif;
 }
+
+.Content {
+  display: flex;
+  justify-content: flex-start;
+  height: 90vh;
+  width: 100%;
+}

@@ -42,7 +42,7 @@ class MainView extends Component {
       <div>
         <Header />
         <div className={styles.Content}>
-          {this.props.showSideMenu && <SideMenu />}
+        {this.props.showSideMenu && <SideMenu />}
           <Switch>
             {/* The Switch checks which route matches current pathname, it returns only that child.
                 It receives pathname as prop since it is a subcomponent of ConnectedRouter.

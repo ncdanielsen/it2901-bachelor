@@ -13,8 +13,10 @@ import menuLogo from "../images/menu.png" //taken from https://material.io/tools
 
 function mapStateToProps(state) {
   const pathname = state.router.location.pathname
+  console.log(state.router.location.pathname)
+  //console.log(pathname === "/Faq" ? true : false)
   return {
-    showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData" || pathname === "/Faq"),
+    //showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData" || pathname === "/Faq"),
     showSideMenu: state.uiReducer.showSideMenu
   }
 }
@@ -37,6 +39,13 @@ class Header extends Component {
     return (
       <div className={styles.Header}>
         
+        <div
+          onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
+          className={styles.HeaderLogo + " " + styles.link} 
+        >
+          <img src={menuLogo} className={styles.humburger} alt="menu logo" />
+        </div>
+
         <div
           onClick = {this.onLogoClick}
           className = {styles.HeaderLogo + " " + styles.link}
