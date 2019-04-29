@@ -10,7 +10,7 @@ const updater = new kpiUpdater();
 const validate = (jsonData) => {
   if (jsonData.hasOwnProperty("lastUpdated") && jsonData.hasOwnProperty("owner") && jsonData.hasOwnProperty("created") &&
   jsonData.hasOwnProperty("description") && jsonData.hasOwnProperty("values") && jsonData.hasOwnProperty("name")){
-    return true 
+    return true
   }
   return false
 }
@@ -23,7 +23,7 @@ router.get("/", function(req, res, next) {
 
 router.post("/", function(req, res) {
   if (validate(req.body)) {
-    adder.addNewKPI(req.body);
+    updater.addNewRKPI(req.body);
     res.send("200");
   } else {
     res.send("The JSON specified has the wrong format.");

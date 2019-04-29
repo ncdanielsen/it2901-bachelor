@@ -1,8 +1,6 @@
-//import React from "react"; // get the React object from the react module
-
 import React, { Component } from "react";
 import styles from "./About.module.css";
-//import About from "./About";
+//Might want to add contact info at some point.
 
 import Header from "../Header"
 

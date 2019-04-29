@@ -2,20 +2,19 @@ import React, { Component } from 'react'
 
 import { get } from 'lodash'
 
-//import styles from './RadarGraph.module.css'
-
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 
 
-function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
+function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime) {
   let data = []
-  let to = 2451602800//50
-  let from = 0
-
+  // need unix time here since time is stored as unix in the database
+  let to = toDateTime.unix()
+  let from = fromDateTime.unix()
+ 
   // filters through currently selected KPIs and adds a json object for each KPI to the data list
   Object.keys(kpis).filter(kpi => currentKpisSelected.includes(kpis[kpi].name))
                    .forEach(kpi => data.push({name: kpis[kpi].name, cKPIvalue: 0, rKPIvalue: 0, fullMark: 0}))
-
+  
   // for each selected KPI add reference KPI data, fullmark and calculated KPI data if available
   for (let i = 0; i < data.length; i++) {
 
@@ -29,54 +28,43 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected) {
     data[i].fullMark = 8000
 
 
-    //console.log(get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
-
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
-    // check to see if calculated KPI data are available for current KPI
+    /*
+    // check to see if calculated KPI data are available for currently selected KPI and datetime
+    if (kpi.length !== 0) { 
+      let list_values = []  
+      kpi[0].data.filter(value => value.time >= from && value.time <= to)
+                 .forEach(value => list_values.push(value.value))
+      if (list_values.length !== 0) {
+        data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+      }
+    */  
+    // check to see if calculated KPI data are available for currently selected KPI and datetime
     if (kpi.length !== 0) {
       let list_values = []
-      console.log("kpi", kpi);
       get(kpi, '[0].data', []).filter(value => value.time >= from && value.time <= to)
                  .forEach(value => list_values.push(value.value))
-      data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length)
+      if (list_values.length !== 0) {
+        data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length) 
+      }
 
     } else {
       data[i].cKPIvalue = 0
     }
   }
 
-  //console.log(data)
-  // {name, cKPIvalue, rKPIvalue, fullMark}
-  // cKPIvalue must be aggregated from time series data
-  // refverdi må alltid være større enn fullmark
-  console.log("data!!!!!!", data);
   return data
 }
 
 
 
-
 export default class RadarGraph extends Component {
-
-  // receives: rKpis, cKpiSet, kpis (need for labels)
-
-  /*
-    currentKpisSelected={this.props.currentKpisSelected}
-    rKpis={this.props.rKpis}
-    cKpiSet={this.props.current_cKpiSet}
-    kpis={this.props.kpis}
-  */
-
-  // data --> must containt label(kpi-metadata), rKPI-value and cKPI-value
-  // {name, score, full, data: []}
-
-
-
+  
   render() {
-
-    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected)
+    
+    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
 
     return (
         

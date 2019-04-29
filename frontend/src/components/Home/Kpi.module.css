@@ -9,6 +9,6 @@
 }
 
 .kpiIsSelected {
-  background: #53b49b !important;
+  background: #53b49b !important; /* Same color as the header*/
   color: white;
 }

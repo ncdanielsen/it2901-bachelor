@@ -1,12 +1,13 @@
-
 .GraphContainer {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 75%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  font-size: 150%;
 }
 
 .GraphContainerFullScreen {
@@ -17,4 +18,8 @@
   position: absolute;
   top: 13%;
   right: 2.5%;
+}
+
+.NoKpiSelected {
+  font-size: 110%;
 }
