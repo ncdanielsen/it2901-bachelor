@@ -2,6 +2,7 @@
   border: 1px solid rgb(74, 149, 255);
   border-radius: 5px;
   overflow: hidden;
+  background: white;
 }
 
 .dropdownTitle {

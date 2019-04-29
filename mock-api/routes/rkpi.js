@@ -23,8 +23,9 @@ router.get("/", function(req, res, next) {
 
 router.post("/", function(req, res) {
   if (validate(req.body)) {
-    updater.addNewRKPI(req.body);
-    res.send("200");
+    updater.addNewRKPI(req.body).then(() => {
+      res.send("200");
+    })
   } else {
     res.send("The JSON specified has the wrong format.");
   }
@@ -32,8 +33,9 @@ router.post("/", function(req, res) {
 
 router.put("/", function(req, res) {
   if (validate(req.body)) {
-    updater.updateRKPI(req.body)
-    res.send("200")
+    updater.updateRKPI(req.body).then(() => {
+      res.send("200");
+    })
   }
   else {
     res.send("Wrong data format")

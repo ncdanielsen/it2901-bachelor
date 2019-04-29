@@ -1,19 +1,31 @@
 dbWriter = require("./db_writer.js");
 class kpiUpdater {
   addNewRKPI(entry) {
-    dbWriter.writeNewRKPI(entry);
+    return new Promise((resolve, reject) => {
+      dbWriter.writeNewRKPI(entry);
+      resolve()
+    })
   }
 
   addNewCKPI(entry) {
-    dbWriter.writeNewCKPI(entry);
+    return new Promise((resolve, reject) => {
+      dbWriter.writeNewCKPI(entry);
+      resolve()
+    })
   }
 
   updateRKPI(entry) {
-    dbWriter.updateRKPI(entry)
+    return new Promise((resolve, reject) => {
+      dbWriter.updateRKPI(entry)
+      resolve()
+    })
   }
 
-  updateCKPI(entry) { 
-    dbWriter.updateCKPI(entry)
+  updateCKPI(entry) {
+    return new Promise((resolve, reject) => {
+      dbWriter.updateCKPI(entry)
+      resolve()
+    })
   }
 }
 

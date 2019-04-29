@@ -7,7 +7,7 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  font-size: 150%;
+  /*font-size: 150%;*/
 }
 
 .GraphContainerFullScreen {
@@ -21,5 +21,5 @@
 }
 
 .NoKpiSelected {
-  font-size: 110%;
+  /*font-size: 110%;*/
 }
