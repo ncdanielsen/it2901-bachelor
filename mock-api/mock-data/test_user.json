@@ -1,0 +1,8 @@
+[
+    {
+        "email": "e2eTest@mail.com",
+        "password": "e2eTestPassword",
+        "superuser": "true", 
+        "admin": "true"
+    }
+]
