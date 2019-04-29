@@ -184,13 +184,15 @@ class KpiSetInputView extends Component {
                   <label key={index} className={styles.label}>
                     <div className={styles.inputItem}>
                       <div className={styles.inputTitle}><b>{input.name}</b></div>
-                      {(input.type === "text"/* || input.type === "number"*/) && <input
+                      {(input.type === "text"/* || input.type === "number"*/) && <input 
+                        id="ckpiNameInput"
                         type={input.type}
                         value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
                         onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField}
                       />}
                       {input.type === "textarea" && <textarea
+                        id="ckpiDescInput"
                         value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
                         onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField + " " + styles.textarea}

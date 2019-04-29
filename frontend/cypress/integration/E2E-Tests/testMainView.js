@@ -2,7 +2,12 @@ context("Test MainView", () =>{
     describe("Test Graph", function() {
     
         beforeEach(function() {
+            cy.signup()
             cy.visit("http://localhost:3000/home/")
+        })
+
+        afterEach(function(){
+            cy.deleteUser()
         })
 
         it("Try to view single kpi in graph with reference values", function(){
