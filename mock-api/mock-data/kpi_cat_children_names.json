@@ -3,6 +3,7 @@
   "cat_id": 1,
   "kpi_names": ["Energy need",
     "Energy use",
+    "Energy generation",
     "Delivered energy",
     "Exported energy",
     "Self consumption",
