@@ -3,28 +3,36 @@ class kpiUpdater {
   addNewRKPI(entry) {
     return new Promise((resolve, reject) => {
       dbWriter.writeNewRKPI(entry);
-      resolve()
+      setTimeout(() => {
+        resolve()
+      }, 1500)
     })
   }
 
   addNewCKPI(entry) {
     return new Promise((resolve, reject) => {
       dbWriter.writeNewCKPI(entry);
-      resolve()
+      setTimeout(() => {
+        resolve()
+      }, 1500)
     })
   }
 
   updateRKPI(entry) {
     return new Promise((resolve, reject) => {
       dbWriter.updateRKPI(entry)
-      resolve()
+      setTimeout(() => {
+        resolve()
+      }, 1500)
     })
   }
 
   updateCKPI(entry) {
     return new Promise((resolve, reject) => {
       dbWriter.updateCKPI(entry)
-      resolve()
+      setTimeout(() => {
+        resolve()
+      }, 1500)
     })
   }
 }
