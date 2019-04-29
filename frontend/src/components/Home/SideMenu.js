@@ -87,9 +87,6 @@ class SideMenu extends Component {
   render() {
     return (
       <div className={styles.SideMenuContainer}>
-        {console.log(this.props.currentPathEnd)}
-        {console.log(this.props.currentPath)}
-        {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
           nameOfChosenSource={this.props.current_cKpiName === "" ? "Source not selected" : this.props.current_cKpiName}
