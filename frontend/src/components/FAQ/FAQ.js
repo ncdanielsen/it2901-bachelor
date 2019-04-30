@@ -54,6 +54,7 @@ class Faq extends Component {
                 KPI, or something might be wrong in the formating.
               </p>
               </div>
+              <div className={styles.paddingBottom} />
             </div>
           </div>
 
