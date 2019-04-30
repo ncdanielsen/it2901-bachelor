@@ -131,7 +131,7 @@
     "description": "The percentage of people who choose different means of transport."
   },
   {
-    "name": "Acesss to public transport",
+    "name": "Access to public transport",
     "kpi_id": 19,
     "unit": "Meters",
     "type": "float",
