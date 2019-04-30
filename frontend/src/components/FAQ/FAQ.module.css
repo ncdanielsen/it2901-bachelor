@@ -1,6 +1,6 @@
 .FaqContainer {
   position: relative;
-  width: 100%;
+  width: calc(75% + 1px);
   height: 90vh;
   display: flex;
   justify-content: center;
