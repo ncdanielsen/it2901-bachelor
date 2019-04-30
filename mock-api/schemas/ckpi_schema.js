@@ -7,6 +7,7 @@ module.exports.ckpi_schema = new Schema({
     created: Number,
     lastUpdated: Number,
     name: String,
+    owner: String,
     values: [
         {
             name: String,

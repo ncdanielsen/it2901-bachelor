@@ -74,7 +74,7 @@ function updateCKPI(entry) {
         db.collection("CKPI_TEST").updateOne({ "_id": ObjectID(entry._id) }, {
             $set: {
                 "description": entry.description, "created": entry.created, "lastUpdated": entry.lastUpdated,
-                "name": entry.name, "values": entry.values
+                "owner": entry.owner, "name": entry.name, "values": entry.values
             }
         }, function (err, res) {
             if (err) throw err;
