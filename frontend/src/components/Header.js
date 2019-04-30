@@ -13,8 +13,10 @@ import menuLogo from "../images/menu.png" //taken from https://material.io/tools
 
 function mapStateToProps(state) {
   const pathname = state.router.location.pathname
+  console.log(state.router.location.pathname)
+  //console.log(pathname === "/Faq" ? true : false)
   return {
-    showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData"),
+    //showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData" || pathname === "/Faq"),
     showSideMenu: state.uiReducer.showSideMenu
   }
 }
@@ -29,26 +31,29 @@ function mapDispatchToProps(dispatch) {
 class Header extends Component {
 
   onLogoClick = () => {
-    if (!this.props.showHamburger) {
-      this.props.push("/")
-    }
+    this.props.push("/")
   }
   render() {
+
+    console.log(this.props.showSideMenu)
     return (
       <div className={styles.Header}>
+        
         <div
-          onClick={this.onLogoClick}
-          className={styles.HeaderLogo + (this.props.showHamburger ? "" : (" " + styles.link))}
+          onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
+          className={styles.HeaderLogo + " " + styles.link} 
+        >
+          <img src={menuLogo} className={styles.humburger} alt="menu logo" />
+        </div>
+
+        <div
+          onClick = {this.onLogoClick}
+          className = {styles.HeaderLogo + " " + styles.link}
         >
           <img src={zenLogo} className={styles.logo} alt="zen logo" />
           <img src={fmeLogo} className={styles.logo} alt="fme logo" />
         </div>
-        {this.props.showHamburger && <div
-          onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
-          className={styles.HeaderLogo + " " + styles.link}
-        >
-          <img src={menuLogo} className={styles.humburger} alt="menu logo" />
-        </div>}
+
         <div className={styles.headerRightSide}>
           <div onClick={() => this.props.push("/Faq")} className={styles.link}>
             FAQ
@@ -76,3 +81,21 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Header)
+
+/*
+
+<div
+          onClick={this.onLogoClick}
+          className={styles.HeaderLogo + (this.props.showHamburger ? "" : (" " + styles.link))}
+        >
+          <img src={zenLogo} className={styles.logo} alt="zen logo" />
+          <img src={fmeLogo} className={styles.logo} alt="fme logo" />
+        </div>
+        {this.props.showHamburger && <div
+          onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
+          className={styles.HeaderLogo + " " + styles.link}
+        >
+          <img src={menuLogo} className={styles.humburger} alt="menu logo" />
+        </div>}
+
+*/

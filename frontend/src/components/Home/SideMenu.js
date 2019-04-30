@@ -73,23 +73,20 @@ class SideMenu extends Component {
 
   // open or close myData and refData
   goTo = path => {
-    if (
+    if ( // toggles menu options, might have to be removed, they don't make sense to have
       (path === "myData" && this.props.isMyDataPath) ||
       (path === "refData" && this.props.isRefDataPath) ||
       (path === "" && this.props.isKPIDataPath)
     ) {
       this.props.replace("/home/")
     } else {
-      this.props.push(path)
+      this.props.push("/home/" + path)
     }
   }
 
   render() {
     return (
       <div className={styles.SideMenuContainer}>
-        {console.log(this.props.currentPathEnd)}
-        {console.log(this.props.currentPath)}
-        {console.log(this.props.isKPIDataPath)}
         <DataSource
           title="My Data Source"
           nameOfChosenSource={this.props.current_cKpiName === "" ? "Source not selected" : this.props.current_cKpiName}
@@ -106,7 +103,7 @@ class SideMenu extends Component {
         <DataSource
           title="KPI Overview"
           nameOfChosenSource=""
-          select={() => this.goTo("/")}
+          select={() => this.goTo("")}
           isActive={this.props.isKPIDataPath}
         />
 

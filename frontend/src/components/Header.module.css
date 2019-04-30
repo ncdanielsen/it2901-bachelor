@@ -1,8 +1,6 @@
 .Header {
   height: calc(10vh - 1px);
-  padding-left: 5%;
-  padding-right: 5%;
-  width: 90%;
+  width: 100%;
   border-bottom: 1px solid rgb(100, 100, 100);
   display: flex;
   justify-content: flex-start;
