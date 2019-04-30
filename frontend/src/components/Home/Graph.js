@@ -47,7 +47,8 @@ function mapStateToProps(state) {
     rKpis,
     showSideMenu: state.uiReducer.showSideMenu,
     currentSelectedFromDateTime: state.uiReducer.fromDateTime,
-    currentSelectedToDateTime: state.uiReducer.toDateTime
+    currentSelectedToDateTime: state.uiReducer.toDateTime,
+    kpiCategories: state.serverReducer.kpiCategories
   }
 }
 
@@ -115,6 +116,7 @@ class Graph extends Component {
         kpis={this.props.kpis}
         fromDateTime={this.props.currentSelectedFromDateTime}
         toDateTime={this.props.currentSelectedToDateTime}
+        categories = {this.props.kpiCategories}
       />)
    }
 
