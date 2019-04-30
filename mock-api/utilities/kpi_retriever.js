@@ -69,13 +69,13 @@ class kpi_retriever {
 
 
     retrieve_ckpi(callback) { 
-        this.ckpi_model.find({}, function(err, ckpis) {
-            callback(ckpis)
+        this.ckpi_model.find().sort('-lastUpdated').exec(function(err, ckpis) {
+          callback(ckpis)
         })
     }
 
     retrieve_rkpi(callback) { 
-        this.rkpi_model.find({}, function(err, rkpis) {
+        this.rkpi_model.find().sort('-lastUpdated').exec(function(err, rkpis) {
             callback(rkpis)
         })
     }

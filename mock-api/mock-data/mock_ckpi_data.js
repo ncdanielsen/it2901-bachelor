@@ -82,6 +82,7 @@ module.exports = [
 	 description: "Some description",
 	 created: Math.ceil((new Date()).getTime()/1000),
 	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+   owner: "Private",
 	 values: [
 	   {name: "Energy need", data: data()},
 	   {name: "Energy use", data: data()},
@@ -97,6 +98,7 @@ module.exports = [
 	 description: "Some description 2",
 	 created: Math.ceil((new Date()).getTime()/1000),
 	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
+   owner: "Shared",
 	 values: [
 	   {name: "Energy need",  data: data()},
 	   {name: "Energy use",  data: data()},

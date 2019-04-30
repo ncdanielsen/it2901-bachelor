@@ -1,8 +1,6 @@
 [
   {
     "name": "Energy need",
-    "score": 120,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,
@@ -36,8 +34,6 @@
   },
   {
     "name": "Energy use",
-    "score": 98,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,
@@ -71,8 +67,6 @@
   },
   {
     "name": "Delivered energy",
-    "score": 99,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,
@@ -106,8 +100,6 @@
   },
   {
     "name": "Exported energy",
-    "score": 85,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,
@@ -141,8 +133,6 @@
   },
   {
     "name": "Self consumption",
-    "score": 65,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,
@@ -176,8 +166,6 @@
   },
   {
     "name": "Self generation",
-    "score": 25,
-    "full": 150,
     "data": [
       {
         "time": 1556056800,

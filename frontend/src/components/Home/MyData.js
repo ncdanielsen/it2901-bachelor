@@ -65,7 +65,7 @@ class MyData extends Component {
                 key={index}
                 kpiSetIsSelected={kpiSet.name === this.props.current_cKpiName}
                 isCalculatedKpi={true}
-                showOwner={false}
+                showOwner={true}
                 kpiSet={kpiSet}
                 description={get(kpiSet, 'description', '')}
                 editKpiSet={() => this.editKpiSet(kpiSet.name)}

@@ -1,18 +1,25 @@
 [
   {
     "name": "Energy need",
-    "kpi_id": 1,
+    "kpi_id": 0,
     "unit": "kWh/m2",
     "type": "float",
     "timeseries": true,
     "description": "Energy need of building"
   },{
   "name": "Energy use",
-  "kpi_id": 2,
+  "kpi_id": 1,
   "unit": "kWh",
   "type": "float",
   "timeseries": true,
   "description": "Amount of energy used"
+},{
+  "name": "Energy generation",
+  "kpi_id": 2,
+  "unit": "kWh",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy generated"
 },{
   "name": "Delivered energy",
   "kpi_id": 3,
@@ -30,14 +37,14 @@
 },{
   "name": "Self consumption",
   "kpi_id": 5,
-  "unit": "float",
+  "unit": "%",
   "type": "float",
   "timeseries": true,
   "description": "Percent of energy generated locally which is also consumed locally."
 },{
   "name": "Self generation",
   "kpi_id": 6,
-  "unit": "kWh",
+  "unit": "%",
   "type": "float",
   "timeseries": true,
   "description": "Amount of energy consumed locally which is also generated locally. "
@@ -73,7 +80,7 @@
 },{
   "name": "Utilisation factor",
   "kpi_id": 11,
-  "unit": "percentage",
+  "unit": "%",
   "type": "float",
   "timeseries": true,
   "description": "Percantage power utilised"
@@ -125,7 +132,7 @@
   {
     "name": "Mode of transport",
     "kpi_id": 18,
-    "unit": "percentage",
+    "unit": "%",
     "type": "float",
     "timeseries": false,
     "description": "The percentage of people who choose different means of transport."

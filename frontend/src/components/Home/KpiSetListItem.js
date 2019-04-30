@@ -30,7 +30,7 @@ const NameAndDates = ({kpiSetName, dateCreated, dateLastUpdated}) => (
 )*/
 
 const DataOwner = ({owner}) => (
-  <div className={styles.kpiSection}>
+  <div className={styles.kpiSection + " " + styles.ownerSection}>
     <div className={styles.kpiNameLabel}>Owner</div>
     <div className={styles.kpiName}>{owner}</div>
   </div>
