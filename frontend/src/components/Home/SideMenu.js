@@ -78,7 +78,7 @@ class SideMenu extends Component {
       (path === "refData" && this.props.isRefDataPath) ||
       (path === "" && this.props.isKPIDataPath)
     ) {
-      this.props.replace("/home/")
+      //this.props.replace("/home/")
     } else {
       this.props.push("/home/" + path)
     }
