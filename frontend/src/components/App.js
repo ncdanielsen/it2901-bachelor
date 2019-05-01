@@ -74,7 +74,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/" render={() => <Redirect to="/home/" />} />{" "}
               {/* When going to "/", go to /home. When Login stuff ready, send to Login if not logged in */}
-              <Route render={() => <div>Unknown route</div>} />
+              <Route render={() => <div>Unknown route App</div>} />
             </Switch>
           </ConnectedRouter>
         </div>

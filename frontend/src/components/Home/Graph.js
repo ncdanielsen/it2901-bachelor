@@ -6,7 +6,9 @@ import { updateChartType } from "../../actions/uiReducerActions"
 import LineGraph from "./LineGraph.js"
 import RadarGraph from "./RadarGraph.js"
 import Dropdown from "./Dropdown.js"
+import GraphInfo from "./GraphInfo.js"
 import TimeDateSelection from "./TimeDateSelection.js"
+import Instructions from './Instructions.js'
 
 import styles from "./Graph.module.css"
 
@@ -17,13 +19,8 @@ function mapStateToProps(state) {
   const currentKpisSelected = state.serverReducer.currentKpisSelected;
   let rKpis = {}
   currentKpisSelected.forEach(kpiSelected => {
-    const current_rKpiSetIndex = state.serverReducer.rKpiSets.findIndex(
-      rKpiSet => rKpiSet.name === state.serverReducer.current_rKpiName
-    );
-    const current_rKpiSet =
-      current_rKpiSetIndex === -1
-        ? {}
-        : state.serverReducer.rKpiSets[current_rKpiSetIndex];
+    const current_rKpiSetIndex = state.serverReducer.rKpiSets.findIndex(rKpiSet => rKpiSet.name === state.serverReducer.current_rKpiName)
+    const current_rKpiSet = current_rKpiSetIndex === -1 ? {} : state.serverReducer.rKpiSets[current_rKpiSetIndex]
     get(current_rKpiSet, "values", []).forEach(rKpi => {
       if (rKpi.name === kpiSelected) {
         rKpis[kpiSelected] = rKpi.value
@@ -31,13 +28,8 @@ function mapStateToProps(state) {
     })
   })
 
-  const current_cKpiSetIndex = state.serverReducer.cKpiSets.findIndex(
-    cKpiSet => cKpiSet.name === state.serverReducer.current_cKpiName
-  );
-  const current_cKpiSet =
-    current_cKpiSetIndex === -1
-      ? {}
-      : state.serverReducer.cKpiSets[current_cKpiSetIndex];
+  const current_cKpiSetIndex = state.serverReducer.cKpiSets.findIndex(cKpiSet => cKpiSet.name === state.serverReducer.current_cKpiName)
+  const current_cKpiSet = current_cKpiSetIndex === -1 ? {} : state.serverReducer.cKpiSets[current_cKpiSetIndex]
 
   return {
     chartType: state.uiReducer.chartType,
@@ -45,6 +37,8 @@ function mapStateToProps(state) {
     currentKpisSelected,
     current_cKpiSet,
     rKpis,
+    current_rKpiName: state.serverReducer.current_rKpiName,
+    current_cKpiName: state.serverReducer.current_cKpiName,
     showSideMenu: state.uiReducer.showSideMenu,
     currentSelectedFromDateTime: state.uiReducer.fromDateTime,
     currentSelectedToDateTime: state.uiReducer.toDateTime,
@@ -66,7 +60,7 @@ class Graph extends Component {
   }
 
   updateDimensions = () => this.setState({ width: window.innerWidth, height: window.innerHeight })
- 
+
 
   updateDimensions = () => this.setState({width: window.innerWidth, height: window.innerHeight})
   componentWillMount = () => this.updateDimensions()
@@ -74,31 +68,20 @@ class Graph extends Component {
   componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions)
 
   updateChartType = chartType => this.props.updateChartType(chartType)
-  
-  
+
+
   render() {
-    if (this.props.currentKpisSelected.length === 0) {
-      return (
-        <div className={styles.NoKpiSelected}>
-          <div>
-            <p>
-              No KPI(s) selected. <br />
-              <br /> Select a KPI to view from the side menu bars (Energy,
-              Power, Emissions, Economy, Mobility or Spartial Quality)
-            </p>
-            <br />
-          </div>
-        </div>
-      );
+    if (this.props.currentKpisSelected.length === 0 || (this.props.current_rKpiName === "" && this.props.current_cKpiName === "")) {
+      return <Instructions />
     }
 
-    const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
+    const chartSize = Math.min(this.state.width*0.7, this.state.height*0.75)
     let plot
 
     if (this.props.currentKpisSelected.length < 3 || this.props.chartType === "Line") {
       plot = (<LineGraph
         height={chartSize}
-        width={this.props.showSideMenu ? this.state.width*0.65 : window.innerWidth*0.9}
+        width={this.props.showSideMenu ? this.state.width*0.55 : window.innerWidth*0.9}
         kpis={this.props.kpis}
         rKpis={this.props.rKpis}
         cKpiSet={this.props.current_cKpiSet}
@@ -112,7 +95,7 @@ class Graph extends Component {
       plot = (<RadarGraph
         chartSize={chartSize}
         currentKpisSelected={this.props.currentKpisSelected}
-        rKpis={this.props.rKpis} 
+        rKpis={this.props.rKpis}
         cKpiSet={this.props.current_cKpiSet}
         kpis={this.props.kpis}
         fromDateTime={this.props.currentSelectedFromDateTime}
@@ -123,20 +106,32 @@ class Graph extends Component {
 
     return (
       <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
-        <div className={styles.timeDatePicker}>
+        {/*<div className={styles.timeDatePicker}>
           <TimeDateSelection />
+        </div>*/}
+        <div className={styles.chartContainer + (this.props.showSideMenu ? "" : (" " + styles.chartContainerFullScreen))}>
+          {plot}
         </div>
-        {plot}
-        {this.props.currentKpisSelected.length > 2 && (
-          <div className={styles.chartTypeDropDown}>
-            <Dropdown
+
+        <div className={styles.chartTypeDropDown}>
+          <div>
+            <TimeDateSelection />
+          </div>
+          <div>
+            {this.props.currentKpisSelected.length > 2 && <Dropdown
               title="Chart Type"
               activeOption={this.props.chartType}
               updateActiveOption={this.updateChartType}
               options={["Radar", "Line"]}
+            />}
+          </div>
+          <div>
+            <GraphInfo
+              title="Graph Info"
+              info={this.props.chartType === "Line" ? ["Hover the graph to see exact values"] : ["Hover the graph to see exact values", "Reference values are constant", "Calculated KPI values are averaged from start time to end time"]}
             />
           </div>
-        )}
+        </div>
       </div>
     )
   }

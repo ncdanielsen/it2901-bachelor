@@ -156,7 +156,11 @@ export default function serverReducer(state = initialState, action) {
           currentKpisSelected.splice(kpiIndex, 1)
         }
       } else {
-        currentKpisSelected = [action.payload.kpiName]
+        if (action.payload.isSelected) {
+          currentKpisSelected = [action.payload.kpiName]
+        } else {
+          currentKpisSelected = []
+        }
       }
       return {...state, currentKpisSelected}
 
