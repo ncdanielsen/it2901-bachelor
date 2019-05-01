@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 
+import shortid from 'shortid' // for generating unique ids 
+
 import moment from 'moment'
 import { get } from 'lodash'
 
@@ -22,6 +24,7 @@ export default class LineGraph extends Component {
       const current_cKpiIndex = cKpiValues.findIndex(cKpiValue => cKpiValue.name === currentKpiSelected)
       const current_cKpi = current_cKpiIndex === -1 ? [] : cKpiValues[current_cKpiIndex]
       const current_cKpiData = get(current_cKpi, 'data', [])
+      const referenceLineValue = get(this.props.rKpis, '[' + currentKpiSelected + ']', "rKpiValueNotFound")
 
       let dataIndex = 0 // index for dataitems as they are added to the data list
 
@@ -36,13 +39,22 @@ export default class LineGraph extends Component {
           }
 
           data[dataIndex]["dataKey" + i] = current_cKpiDataPoint["value"]
+
+          if (referenceLineValue !== "rKpiValueNotFound") {
+            console.log(referenceLineValue)
+            const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
+            data[dataIndex]["reference" + i] = referenceLineValue
+          }
           dataIndex += 1
         }
-
       })
+
+      
+
     })
 
-
+    console.log(data)
+ 
 
     return (
       <div>
@@ -55,37 +67,24 @@ export default class LineGraph extends Component {
               <YAxis allowDataOverflow type="number" />
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
-              {currentKpisSelected.map((currentKpiSelected, i) => {
-                const referenceLineValue = get(this.props.rKpis, '[' + currentKpiSelected + ']', "rKpiValueNotFound")
-                if (referenceLineValue === "rKpiValueNotFound") {
-                  return <div key={i} />
-                } else {
-                  const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
-                  const unit = kpiIndex === -1 ? "nameNotFound" : get(kpis[kpiIndex], 'unit', "nameNotFound")
-                  return <ReferenceLine
-                    key={i}
-                    y={referenceLineValue}
-                    stroke="red"
-                    label={"Reference " + unit}
-                  />
-                }
-              })}
+
               {
                 currentKpisSelected.map((currentKpiSelected, i) => {
-                  const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
-                  const unit = kpiIndex === -1 ? "nameNotFound" : get(kpis[kpiIndex], 'unit', "nameNotFound")
-                  return <Line
-                    key={i}
-                    name={unit}
-                    type="monotone"
-                    dataKey={"dataKey" + i}
-                    stroke={strokeColors[i % strokeColors.length]}
-                  />
+                  return <Line key={shortid.generate()} type="monotone" dataKey={"dataKey" + i} stroke={strokeColors[i % strokeColors.length]}/>
                 })
               }
+              
+              {
+                currentKpisSelected.map((currentKpiSelected, i) => {
+                  return <Line key={shortid.generate()} type="monotone" dataKey={"reference" + i} stroke={"red"}/>
+                })
+              }
+              
+              
               <Legend />
 
           </LineChart>
       </div>
     )}
 }
+
