@@ -6,11 +6,12 @@
   justify-content: flex-start;
   align-items: center;
   /*background: #53b49b;/*#7fdcc4;*/
-  background: #7bd8c0;
+  background: #45566f; /*#565656;#7bd8c0;*/
 }
 
 .HeaderLogo {
   height: 100%;
+  padding-left: 10px;
   margin-right: 10px;
   display: flex;
   align-items: center;
@@ -48,7 +49,9 @@
 
 .link {
   cursor: pointer;
+  color: white;
 }
+
 
 .link:hover {
   background: rgba(128, 128, 128, 0.2);
