@@ -15,20 +15,21 @@ import Graph from "./Graph"
 
 import RefData from "./RefData"
 import MyData from "./MyData"
+import Instructions from "./Instructions"
 
 import Header from "../Header"
 
 function mapStateToProps(state) {
   return {
     showSideMenu: state.uiReducer.showSideMenu
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getrKpiDataEnergy: () => dispatch(getrKpiDataEnergy()),
     getcKpiDataEnergy: () => dispatch(getcKpiDataEnergy())
-  };
+  }
 }
 
 class MainView extends Component {
@@ -47,9 +48,10 @@ class MainView extends Component {
             {/* The Switch checks which route matches current pathname, it returns only that child.
                 It receives pathname as prop since it is a subcomponent of ConnectedRouter.
                 Only paths starting with "/home/" will work here, since "/home/*" is already decided in App.js */}
-            <Route exact path="/home" component={Graph} />
+            <Route exact path="/home" component={Instructions} />
             <Route exact path="/home/refData" component={RefData} />
             <Route exact path="/home/myData" component={MyData} />
+            <Route exact path="/home/graph" component={Graph} />
             <Route render={() => (<div>Unknown route</div>)} />
           </Switch>
         </div>

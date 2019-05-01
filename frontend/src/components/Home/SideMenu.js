@@ -22,7 +22,7 @@ function mapStateToProps(state) {
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length - 1]
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
-  const isKPIDataPath = currentPathEnd === "";
+  const isKPIDataPath = currentPathEnd === "graph";
   return {
     isMyDataPath,
     isRefDataPath,
@@ -76,9 +76,9 @@ class SideMenu extends Component {
     if ( // toggles menu options, might have to be removed, they don't make sense to have
       (path === "myData" && this.props.isMyDataPath) ||
       (path === "refData" && this.props.isRefDataPath) ||
-      (path === "" && this.props.isKPIDataPath)
+      (path === "graph" && this.props.isKPIDataPath)
     ) {
-      this.props.replace("/home/")
+      //this.props.replace("/home/")
     } else {
       this.props.push("/home/" + path)
     }
@@ -103,7 +103,7 @@ class SideMenu extends Component {
         <DataSource
           title="KPI Overview"
           nameOfChosenSource=""
-          select={() => this.goTo("")}
+          select={() => this.goTo("graph")}
           isActive={this.props.isKPIDataPath}
         />
 
