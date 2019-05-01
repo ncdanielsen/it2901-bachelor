@@ -1,4 +1,5 @@
 import * as types from '../actionTypes/uiReducerTypes'
+import { LOGOUT } from '../actionTypes/serverReducerTypes'
 
 import { get, has, set } from 'lodash'
 import moment from 'moment'
@@ -85,6 +86,8 @@ const initialState = {
 export default function uiReducer(state = initialState, action) {
   let newState, keyName, newValue
   switch (action.type) {
+    case LOGOUT:
+      return {...initialState, ...{}}
     case types.UPDATE_SELECTED_FROM_DATETIME:
       return {...state, fromDateTime: get(action.payload, 'fromDateTime', moment(new Date().getTime()))}
     case types.UPDATE_SELECTED_TO_DATETIME:
