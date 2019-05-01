@@ -12,7 +12,7 @@
 }
 
 .categorySelected {
-  background: rgb(87, 179, 155) !important;
+  background: #45576f !important; /*#45576f rgb(87, 179, 155)*/
   color: white;
 }
 

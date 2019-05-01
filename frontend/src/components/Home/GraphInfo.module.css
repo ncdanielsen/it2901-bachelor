@@ -1,5 +1,5 @@
 .graphDropdownInfo {
-  border: 1px solid rgb(74, 149, 255);
+  border: 1px solid #5aa5cc;
   border-radius: 5px;
   overflow: hidden;
   background: white;
@@ -8,7 +8,7 @@
 }
 
 .dropdownInfoTitle {
-  background: rgb(74, 149, 255);
+  background: #5aa5cc;
   color: white;
   padding: 5px 15px;
   min-height: 30px;
@@ -16,7 +16,7 @@
 }
 
 .dropdownInfoAll {
-  border-top: 1px solid rgb(74, 149, 255);
+  border-top: 1px solid #5aa5cc;
   padding-top: 5px;
   padding-bottom: 5px;
 }

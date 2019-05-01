@@ -7,9 +7,9 @@ import { updateShowSideMenu } from '../actions/uiReducerActions'
 
 import styles from "./Header.module.css"
 
-import zenLogo from "../images/zen.png"
-import fmeLogo from "../images/fme.png"
-import menuLogo from "../images/menu.png" //taken from https://material.io/tools/icons/?icon=menu&style=round
+import zenLogo from "../images/zen-white.png"
+import fmeLogo from "../images/fme-white.png"
+import menuLogo from "../images/menu-white.png" //taken from https://material.io/tools/icons/?icon=menu&style=round
 
 function mapStateToProps(state) {
   //const pathname = state.router.location.pathname
