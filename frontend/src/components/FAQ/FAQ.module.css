@@ -7,6 +7,10 @@
   overflow-y: scroll;
 }
 
+.FaqContainerFullScreen {
+  width: 100%;
+}
+
 .FaqMain {
   width: 90%;
   padding-left: 5%;

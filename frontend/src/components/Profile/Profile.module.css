@@ -7,6 +7,10 @@
   overflow-y: scroll;
 }
 
+.ProfileContainerFullScreen {
+  width: 100%;
+}
+
 .ProfileMain {
   width: 90%;
   padding-left: 5%;

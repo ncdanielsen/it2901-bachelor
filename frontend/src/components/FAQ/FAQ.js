@@ -20,7 +20,7 @@ class Faq extends Component {
         <Header />
         <div className = {styles.Content}>
           {this.props.showSideMenu && <SideMenu />}
-          <div className={styles.FaqContainer}>
+          <div className={styles.FaqContainer + (this.props.showSideMenu ? "" : (" " + styles.FaqContainerFullScreen))}>
             <div className={styles.FaqMain}>
               <div>
                 <h1>Frequently Asked Questions</h1>
