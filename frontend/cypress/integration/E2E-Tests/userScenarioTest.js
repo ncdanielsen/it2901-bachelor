@@ -24,16 +24,39 @@ context("Test User Scenarios", () =>{
 
         })
         it("Try to view your uploaded data", function(){
-
+            cy.login()
+            cy.contains("My Data Source").click()
+            cy.contains('Select').first().click()
+            cy.contains('KPI Overview').click()
+            cy.contains('Energy need').click()
+            cy.get('#graphContainerId').should('be.visible')
+            cy.get('#lineGraphId').should('be.visible')
         })
         it("View energy need, use, and generation in same graph", function(){
-
+            cy.login()
+            cy.contains("My Data Source").click()
+            cy.contains('Select').first().click()
+            cy.contains('KPI Overview').click()
+            cy.get('#multiSelect').click()
+            cy.contains('Energy need').click()
+            cy.contains('Energy use').click()
+            //cy.contains('Energy generation').click()
+            cy.get('#graphContainerId').should('be.visible')
+            cy.get('#lineGraphId').should('be.visible')
         })
         it("Upload reference data", function(){
 
         })
         it("Compare ckpi with new reference data", function(){
-
+            cy.login()
+            cy.contains("My Data Source").click()
+            cy.contains('Select').first().click()
+            cy.contains('Reference Data').click()
+            cy.contains('Select').first().click()
+            cy.contains('KPI Overview').click()
+            cy.get('#kpiBoxes > :nth-child(1)').click()
+            cy.get('#graphContainerId').should('be.visible')
+            cy.get('#lineGraphId').should('be.visible')
         })
         it("Edit previously uploaded reference data", function(){
 
@@ -44,8 +67,9 @@ context("Test User Scenarios", () =>{
             cy.get("#loginEmail").type('UserScenario@test.com')
             cy.get("#loginPassword").type('UserScenario')
             cy.contains('Log in').click()
+            cy.wait(1000)
             cy.contains('Profile').click()
-            cy.wait(500)
+            cy.wait(1000)
             cy.contains('Delete user').click()
             cy.url().should('include', '/login')
         })
