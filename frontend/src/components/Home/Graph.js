@@ -6,6 +6,7 @@ import { updateChartType } from "../../actions/uiReducerActions"
 import LineGraph from "./LineGraph.js"
 import RadarGraph from "./RadarGraph.js"
 import Dropdown from "./Dropdown.js"
+import GraphInfo from "./GraphInfo.js"
 import TimeDateSelection from "./TimeDateSelection.js"
 import Instructions from './Instructions.js'
 
@@ -73,13 +74,13 @@ class Graph extends Component {
       return <Instructions />
     }
 
-    const chartSize = Math.min(this.state.width*0.7, this.state.height*0.8)
+    const chartSize = Math.min(this.state.width*0.7, this.state.height*0.75)
     let plot
 
     if (this.props.currentKpisSelected.length < 3 || this.props.chartType === "Line") {
       plot = (<LineGraph
         height={chartSize}
-        width={this.props.showSideMenu ? this.state.width*0.65 : window.innerWidth*0.9}
+        width={this.props.showSideMenu ? this.state.width*0.55 : window.innerWidth*0.9}
         kpis={this.props.kpis}
         rKpis={this.props.rKpis}
         cKpiSet={this.props.current_cKpiSet}
@@ -102,20 +103,32 @@ class Graph extends Component {
 
     return (
       <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
-        <div className={styles.timeDatePicker}>
+        {/*<div className={styles.timeDatePicker}>
           <TimeDateSelection />
+        </div>*/}
+        <div className={styles.chartContainer + (this.props.showSideMenu ? "" : (" " + styles.chartContainerFullScreen))}>
+          {plot}
         </div>
-        {plot}
-        {this.props.currentKpisSelected.length > 2 && (
-          <div className={styles.chartTypeDropDown}>
-            <Dropdown
+
+        <div className={styles.chartTypeDropDown}>
+          <div>
+            <TimeDateSelection />
+          </div>
+          <div>
+            {this.props.currentKpisSelected.length > 2 && <Dropdown
               title="Chart Type"
               activeOption={this.props.chartType}
               updateActiveOption={this.updateChartType}
               options={["Radar", "Line"]}
+            />}
+          </div>
+          <div>
+            <GraphInfo
+              title="Graph Info"
+              info={this.props.chartType === "Line" ? ["Hover the graph to see exact values"] : ["Hover the graph to see exact values", "Reference values are constant", "Calculated KPI values are averaged from start time to end time"]}
             />
           </div>
-        )}
+        </div>
       </div>
     )
   }

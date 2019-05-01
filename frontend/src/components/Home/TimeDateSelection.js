@@ -36,26 +36,30 @@ class TimeDateSelection extends Component {
         //console.log(this.props.currentSelectedFromDateTime.unix())
 
         return (
-            <div className={styles.timeDatePicker}>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <div className="pickers">
-                        <DateTimePicker 
-                            label="From" 
-                            value={this.props.currentSelectedFromDateTime} 
-                            onChange={this.handleDateChangeFrom} />
-                    </div>
-                </MuiPickersUtilsProvider>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <div className="pickers">
-                        <DateTimePicker 
-                            label="To" 
-                            value={this.props.currentSelectedToDateTime} 
-                            onChange={this.handleDateChangeTo} />
-                    </div>
-                </MuiPickersUtilsProvider>
+            <div className={styles.timeDatePickerContainer}>
+              <div className={styles.timeDatePicker}>
+                  <MuiPickersUtilsProvider utils={MomentUtils}>
+                      <div className="pickers">
+                          <DateTimePicker
+                              label="From"
+                              value={this.props.currentSelectedFromDateTime}
+                              onChange={this.handleDateChangeFrom} />
+                      </div>
+                  </MuiPickersUtilsProvider>
+                </div>
+                <div className={styles.timeDatePicker}>
+                  <MuiPickersUtilsProvider utils={MomentUtils}>
+                      <div className="pickers">
+                          <DateTimePicker
+                              label="To"
+                              value={this.props.currentSelectedToDateTime}
+                              onChange={this.handleDateChangeTo} />
+                      </div>
+                  </MuiPickersUtilsProvider>
+                </div>
             </div>
         )
     }
   }
-  
+
   export default connect(mapStateToProps, mapDispatchToProps)(TimeDateSelection);
