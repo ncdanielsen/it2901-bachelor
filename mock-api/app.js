@@ -54,7 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-//app.use(check_token)
+app.use(check_token)
 app.use('/kpi-list', kpi_list);
 app.use('/buildingkpi', buildingkpi)
 app.use("/neighborhoodkpi", neighbourhoodkpi)

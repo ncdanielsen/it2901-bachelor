@@ -209,6 +209,22 @@ Delete request that deletes the user specified in the url. Valid token must be i
 
 
 
+## Deleting Data
+
+### ../rkpi/ And ../ckpi/
+
+Both are delete requests that remove the specified data from the server. Pass on the id of the data you want deleted in the request body.
+
+**Data format:**
+
+``` JS
+[{
+    _id: mongoose.Schema.Types.ObjectId, 
+
+}]
+```
+
+
 ## Middleware-functions
 
 ### check_token_validity
