@@ -5,7 +5,7 @@ import { get } from 'lodash'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'recharts'
 
 
-function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime) {
+function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime, categories) {
   let data = []
   // need unix time here since time is stored as unix in the database
   let to = toDateTime.unix()
@@ -53,6 +53,17 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     } else {
       data[i].cKPIvalue = 0
     }
+
+    // adds the category name to each selected kpi shown in graph
+    for (let j = 0; j < categories.length; j++) {
+      categories[j]["kpi_names"]
+        .forEach(category => {
+          if (category["name"] === data[i]["name"]) {
+            data[i]["name"] += ("[" + categories[j]["name"] + "]")
+        }
+      })
+    }
+
   }
 
   return data
@@ -63,8 +74,8 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
 export default class RadarGraph extends Component {
 
   render() {
-
-    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime)
+    
+    let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime, this.props.categories)
 
     return (
 

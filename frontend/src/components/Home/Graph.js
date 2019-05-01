@@ -41,7 +41,8 @@ function mapStateToProps(state) {
     current_cKpiName: state.serverReducer.current_cKpiName,
     showSideMenu: state.uiReducer.showSideMenu,
     currentSelectedFromDateTime: state.uiReducer.fromDateTime,
-    currentSelectedToDateTime: state.uiReducer.toDateTime
+    currentSelectedToDateTime: state.uiReducer.toDateTime,
+    kpiCategories: state.serverReducer.kpiCategories
   }
 }
 
@@ -87,6 +88,7 @@ class Graph extends Component {
         currentKpisSelected={this.props.currentKpisSelected}
         fromDateTime={this.props.currentSelectedFromDateTime}
         toDateTime={this.props.currentSelectedToDateTime}
+        categories = {this.props.kpiCategories}
       />)
 
     } else { // if more than two KPI is selected in the side menu
@@ -98,6 +100,7 @@ class Graph extends Component {
         kpis={this.props.kpis}
         fromDateTime={this.props.currentSelectedFromDateTime}
         toDateTime={this.props.currentSelectedToDateTime}
+        categories = {this.props.kpiCategories}
       />)
    }
 
