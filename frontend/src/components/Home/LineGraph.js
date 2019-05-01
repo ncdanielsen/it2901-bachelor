@@ -8,9 +8,35 @@ import { get } from 'lodash'
 //import styles from './LineGraph.module.css'
 import { LineChart, XAxis, YAxis, Legend, ReferenceLine, Tooltip, CartesianGrid, Line } from 'recharts'
 
+
 const strokeColors = ["#3B5EB0", "#44B03B", "#A93BB0", "#3BAEB0", "#B06D3B"]
 
+
+function findCategory(categories, kpiName) {
+ 
+  for (let j = 0; j < categories.length; j++) {
+    for (let i = 0; i < categories[j]["kpi_names"].length; i++) {
+      if (categories[j]["kpi_names"][i]["name"] === kpiName) {
+        return categories[j]["name"]
+      }
+    }
+  }
+}
+
+
+
 export default class LineGraph extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      strokeW: 2
+    }
+  }
+
+  updateStroke = (width) => {
+    this.setState({strokeW: this.state.strokeW + width})
+  }
 
   render() {
     const currentKpisSelected = get(this.props, 'currentKpisSelected', [])
@@ -41,7 +67,7 @@ export default class LineGraph extends Component {
           data[dataIndex]["dataKey" + i] = current_cKpiDataPoint["value"]
 
           if (referenceLineValue !== "rKpiValueNotFound") {
-            console.log(referenceLineValue)
+            //console.log(referenceLineValue)
             const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
             data[dataIndex]["reference" + i] = referenceLineValue
           }
@@ -53,7 +79,7 @@ export default class LineGraph extends Component {
 
     })
 
-    console.log(data)
+    //console.log(data)
  
 
     return (
@@ -64,19 +90,35 @@ export default class LineGraph extends Component {
                 dataKey={get(cKpiKeys, '[0]', "keyNotFound")}
                 domain={['dataMin', 'dataMax']}
               />
-              <YAxis allowDataOverflow type="number" />
+              <YAxis 
+                allowDataOverflow type="number" 
+                padding={{ top:20 }}
+                />
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
 
               {
                 currentKpisSelected.map((currentKpiSelected, i) => {
-                  return <Line key={shortid.generate()} type="monotone" dataKey={"dataKey" + i} stroke={strokeColors[i % strokeColors.length]}/>
+                  return <Line 
+                            name={currentKpiSelected + "[" + findCategory(this.props.categories, currentKpiSelected) + "]"} 
+                            key={shortid.generate()} 
+                            type="monotone" 
+                            dataKey={"dataKey" + i} 
+                            strokeWidth={this.state.strokeW}
+                            stroke={strokeColors[i % strokeColors.length]}
+                            onMouseOver={() => console.log("over")}
+                            />
                 })
               }
               
               {
                 currentKpisSelected.map((currentKpiSelected, i) => {
-                  return <Line key={shortid.generate()} type="monotone" dataKey={"reference" + i} stroke={"red"}/>
+                  return <Line 
+                            name={"Referenceline " + currentKpiSelected + "[" + findCategory(this.props.categories, currentKpiSelected) + "]"} 
+                            key={shortid.generate()} 
+                            type="monotone" 
+                            dataKey={"reference" + i} 
+                            stroke={"red"}/>
                 })
               }
               

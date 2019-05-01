@@ -57,9 +57,9 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     // adds the category name to each selected kpi shown in graph
     for (let j = 0; j < categories.length; j++) {
       categories[j]["kpi_names"]
-      .forEach(category => {
-        if (category["name"] === data[i]["name"]) {
-          data[i]["name"] += ("[" + categories[j]["name"] + "]")
+        .forEach(category => {
+          if (category["name"] === data[i]["name"]) {
+            data[i]["name"] += ("[" + categories[j]["name"] + "]")
         }
       })
     }
