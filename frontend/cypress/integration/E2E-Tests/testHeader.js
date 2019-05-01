@@ -1,8 +1,9 @@
 context("Header Tests", () =>{
-
+    
     describe("Test FAQ", function() {
     
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/Faq/")
         })
     
@@ -18,6 +19,7 @@ context("Header Tests", () =>{
     describe("Test About", function() {
     
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
 
@@ -37,6 +39,7 @@ context("Header Tests", () =>{
     describe("Test Profile", function() {
         
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
     
@@ -51,6 +54,7 @@ context("Header Tests", () =>{
     describe("Test Home buttons", function() {
         
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/about")
             cy.url().should("include", "/about")
         })

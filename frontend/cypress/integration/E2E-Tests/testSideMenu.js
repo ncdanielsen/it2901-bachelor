@@ -1,10 +1,9 @@
 context("SideMenu Tests", () =>{
 
-    //Tests currentlu dont take login into account, and assume there is data sets readily available
-
     describe("Test collapsible", function() {
     
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
     
@@ -25,6 +24,7 @@ context("SideMenu Tests", () =>{
 
     describe("Test SideMenu buttons", function() {
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
 
@@ -59,6 +59,7 @@ context("SideMenu Tests", () =>{
 
     describe("Test Kpi Overview", function() {
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
 

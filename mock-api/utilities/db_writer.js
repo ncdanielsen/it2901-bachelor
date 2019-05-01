@@ -30,6 +30,7 @@ const BUILDING_KPIS = require("../mock-data/buildingkpi.json")
 const NEIGHBOURHOOD_KPIS = require("../mock-data/neighbourhoodkpi.json")
 const DEMOCKPI = require("../mock-data/mock_ckpi_data")
 const DEMORKPI = require("../mock-data/mock_rkpi_data")
+const USERS = require("../mock-data/test_user.json")
 
 /*
     Sending data to database:
@@ -127,6 +128,10 @@ function write_buildings() {
     write_to_DB("buildings_TEST", buildings);
 }
 
+function write_users() {
+    write_to_DB("users_TEST", USERS);
+}
+
 async function async_get_from_database(item, collection, model_name, schema) {
     let connection = mongoose.createConnection(url + db_name);
     let kpi_meta_model = connection.model(model_name, schema, collection);
@@ -218,7 +223,7 @@ function clearAll() {
 }
 
 if (require.main === module) {
-    const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi];
+    const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi, write_users];
     let i = 0;
     function timeout() {
         setTimeout(function () {
