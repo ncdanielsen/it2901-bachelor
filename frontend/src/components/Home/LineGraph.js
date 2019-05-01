@@ -110,15 +110,18 @@ export default class LineGraph extends Component {
                             />
                 })
               }
-              
+        
               {
-                currentKpisSelected.map((currentKpiSelected, i) => {
-                  return <Line 
-                            name={"Referenceline " + currentKpiSelected + "[" + findCategory(this.props.categories, currentKpiSelected) + "]"} 
+                 currentKpisSelected.map((currentKpiSelected, i) => {
+                  const referenceLineValue = get(this.props.rKpis, '[' + currentKpiSelected + ']', "rKpiValueNotFound")
+                  if (referenceLineValue !== "rKpiValueNotFound" ) {
+                    return <Line 
+                            name={"Reference " + currentKpiSelected} 
                             key={shortid.generate()} 
-                            type="monotone" 
+                            type="monotone"   
                             dataKey={"reference" + i} 
                             stroke={"red"}/>
+                  }
                 })
               }
               
