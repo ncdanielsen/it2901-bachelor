@@ -17,6 +17,22 @@ const currentInput_rKpi = { // default values in form when creating new rKpi
     {name: "Exported energy", value: 0},
     {name: "Self consumption", value: 0},
     {name: "Self generation", value: 0},
+    {name: "Yearly net load profile", value: 0},
+    {name: "Yearly net load profile", value: 0},
+    {name: "Net load duration curve", value: 0},
+    {name: "Peak load", value: 0},
+    {name: "Peak export", value: 0},
+    {name: "Utilisation factor", value: 0},
+    {name: "Daily net load profile", value: 0},
+    {name: "Total gas emissions", value: 0},
+    {name: "Total gas emissions pr. m^2", value: 0},
+    {name: "Greenhouse gas emissions", value: 0},
+    {name: "Life cycle cost", value: 0},
+    {name: "Life cycle cost pr. m^2", value: 0},
+    {name: "Mode of transport", value: 0},
+    {name: "Access to public transport", value: 0},
+    {name: "Number of services, facilities and amenities", value: 0},
+    {name: "Meters from services, facilities and amenities", value: 0},
   ]
 }
 
@@ -80,13 +96,13 @@ export default function uiReducer(state = initialState, action) {
     case types.UPDATE_R_KPI_INPUT_VALUE:
       newState = {...state, ...{}}
       keyName = get(action.payload, 'keyName', "")
-      newValue = get(action.payload, 'newValue', "")
+      newValue = get(action.payload, 'newValue', 0)
       if (has(newState.currentInput_rKpi, keyName)) {
         set(newState.currentInput_rKpi, keyName, newValue)
       } else {
         const keyNameIndexInValuesList = newState.currentInput_rKpi.values.findIndex(rKpi => rKpi.name === keyName)
         if (keyNameIndexInValuesList !== -1) {
-          set(newState.currentInput_rKpi, 'values[' + keyNameIndexInValuesList + '].value', newValue)
+          set(newState.currentInput_rKpi, 'values[' + keyNameIndexInValuesList + '].value', parseFloat(newValue))
         }
       }
       return newState
