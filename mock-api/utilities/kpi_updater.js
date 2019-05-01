@@ -27,6 +27,20 @@ class kpiUpdater {
       resolve()
     })
   }
+
+  deleteCKPI(entry) {
+    return new Promise((resolve, reject) => {
+      dbWriter.deleteCKPI(entry)
+      resolve()
+    })
+  }
+
+  deleteRKPI(entry) {
+    return new Promise((resolve, reject) => {
+      dbWriter.deleteRKPI(entry)
+      resolve()
+    })
+  }
 }
 
 module.exports = kpiUpdater;
