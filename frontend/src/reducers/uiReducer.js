@@ -75,7 +75,7 @@ const initialState = {
   showSideMenu: true,
   currentInputViewMyData: "none", // possible values: none || new_cKpi || edit_cKpi
   currentInputViewRefData: "none", // possible values: none || new_rKpi || edit_rKpi
-  chartType: "Radar",
+  chartType: "Line",
   currentInput_rKpi: {...currentInput_rKpi, ...{}},
   fromDateTime: moment(new Date().getTime()).subtract(7, 'days'), // set to one week before the current date
   toDateTime: moment(new Date().getTime()),

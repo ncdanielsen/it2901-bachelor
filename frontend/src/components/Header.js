@@ -12,8 +12,8 @@ import fmeLogo from "../images/fme.png"
 import menuLogo from "../images/menu.png" //taken from https://material.io/tools/icons/?icon=menu&style=round
 
 function mapStateToProps(state) {
-  const pathname = state.router.location.pathname
-  console.log(state.router.location.pathname)
+  //const pathname = state.router.location.pathname
+  //console.log(state.router.location.pathname)
   //console.log(pathname === "/Faq" ? true : false)
   return {
     //showHamburger: (pathname === '/home/' || pathname === "/home/myData" || pathname === "/home/refData" || pathname === "/Faq"),
@@ -38,10 +38,10 @@ class Header extends Component {
     console.log(this.props.showSideMenu)
     return (
       <div className={styles.Header}>
-        
+
         <div
           onClick={() => this.props.updateShowSideMenu(!this.props.showSideMenu)}
-          className={styles.HeaderLogo + " " + styles.link} 
+          className={styles.HeaderLogo + " " + styles.link}
         >
           <img src={menuLogo} className={styles.humburger} alt="menu logo" />
         </div>

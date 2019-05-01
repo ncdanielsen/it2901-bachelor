@@ -59,7 +59,7 @@ class Profile extends Component {
         <Header />
         <div className = {styles.Content}>
           {this.props.showSideMenu && <SideMenu />}
-          <div className={styles.ProfileContainer}>
+          <div className={styles.ProfileContainer + (this.props.showSideMenu ? "" : (" " + styles.ProfileContainerFullScreen))}>
             <div className={styles.ProfileMain}>
               <div>
                 <h1>Profile</h1>
@@ -94,7 +94,7 @@ class Profile extends Component {
           </div>
 
         </div>
-        
+
       </div>
     )
   }

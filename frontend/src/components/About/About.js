@@ -20,7 +20,7 @@ class About extends Component {
         <Header />
         <div className = {styles.Content}>
           {this.props.showSideMenu && <SideMenu />}
-          <div className={styles.AboutContainer}>
+          <div className={styles.AboutContainer + (this.props.showSideMenu ? "" : (" " + styles.AboutContainerFullScreen))}>
             <div className={styles.AboutMain}>
               <h1>ABOUT</h1>
               <div>

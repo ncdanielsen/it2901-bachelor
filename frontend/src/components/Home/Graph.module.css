@@ -18,4 +18,13 @@
   position: absolute;
   top: 13%;
   right: 2.5%;
+  display: inline-flex;
+}
+
+.chartContainer {
+  padding-top: 9%;
+}
+
+.chartContainerFullScreen {
+  padding-top: 5%;
 }

@@ -5,8 +5,8 @@ import styles from "./Instructions.module.css"
 
 import Icon from '@material-ui/core/Icon'
 
-const Check = () => <Icon root className={styles.icon} color="primary">check</Icon>
-const Fail = () =>  <Icon root className={styles.icon} color="error">cancel</Icon>
+const Check = () => <Icon root="true" className={styles.icon} color="primary">check</Icon>
+const Fail = () =>  <Icon root="true" className={styles.icon} color="error">cancel</Icon>
 
 function mapStateToProps(state) {
   return {
@@ -34,14 +34,14 @@ class Instructions extends Component {
         <div>
           <h2>Welcome!</h2>
 
-          <p>
+          <div>
             <br />
             <ol className={styles.instructionsList}>
               <li>Choose which data set to explore in <b>My Data Source</b> ({this.props.current_cKpiName === "" ? <Fail /> : <Check />})</li>
               <li>Choose which data set to compare with in <b>Reference Data</b> ({this.props.current_rKpiName === "" ? <Fail /> : <Check />})</li>
               <li>Go to <b>KPI Overview</b> and select the KPIs of interest to look at ({this.props.currentKpisSelected.length === 0 ? <Fail /> : <Check />})</li>
             </ol>
-          </p>
+          </div>
         </div>
       </div>
     )
