@@ -1,0 +1,46 @@
+.FaqContainer {
+  position: relative;
+  width: calc(75% + 1px);
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.FaqContainerFullScreen {
+  width: 100%;
+}
+
+.FaqMain {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  max-width: 800px;
+  line-height: 32px;
+  font-size: 120%;
+}
+.FaqMain h1 {
+  color: rgb(70, 70, 70);
+  line-height: 60px;
+}
+.FaqMain h3 {
+  font-weight: bold;
+  height: 90%;
+  line-height: 24px;
+}
+
+.paddingBottom {
+  height: 10vh;
+  width: 100%;
+}
+
+.heading {
+  font-weight: bold, sans-serif;
+}
+
+.Content {
+  display: flex;
+  justify-content: flex-start;
+  height: 90vh;
+  width: 100%;
+}

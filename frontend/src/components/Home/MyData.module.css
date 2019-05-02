@@ -18,6 +18,10 @@
   overflow-y: scroll;
 }
 
+.myDataContainerFullScreen {
+  width: 100%;
+}
+
 
 
 .kpiSets {
@@ -27,4 +31,10 @@
 .paddingBottom {
   height: 10vh;
   width: 100%;
+}
+
+.overflowHidden {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }

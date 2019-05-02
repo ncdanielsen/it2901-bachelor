@@ -1,10 +1,20 @@
 .Button {
   padding-top: 10px;
+  padding-bottom: 15px;
+  padding-left: 10%;
+  padding-right: 10%;
+  width: 80%;
+  background: white;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.rkpiButton {
+  padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10%;
   padding-right: 10%;
-  width: calc(80% - 2px + 2px); /* +2px for border drawing in corners*/
-  border-bottom: 2px solid rgb(200, 200, 200);
+  width: 80%;
   background: white;
   pointer-events: all;
   cursor: pointer;
@@ -15,7 +25,7 @@
 }
 
 .ButtonSelected {
-  background: #5393b4 !important;
+  background: #5aa5cc !important; /*#5393b4*/
   color: white;
 }
 

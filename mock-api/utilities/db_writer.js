@@ -18,11 +18,19 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const config = require('../config.json');
 
+
 // Connection URL etc
 const url = config.DATABASE_URL;
 const db_name = config.DATABASE_NAME;
 
+var ObjectID = require("mongodb").ObjectID;
+
 const KPI_LIST = require('../mock-data/kpi-list.json');
+const BUILDING_KPIS = require("../mock-data/buildingkpi.json")
+const NEIGHBOURHOOD_KPIS = require("../mock-data/neighbourhoodkpi.json")
+const DEMOCKPI = require("../mock-data/mock_ckpi_data")
+const DEMORKPI = require("../mock-data/mock_rkpi_data")
+const USERS = require("../mock-data/test_user.json")
 
 /*
     Sending data to database:
@@ -37,13 +45,14 @@ const KPI_LIST = require('../mock-data/kpi-list.json');
     NOTE: This does NOT prevent duplicates! Inserting 10 documents 3 times will give 30 documents. Use the mongo client
     in your terminal to wipe any collections before re-inserting data.
  */
+
 function write_to_DB(collection, json_data) {
-    MongoClient.connect(url, function(err, client){
+    MongoClient.connect(url, function (err, client) {
         //assert.equal(null, err);
 
         let db = client.db(db_name);
 
-        db.collection(collection).insertMany(json_data, function(err, res) {
+        db.collection(collection).insertMany(json_data, function (err, res) {
             if (err) throw err;
             console.log("Number of documents inserted: " + res.insertedCount);
             client.close();
@@ -51,18 +60,107 @@ function write_to_DB(collection, json_data) {
     })
 }
 
-function write_kpi_list(){
-    write_to_DB("kpi_TEST", KPI_LIST);
+function writeNewRKPI(entry) {
+    entry.lastUpdated = new Date()
+    write_to_DB("RKPI_TEST", [entry])
+}
+
+function writeNewCKPI(entry) {
+    entry.lastUpdated = new Date()
+    write_to_DB("CKPI_TEST", [entry])
+}
+
+function updateCKPI(entry) {
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("CKPI_TEST").updateOne({ "_id": ObjectID(entry._id) }, {
+            $set: {
+                "description": entry.description, "created": entry.created, "lastUpdated": new Date(), //entry.lastUpdated,
+                "owner": entry.owner, "name": entry.name, "values": entry.values
+            }
+        }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+            client.close();
+        });
+    })
+}
+
+function deleteCKPI(entry) {
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("CKPI_TEST").remove({ "_id": ObjectID(entry._id) }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            client.close();
+        });
+    })
+}
+
+function deleteRKPI(entry) {
+    console.log("deleteRKPI", entry)
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("RKPI_TEST").remove({ "_id": ObjectID(entry._id) }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            client.close();
+        });
+    })
+}
+
+function updateRKPI(entry) {
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("RKPI_TEST").updateOne({ "_id": ObjectID(entry._id) }, {
+            $set: {
+                "name": entry.name, "created": entry.created, "lastUpdated": new Date(),// entry.lastUpdated,
+                "owner": entry.owner, "description": entry.description, "values": entry.values
+            }
+        }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+            client.close();
+        });
+    })
 }
 
 
-function write_buildings(){
+function write_demo_ckpi() {
+    write_to_DB("CKPI_TEST", DEMOCKPI)
+}
+
+function write_demo_rkpi() {
+    write_to_DB("RKPI_TEST", DEMORKPI)
+}
+
+function write_kpi_list() {
+    write_to_DB("kpi_TEST", KPI_LIST);
+}
+
+function write_building_KPIs() {
+    write_to_DB("buildingkpi_TEST", BUILDING_KPIS)
+}
+
+function write_neighbourhood_KPIs() {
+    write_to_DB("neighbourhoodkpi_TEST", NEIGHBOURHOOD_KPIS)
+}
+
+function write_buildings() {
     let buildings = require('../mock-data/buildings.json');
 
     write_to_DB("buildings_TEST", buildings);
 }
 
-async function async_get_from_database(item, collection, model_name, schema){
+function write_users() {
+    write_to_DB("users_TEST", USERS);
+}
+
+async function async_get_from_database(item, collection, model_name, schema) {
     let connection = mongoose.createConnection(url + db_name);
     let kpi_meta_model = connection.model(model_name, schema, collection);
 
@@ -73,7 +171,7 @@ async function async_get_from_database(item, collection, model_name, schema){
     return result;
 }
 
-async function write_categories(){
+async function write_categories() {
 
     let categories = require('../mock-data/kpi_cat_children_names');
     let kpi_schema = require('../schemas/kpi_meta_schema');
@@ -81,7 +179,7 @@ async function write_categories(){
         "kpi_TEST", kpi_schema);
 }
 
-async function write_neighborhoods(){
+async function write_neighborhoods() {
     let neighborhoods = require('../mock-data/neighborhood_building_names');
     let building_schema = require('../schemas/building_schema');
     await write_container_items(neighborhoods, "name", "buildings", "neighborhoods_TEST",
@@ -90,18 +188,18 @@ async function write_neighborhoods(){
 
 
 async function write_container_items(containers, container_identifier, child_identifier, container_collection, child_collection,
-                                     child_schema){
+    child_schema) {
     let containers_list = [];
 
-    for (let i = 0; i < containers.length; i++){
+    for (let i = 0; i < containers.length; i++) {
         let category = containers[i];
         let name = category[container_identifier];
         let children = category[child_identifier];
 
-        let child_list=[];
+        let child_list = [];
 
-        for (let j=0; j < children.length; j++){
-            let child_data = await async_get_from_database({"name": children[j]}, child_collection, 'Child', child_schema);
+        for (let j = 0; j < children.length; j++) {
+            let child_data = await async_get_from_database({ "name": children[j] }, child_collection, 'Child', child_schema);
             let id = child_data[0];
             child_list.push(id);
         }
@@ -114,10 +212,10 @@ async function write_container_items(containers, container_identifier, child_ide
 
     console.log(containers_list);
 
-    MongoClient.connect(url, function(err, client){
+    MongoClient.connect(url, function (err, client) {
         let db = client.db(db_name);
         let collection_name = container_collection;
-        db.collection(collection_name).insertMany(containers_list, function(err, res) {
+        db.collection(collection_name).insertMany(containers_list, function (err, res) {
             if (err) throw err;
             console.log("Number of documents inserted into " + container_collection + ": " + res.insertedCount);
             client.close();
@@ -132,9 +230,9 @@ async function write_container_items(containers, container_identifier, child_ide
 //
 // }
 
-function json_to_list(json_list, category){
+function json_to_list(json_list, category) {
     let list = [];
-    for (let j = 0; j > json_list.length; j++){
+    for (let j = 0; j > json_list.length; j++) {
         list.push(json_list[j][category]);
     }
     console.log(list);
@@ -145,20 +243,31 @@ function json_to_list(json_list, category){
 // running this script clears and re-inits db
 
 function clearAll() {
-    MongoClient.connect(url, function(err, client){
+    MongoClient.connect(url, function (err, client) {
         if (err) throw err;
         client.db(db_name).dropDatabase();
         client.close();
     });
 }
-const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods]
-var i = 0;
-function timeout() {
-    setTimeout(function () {
-        functions[i]();
-        i++;
-        i < functions.length && timeout();
-    }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+
+if (require.main === module) {
+    const functions = [clearAll, write_kpi_list, write_buildings, write_categories, write_neighborhoods, write_building_KPIs, write_neighbourhood_KPIs, write_demo_ckpi, write_demo_rkpi, write_users];
+    let i = 0;
+    function timeout() {
+        setTimeout(function () {
+            functions[i]();
+            i++;
+            i < functions.length && timeout();
+        }, 1000); // NB bad practice, but timeouts work for now to ensure the data is inserted when needed later on
+    }
+    timeout();
 }
-timeout()
+
+
+module.exports.writeNewRKPI = writeNewRKPI;
+module.exports.writeNewCKPI = writeNewCKPI;
+module.exports.updateRKPI = updateRKPI;
+module.exports.updateCKPI = updateCKPI;
+module.exports.deleteCKPI = deleteCKPI;
+module.exports.deleteRKPI = deleteRKPI;
 

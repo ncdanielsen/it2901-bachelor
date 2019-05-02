@@ -1,13 +1,16 @@
 [{
   "name": "Energy",
+  "cat_id": 1,
   "kpi_names": ["Energy need",
     "Energy use",
+    "Energy generation",
     "Delivered energy",
     "Exported energy",
     "Self consumption",
     "Self generation"]
 }, {
   "name": "Power",
+  "cat_id": 2,
   "kpi_names": ["Yearly net load profile",
     "Net load duration curve",
     "Peak load",
@@ -16,6 +19,7 @@
     "Daily net load profile"]
 },{
   "name": "Emissions",
+  "cat_id": 3,
   "kpi_names": [
     "Total gas emissions",
     "Total gas emissions pr. m^2",
@@ -23,18 +27,21 @@
   ]
 }, {
   "name": "Economy",
+  "cat_id": 4,
   "kpi_names": [
     "Life cycle cost",
     "Life cycle cost pr. m^2"
   ]
 },{
   "name": "Mobility",
+  "cat_id": 5,
   "kpi_names": [
     "Mode of transport",
-    "Acesss to public transport"
+    "Accesss to public transport"
   ]
 }, {
   "name": "Spatial Quality",
+  "cat_id": 6,
   "kpi_names": [
     "Demographic needs",
     "Number of services, facilities and amenities",
