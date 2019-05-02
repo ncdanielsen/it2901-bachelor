@@ -42,4 +42,16 @@ router.put("/", function(req, res) {
   }
 })
 
+router.delete("/", function (req, res) {
+  updater.deleteRKPI(req.body).then(() => {
+    res.send("200");
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+})
+
 module.exports = router;
