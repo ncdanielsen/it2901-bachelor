@@ -266,15 +266,15 @@ class KpiSetInputView extends Component {
             {
               this.props.buttons.map((button, i) => {
                 if (button === "cancel") {
-                  return <div key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
+                  return <div id='refDataCancel' key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
                     Cancel
                   </div>
                 } else if (button === "create") {
-                  return <div key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
+                  return <div id='refDataCreate' key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
                     Create
                   </div>
                 } else if (button === "save") {
-                  return <div key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
+                  return <div id='refDataSave' key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
                     Save
                   </div>
                 } else {

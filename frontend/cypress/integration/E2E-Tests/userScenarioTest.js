@@ -1,6 +1,6 @@
 context("Test User Scenarios", () =>{
     
-    describe("Test Graph", function() {
+    describe("Usability test Scenario", function() {
     
         it("Try to create a user", function(){
             cy.visit("http://localhost:3000/home/")
@@ -21,7 +21,7 @@ context("Test User Scenarios", () =>{
         })
 
         it("Try to upload ckpi data", function(){
-
+            
         })
         it("Try to view your uploaded data", function(){
             cy.login()
@@ -45,7 +45,16 @@ context("Test User Scenarios", () =>{
             cy.get('#lineGraphId').should('be.visible')
         })
         it("Upload reference data", function(){
-
+            cy.login()
+            cy.contains('Reference Data').click()
+            cy.should('not.contain', 'E2E Ref Data')
+            cy.contains('Upload New').click()
+            cy.get('#ckpiNameInput').type('E2E Ref Data')
+            cy.get('#ckpiDescInput').type('E2E Description')
+            cy.get('#refDataCreate').click()
+            cy.wait(3000)
+            cy.visit("http://localhost:3000/home/refData")
+            cy.contains('E2E Ref Data')
         })
         it("Compare ckpi with new reference data", function(){
             cy.login()

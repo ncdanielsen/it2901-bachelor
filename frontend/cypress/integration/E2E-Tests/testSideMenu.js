@@ -85,7 +85,7 @@ context("SideMenu Tests", () =>{
             cy.get('#SideBar > :nth-child(3)').click()
             cy.get('#selectedKpi').first().should('have.css', 'background-color').and('equal', "rgba(0, 0, 0, 0)")
             cy.get('#kpiBoxes > :nth-child(1)').click()
-            cy.get('#selectedKpi').first().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
+            cy.get('#selectedKpi').first().should('have.css', 'background-color').and('not.equal', "rgba(0, 0, 0, 0)")
         })
         it("Test Multi-select", function(){
             //Open Kpi Selection
@@ -98,8 +98,8 @@ context("SideMenu Tests", () =>{
             //Click 'Multi-Select' and click the two first kpi-boxes. 
             //Check that they have been selected by comparing colour. Should be #53b49b
             cy.get('#multiSelect').click()
-            cy.get('#kpiBoxes > :nth-child(1)').click().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
-            cy.get('#kpiBoxes > :nth-child(2)').click().should('have.css', 'background-color').and('equal', "rgb(83, 180, 155)")
+            cy.get('#kpiBoxes > :nth-child(1)').click().should('have.css', 'background-color').and('not.equal', "rgba(0, 0, 0, 0)")
+            cy.get('#kpiBoxes > :nth-child(2)').click().should('have.css', 'background-color').and('not.equal', "rgba(0, 0, 0, 0)")
         })
 
     })
