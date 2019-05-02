@@ -1,4 +1,9 @@
 
+.timeDatePickerContainer {
+    display: inline-flex;
+    margin-right: 30px;
+}
+
 .timeDatePicker {
-    display: flex;
+    margin-right: 30px;
 }

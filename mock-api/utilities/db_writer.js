@@ -74,8 +74,8 @@ function updateCKPI(entry) {
 
         db.collection("CKPI_TEST").updateOne({ "_id": ObjectID(entry._id) }, {
             $set: {
-                "description": entry.description, "created": entry.created, "lastUpdated": entry.lastUpdated,
-                "name": entry.name, "values": entry.values
+                "description": entry.description, "created": entry.created, "lastUpdated": new Date(), //entry.lastUpdated,
+                "owner": entry.owner, "name": entry.name, "values": entry.values
             }
         }, function (err, res) {
             if (err) throw err;
@@ -91,7 +91,8 @@ function updateRKPI(entry) {
 
         db.collection("RKPI_TEST").updateOne({ "_id": ObjectID(entry._id) }, {
             $set: {
-                "name": entry.name, "created": entry.created, "lastUpdated": entry.lastUpdated, "owner": entry.owner, "description": entry.description, "values": entry.values
+                "name": entry.name, "created": entry.created, "lastUpdated": new Date(),// entry.lastUpdated,
+                "owner": entry.owner, "description": entry.description, "values": entry.values
             }
         }, function (err, res) {
             if (err) throw err;

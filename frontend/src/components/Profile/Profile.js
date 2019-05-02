@@ -8,6 +8,7 @@ import { getUserInfo, deleteUser, logout } from '../../actions/serverReducerActi
 
 import styles from './Profile.module.css'
 
+import SideMenu from "../Home/SideMenu"
 import Header from "../Header"
 
 function mapStateToProps(state) {
@@ -16,7 +17,8 @@ function mapStateToProps(state) {
     admin: get(userInfo, 'admin', false),
     email: get(userInfo, 'email', ""),
     superuser: get(userInfo, 'superuser', false),
-    id: get(userInfo, '_id', "")
+    id: get(userInfo, '_id', ""),
+    showSideMenu: state.uiReducer.showSideMenu
   }
 }
 
@@ -55,39 +57,44 @@ class Profile extends Component {
     return (
       <div>
         <Header />
-        <div className={styles.ProfileContainer}>
-          <div className={styles.ProfileMain}>
-            <div>
-              <h1>Profile</h1>
-            </div>
-            <div>
-              <h3>Email address</h3>
-              <p>{this.props.email}</p>
-            </div>
-            <div>
-              <h3>Is admin?</h3>
-              <p>{this.props.admin ? "Yes" : "No"}</p>
-            </div>
-            <div>
-              <h3>Is superuser?</h3>
-              <p>{this.props.superuser ? "Yes" : "No"}</p>
-            </div>
-            <div className={styles.paddingBottom} />
-            <div
-              className={styles.logoutButton}
-              onClick={this.logout}
-            >
-              Log out
-            </div>
-            <div
-              className={styles.logoutButton}
-              style={{background: 'red'}}
-              onClick={this.deleteUser}
-            >
-              Delete user
+        <div className = {styles.Content}>
+          {this.props.showSideMenu && <SideMenu />}
+          <div className={styles.ProfileContainer + (this.props.showSideMenu ? "" : (" " + styles.ProfileContainerFullScreen))}>
+            <div className={styles.ProfileMain}>
+              <div>
+                <h1>Profile</h1>
+              </div>
+              <div>
+                <h3>Email address</h3>
+                <p>{this.props.email}</p>
+              </div>
+              <div>
+                <h3>Is admin?</h3>
+                <p>{this.props.admin ? "Yes" : "No"}</p>
+              </div>
+              <div>
+                <h3>Is superuser?</h3>
+                <p>{this.props.superuser ? "Yes" : "No"}</p>
+              </div>
+              <div className={styles.paddingBottom} />
+              <div
+                className={styles.logoutButton}
+                onClick={this.logout}
+              >
+                Log out
+              </div>
+              <div
+                className={styles.logoutButton}
+                style={{background: 'red'}}
+                onClick={this.deleteUser}
+              >
+                Delete user
+              </div>
             </div>
           </div>
+
         </div>
+
       </div>
     )
   }

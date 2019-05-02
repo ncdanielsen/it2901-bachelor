@@ -7,7 +7,7 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  font-size: 150%;
+  /*font-size: 150%;*/
 }
 
 .GraphContainerFullScreen {
@@ -18,8 +18,13 @@
   position: absolute;
   top: 13%;
   right: 2.5%;
+  display: inline-flex;
 }
 
-.NoKpiSelected {
-  font-size: 110%;
+.chartContainer {
+  padding-top: 9%;
+}
+
+.chartContainerFullScreen {
+  padding-top: 5%;
 }

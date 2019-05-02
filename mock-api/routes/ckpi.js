@@ -20,8 +20,9 @@ router.get('/', function (req, res, next) {
 
 router.post("/", function (req, res) {
   if (validate(req.body)) {
-    updater.addNewCKPI(req.body)
-    res.send("200")
+    updater.addNewCKPI(req.body).then(() => {
+      res.send("200");
+    })
   }
   else {
     res.send("Wrong data format")
@@ -30,8 +31,9 @@ router.post("/", function (req, res) {
 
 router.put("/", function (req, res) {
   if (validate(req.body)) {
-    updater.updateCKPI(req.body)
-    res.send("200")
+    updater.updateCKPI(req.body).then(() => {
+      res.send("200");
+    })
   }
   else {
     res.send("Wrong data format")
