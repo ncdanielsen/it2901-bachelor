@@ -40,7 +40,7 @@ context("Test User Scenarios", () =>{
             cy.get('#multiSelect').click()
             cy.contains('Energy need').click()
             cy.contains('Energy use').click()
-            //cy.contains('Energy generation').click()
+            cy.contains('Energy generation').click()
             cy.get('#graphContainerId').should('be.visible')
             cy.get('#lineGraphId').should('be.visible')
         })
@@ -67,8 +67,11 @@ context("Test User Scenarios", () =>{
             cy.get('#graphContainerId').should('be.visible')
             cy.get('#lineGraphId').should('be.visible')
         })
-        it("Edit previously uploaded reference data", function(){
-
+        it("Edit previously uploaded reference data, then delete it", function(){
+            cy.login()
+            cy.visit("http://localhost:3000/home/refData")
+            cy.contains('Edit').first().click()
+            cy.get('#refDataDelete').click()
         })
 
         it("Delete user", function(){

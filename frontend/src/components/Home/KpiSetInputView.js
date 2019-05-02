@@ -299,7 +299,7 @@ class KpiSetInputView extends Component {
                     Save
                   </div>
                 } else if (button === "delete") {
-                  return <div key={i} onClick={this.delete} className={styles.button + " " + styles.deleteButton}>
+                  return <div id='refDataDelete' key={i} onClick={this.delete} className={styles.button + " " + styles.deleteButton}>
                     Delete
                   </div>
                 } else {
