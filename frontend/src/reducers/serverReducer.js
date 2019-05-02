@@ -49,7 +49,7 @@ export default function serverReducer(state = initialState, action) {
 
     case types.LOGOUT:
       deleteCookie("access_token")
-      return {...state, isLoggedIn: false}
+      return {...initialState, isLoggedIn: false}
 
 
     case types.GET_USER_INFO_STARTED:
