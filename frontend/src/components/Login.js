@@ -131,6 +131,11 @@ class Login extends Component {
               </form>
             </div>
           </div>
+          <div className={styles.warning}>
+            DEMO - This system is currently in beta.<br />
+            Do not use your real email or password.<br />
+            Also do not upload any confidential data.
+          </div>
         </div>
       </div>
     )
