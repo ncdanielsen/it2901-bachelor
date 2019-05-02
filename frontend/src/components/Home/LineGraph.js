@@ -68,7 +68,7 @@ export default class LineGraph extends Component {
 
           if (referenceLineValue !== "rKpiValueNotFound") {
             //console.log(referenceLineValue)
-            //const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex].name === currentKpiSelected)
+            //const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex]._id === currentKpiSelected)
             data[dataIndex]["reference" + i] = referenceLineValue
           }
           dataIndex += 1

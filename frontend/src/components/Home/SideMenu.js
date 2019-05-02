@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import styles from "./SideMenu.module.css"
 
-//import { kpiCategories } from '../../data/data' // will be replaced with data from server
+import { get } from  'lodash'
 
 import { getKpiList, getKpiCategories, updateKpiIsSelected, updateMultiSelect } from '../../actions/serverReducerActions'
 
@@ -22,7 +22,15 @@ function mapStateToProps(state) {
   const currentPathEnd = currentPathSplitted[currentPathSplitted.length - 1]
   const isMyDataPath = currentPathEnd === "myData"
   const isRefDataPath = currentPathEnd === "refData"
-  const isKPIDataPath = currentPathEnd === "graph";
+  const isKPIDataPath = currentPathEnd === "graph"
+
+  const current_cKpiIndex = state.serverReducer.cKpiSets.findIndex(cKpiSet => cKpiSet._id === state.serverReducer.current_cKpiName)
+  const current_cKpiName = (current_cKpiIndex === -1) ? "Source not selected" : get(state.serverReducer.cKpiSets[current_cKpiIndex], 'name', "Source not found")
+
+  const current_rKpiIndex = state.serverReducer.rKpiSets.findIndex(rKpiSet => rKpiSet._id === state.serverReducer.current_rKpiName)
+  const current_rKpiName = (current_rKpiIndex === -1) ? "Source not selected" : get(state.serverReducer.rKpiSets[current_rKpiIndex], 'name', "Source not found")
+
+
   return {
     isMyDataPath,
     isRefDataPath,
@@ -32,8 +40,8 @@ function mapStateToProps(state) {
     kpiCategories: state.serverReducer.kpiCategories,
     currentKpisSelected: state.serverReducer.currentKpisSelected,
     multiSelect: state.serverReducer.multiSelect,
-    current_rKpiName: state.serverReducer.current_rKpiName,
-    current_cKpiName: state.serverReducer.current_cKpiName,
+    current_rKpiName,
+    current_cKpiName,
   }
 }
 
@@ -89,13 +97,13 @@ class SideMenu extends Component {
       <div id="SideBar" className={styles.SideMenuContainer}>
         <DataSource
           title="My Data Source"
-          nameOfChosenSource={this.props.current_cKpiName === "" ? "Source not selected" : this.props.current_cKpiName}
+          nameOfChosenSource={this.props.current_cKpiName}
           select={() => this.goTo("myData")}
           isActive={this.props.isMyDataPath}
         />
         <DataSource
           title="Reference Data"
-          nameOfChosenSource={this.props.current_rKpiName === "" ? "Source not selected" : this.props.current_rKpiName}
+          nameOfChosenSource={this.props.current_rKpiName}
           select={() => this.goTo("refData")}
           isActive={this.props.isRefDataPath}
         />
@@ -136,7 +144,7 @@ class SideMenu extends Component {
             </div>
           </div>
         }
-      
+
       </div>
     )
   }

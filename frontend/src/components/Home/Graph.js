@@ -19,7 +19,7 @@ function mapStateToProps(state) {
   const currentKpisSelected = state.serverReducer.currentKpisSelected;
   let rKpis = {}
   currentKpisSelected.forEach(kpiSelected => {
-    const current_rKpiSetIndex = state.serverReducer.rKpiSets.findIndex(rKpiSet => rKpiSet.name === state.serverReducer.current_rKpiName)
+    const current_rKpiSetIndex = state.serverReducer.rKpiSets.findIndex(rKpiSet => rKpiSet._id === state.serverReducer.current_rKpiName)
     const current_rKpiSet = current_rKpiSetIndex === -1 ? {} : state.serverReducer.rKpiSets[current_rKpiSetIndex]
     get(current_rKpiSet, "values", []).forEach(rKpi => {
       if (rKpi.name === kpiSelected) {
@@ -28,7 +28,7 @@ function mapStateToProps(state) {
     })
   })
 
-  const current_cKpiSetIndex = state.serverReducer.cKpiSets.findIndex(cKpiSet => cKpiSet.name === state.serverReducer.current_cKpiName)
+  const current_cKpiSetIndex = state.serverReducer.cKpiSets.findIndex(cKpiSet => cKpiSet._id === state.serverReducer.current_cKpiName)
   const current_cKpiSet = current_cKpiSetIndex === -1 ? {} : state.serverReducer.cKpiSets[current_cKpiSetIndex]
 
   return {
@@ -71,7 +71,11 @@ class Graph extends Component {
 
 
   render() {
-    if (this.props.currentKpisSelected.length === 0 || (this.props.current_rKpiName === "" && this.props.current_cKpiName === "")) {
+    if (
+      this.props.currentKpisSelected.length === 0
+      || (this.props.current_rKpiName === "" && this.props.current_cKpiName === "")
+      || this.props.current_cKpiName === "" // remove this condition if/when rKpiData can be displayed without cKpiData
+    ) {
       return <Instructions />
     }
 

@@ -39,7 +39,7 @@ class RefData extends Component {
   }
 
   editKpiSet = kpiSetName => {
-    const kpiSetIndex = this.props.rKpiSets.findIndex(rKpiSet => rKpiSet.name === kpiSetName)
+    const kpiSetIndex = this.props.rKpiSets.findIndex(rKpiSet => rKpiSet._id === kpiSetName)
     if (kpiSetIndex !== -1) {
       this.props.setCurrentInput_rKpi(this.props.rKpiSets[kpiSetIndex])
       this.props.updateCurrentInputViewRefData("edit_rKpi")
@@ -57,13 +57,13 @@ class RefData extends Component {
             {this.props.rKpiSets.map((kpiSet, index) => (
               <KpiSetListItem
                 key={index}
-                kpiSetIsSelected={kpiSet.name === this.props.current_rKpiName}
+                kpiSetIsSelected={kpiSet._id === this.props.current_rKpiName}
                 isCalculatedKpi={false}
                 showOwner={true}
                 kpiSet={kpiSet}
                 description={kpiSet.description}
-                editKpiSet={() => this.editKpiSet(kpiSet.name)}
-                selectKpiSet={() => this.selectKpiSet(kpiSet.name)}
+                editKpiSet={() => this.editKpiSet(kpiSet._id)}
+                selectKpiSet={() => this.selectKpiSet(kpiSet._id)}
               />
             ))}
           </div>
