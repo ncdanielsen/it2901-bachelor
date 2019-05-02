@@ -84,6 +84,30 @@ function updateCKPI(entry) {
     })
 }
 
+function deleteCKPI(entry) {
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("CKPI_TEST").remove({ "_id": ObjectID(entry._id) }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            client.close();
+        });
+    })
+}
+
+function deleteRKPI(entry) {
+    MongoClient.connect(url, function (err, client) {
+        let db = client.db(db_name);
+
+        db.collection("RKPI_TEST").remove({ "_id": ObjectID(entry._id) }, function (err, res) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            client.close();
+        });
+    })
+}
+
 function updateRKPI(entry) {
     MongoClient.connect(url, function (err, client) {
         let db = client.db(db_name);
@@ -236,4 +260,6 @@ module.exports.writeNewRKPI = writeNewRKPI;
 module.exports.writeNewCKPI = writeNewCKPI;
 module.exports.updateRKPI = updateRKPI;
 module.exports.updateCKPI = updateCKPI;
+module.exports.deleteCKPI = deleteCKPI;
+module.exports.deleteRKPI = deleteRKPI;
 
