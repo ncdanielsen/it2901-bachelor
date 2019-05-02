@@ -49,7 +49,7 @@ export default function serverReducer(state = initialState, action) {
 
     case types.LOGOUT:
       deleteCookie("access_token")
-      return {...state, isLoggedIn: false}
+      return {...initialState, isLoggedIn: false}
 
 
     case types.GET_USER_INFO_STARTED:
@@ -120,23 +120,11 @@ export default function serverReducer(state = initialState, action) {
       return state
     case types.SAVE_UPDATED_R_KPI_SET_FAILURE: // will be useful for showing spinning wheel
       return state
-    case types.GET_R_KPI_SETS_STARTED:
-      return state
-    case types.GET_R_KPI_SETS_SUCCESS:
-      return {...state, rKpiSets: action.payload}
-    case types.GET_R_KPI_SETS_FAILURE:
-      return state
     case types.SAVE_UPDATED_C_KPI_SET_STARTED: // will be useful for showing spinning wheel
       return state
     case types.SAVE_UPDATED_C_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
       return state
     case types.SAVE_UPDATED_C_KPI_SET_FAILURE: // will be useful for showing spinning wheel
-      return state
-    case types.GET_C_KPI_SETS_STARTED:
-      return state
-    case types.GET_C_KPI_SETS_SUCCESS:
-      return {...state, cKpiSets: action.payload}
-    case types.GET_C_KPI_SETS_FAILURE:
       return state
 
     case types.UPDATE_CURRENT_R_KPI_NAME:

@@ -110,6 +110,10 @@
 }
 
 .cancelButton {
+  background: rgb(200,200,200);
+}
+
+.deleteButton {
   background: rgb(255, 77, 102);
 }
 

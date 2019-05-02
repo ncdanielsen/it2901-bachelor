@@ -74,17 +74,17 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
 export default class RadarGraph extends Component {
 
   render() {
-    
+
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime, this.props.categories)
 
     return (
         
         <div id='radarGraphId'>
             <RadarChart
-              cx={this.props.chartSize*0.5*1.35}
+              cx={this.props.chartSize*0.5*2}
               cy={this.props.chartSize*0.52}
               outerRadius={this.props.chartSize*0.38}
-              width={this.props.chartSize*1.35}
+              width={this.props.chartSize*2}
               height={this.props.chartSize}
               /*data={this.props.currentKpisSelected.map(selectKpi => get(this.props, 'cKpiSet.values', []).find(kpi => kpi.name === selectKpi))}*/
               data={graphData}
@@ -92,7 +92,7 @@ export default class RadarGraph extends Component {
             >
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
-                <Radar name="Calculated KPI" dataKey="cKPIvalue" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Radar name="Calculated KPI" dataKey="cKPIvalue" stroke="#5aa5cc" fill="#5aa5cc" fillOpacity={0.6} />
                 <Radar name="Reference KPI" dataKey="rKPIvalue" stroke="red" fill="#82ca9d" fillOpacity={0.0} />
                 <Tooltip />
                 <Legend />
