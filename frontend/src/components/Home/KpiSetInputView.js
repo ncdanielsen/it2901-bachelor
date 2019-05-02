@@ -176,18 +176,20 @@ class KpiSetInputView extends Component {
   }
 
   delete = () => {
-    if (this.props.currentInputView === "edit_rKpi") {
-      if (this.props.current_rKpiName === get(this.props, 'currentInputKpi.name', "")) {
-        this.props.updateCurrent_rKpiName("")
+    if (window.confirm("Are you sure you want to delete?")) {
+      if (this.props.currentInputView === "edit_rKpi") {
+        if (this.props.current_rKpiName === get(this.props, 'currentInputKpi._id', "")) {
+          this.props.updateCurrent_rKpiName("")
+        }
+        this.props.delete_rKpiSet(get(this.props, 'currentInputKpi._id', false))
+        this.props.updateCurrentInputViewRefData("none")
+      } else if (this.props.currentInputView === "edit_cKpi") {
+        if (this.props.current_cKpiName === get(this.props, 'currentInputKpi._id', "")) {
+          this.props.updateCurrent_cKpiName("")
+        }
+        this.props.delete_cKpiSet(get(this.props, 'currentInputKpi._id', false))
+        this.props.updateCurrentInputViewMyData("none")
       }
-      this.props.delete_rKpiSet(get(this.props, 'currentInputKpi._id', false))
-      this.props.updateCurrentInputViewRefData("none")
-    } else if (this.props.currentInputView === "edit_cKpi") {
-      if (this.props.current_cKpiName === get(this.props, 'currentInputKpi.name', "")) {
-        this.props.updateCurrent_cKpiName("")
-      }
-      this.props.delete_cKpiSet(get(this.props, 'currentInputKpi._id', false))
-      this.props.updateCurrentInputViewMyData("none")
     }
   }
 
@@ -217,7 +219,7 @@ class KpiSetInputView extends Component {
                   <label key={index} className={styles.label}>
                     <div className={styles.inputItem}>
                       <div className={styles.inputTitle}><b>{input.name}</b></div>
-                      {(input.type === "text"/* || input.type === "number"*/) && <input 
+                      {(input.type === "text"/* || input.type === "number"*/) && <input
                         id="ckpiNameInput"
                         type={input.type}
                         value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
