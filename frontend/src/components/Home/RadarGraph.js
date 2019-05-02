@@ -78,8 +78,8 @@ export default class RadarGraph extends Component {
     let graphData = makeData(this.props.kpis, this.props.rKpis, this.props.cKpiSet, this.props.currentKpisSelected, this.props.fromDateTime, this.props.toDateTime, this.props.categories)
 
     return (
-
-        <div>
+        
+        <div id='radarGraphId'>
             <RadarChart
               cx={this.props.chartSize*0.5*2}
               cy={this.props.chartSize*0.52}

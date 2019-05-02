@@ -86,7 +86,7 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <div className={styles.SideMenuContainer}>
+      <div id="SideBar" className={styles.SideMenuContainer}>
         <DataSource
           title="My Data Source"
           nameOfChosenSource={this.props.current_cKpiName === "" ? "Source not selected" : this.props.current_cKpiName}
@@ -109,8 +109,8 @@ class SideMenu extends Component {
 
 
         {this.props.isKPIDataPath &&
-          <div className={styles.kpiContainer}>
-            <label htmlFor="multiSelect">Multi-Select </label>
+          <div id="kpiContainerId" className={styles.kpiContainer}>
+            <label htmlFor="multiSelect">Multi-Select</label>
             <input
               type="checkbox"
               id="multiSelect"
@@ -136,7 +136,7 @@ class SideMenu extends Component {
             </div>
           </div>
         }
-
+      
       </div>
     )
   }

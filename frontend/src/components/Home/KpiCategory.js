@@ -13,6 +13,7 @@ const KpiCategory = ({
 }) => (
   <div>
     <div
+      id="kpiCategoryBox"
       className={
         categoryIsSelected
           ? styles.kpiCategory + " " + styles.categorySelected
@@ -27,7 +28,7 @@ const KpiCategory = ({
     {/* Shows kpis in category only if selected */}
 
     {categoryIsSelected && (
-      <div className={styles.categorySubBox}>
+      <div id="kpiBoxes" className={styles.categorySubBox}>
         {category.kpi_names.map((kpi, i) => {
           const kpiIsSelected =
             currentKpisSelected.findIndex(

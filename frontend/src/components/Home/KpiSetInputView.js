@@ -205,13 +205,15 @@ class KpiSetInputView extends Component {
                   <label key={index} className={styles.label}>
                     <div className={styles.inputItem}>
                       <div className={styles.inputTitle}><b>{input.name}</b></div>
-                      {(input.type === "text"/* || input.type === "number"*/) && <input
+                      {(input.type === "text"/* || input.type === "number"*/) && <input 
+                        id="ckpiNameInput"
                         type={input.type}
                         value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
                         onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField}
                       />}
                       {input.type === "textarea" && <textarea
+                        id="ckpiDescInput"
                         value={get(this.props.currentInputKpi, '[' + input.name.toLowerCase() + ']', "")}
                         onChange={(e) => this.props.updateKpiInputValue(input.name.toLowerCase(), get(e, 'target.value', ""), this.props.currentInputView)}
                         className={styles.inputField + " " + styles.textarea}
@@ -285,19 +287,19 @@ class KpiSetInputView extends Component {
             {
               this.props.buttons.map((button, i) => {
                 if (button === "cancel") {
-                  return <div key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
+                  return <div id='refDataCancel' key={i} onClick={this.cancel} className={styles.button + " " + styles.cancelButton}>
                     Cancel
                   </div>
                 } else if (button === "create") {
-                  return <div key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
+                  return <div id='refDataCreate' key={i} onClick={this.create} className={styles.button + " " + styles.saveButton}>
                     Create
                   </div>
                 } else if (button === "save") {
-                  return <div key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
+                  return <div id='refDataSave' key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
                     Save
                   </div>
                 } else if (button === "delete") {
-                  return <div key={i} onClick={this.delete} className={styles.button + " " + styles.deleteButton}>
+                  return <div id='refDataDelete' key={i} onClick={this.delete} className={styles.button + " " + styles.deleteButton}>
                     Delete
                   </div>
                 } else {

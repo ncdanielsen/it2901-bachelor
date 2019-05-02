@@ -1,20 +1,37 @@
 context("Header Tests", () =>{
+    
+    describe("Test FAQ", function() {
+    
+        beforeEach(function() {
+            cy.login()
+            cy.visit("http://localhost:3000/Faq/")
+        })
+    
+        it("Click about, expects change in URL", function(){
+            cy.visit("http://localhost:3000/home/")
+            cy.get("div").contains("FAQ").click()
+            cy.url().should("include", "/Faq")
+            
+        })
+    
+    })
+
     describe("Test About", function() {
     
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
-    
-        it("Expect true=true", function(){
-            expect(true).to.equal(true)
-            
-    
-        })
-    
+
         it("Click about, expects change in URL", function(){
             cy.get("div").contains("About").click()
             cy.url().should("include", "/about")
             
+        })
+
+        it("Check About Title", function(){
+            cy.visit("http://localhost:3000/about/")
+            cy.contains("About")            
         })
     
     })
@@ -22,6 +39,7 @@ context("Header Tests", () =>{
     describe("Test Profile", function() {
         
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/home/")
         })
     
@@ -36,6 +54,7 @@ context("Header Tests", () =>{
     describe("Test Home buttons", function() {
         
         beforeEach(function() {
+            cy.login()
             cy.visit("http://localhost:3000/about")
             cy.url().should("include", "/about")
         })

@@ -105,7 +105,7 @@ class Graph extends Component {
    }
 
     return (
-      <div className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
+      <div id="graphContainerId" className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
         {/*<div className={styles.timeDatePicker}>
           <TimeDateSelection />
         </div>*/}
