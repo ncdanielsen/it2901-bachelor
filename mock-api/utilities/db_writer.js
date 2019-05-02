@@ -60,10 +60,12 @@ function write_to_DB(collection, json_data) {
 }
 
 function writeNewRKPI(entry) {
+    entry.lastUpdated = new Date()
     write_to_DB("RKPI_TEST", [entry])
 }
 
 function writeNewCKPI(entry) {
+    entry.lastUpdated = new Date()
     write_to_DB("CKPI_TEST", [entry])
 }
 
@@ -97,6 +99,7 @@ function deleteCKPI(entry) {
 }
 
 function deleteRKPI(entry) {
+    console.log("deleteRKPI", entry)
     MongoClient.connect(url, function (err, client) {
         let db = client.db(db_name);
 

@@ -10,7 +10,12 @@ import {
   update_cKpiInputValue,
   insertNew_cKpiValues
 } from '../../actions/uiReducerActions'
-import { saveUpdated_rKpiSet, saveUpdated_cKpiSet } from '../../actions/serverReducerActions' // uncomment when server is ready
+import {
+  saveUpdated_rKpiSet,
+  saveUpdated_cKpiSet,
+  delete_rKpiSet,
+  delete_cKpiSet
+} from '../../actions/serverReducerActions' // uncomment when server is ready
 
 import { get } from 'lodash'
 
@@ -46,7 +51,7 @@ function mapStateToProps(state, ownProps) {
       inputs,
       currentInputKpi,
       kpiCategories: state.serverReducer.kpiCategories,
-      buttons: ["cancel", "save"] // "delete"
+      buttons: ["delete", "cancel", "save"]
     }
   } else if (currentInputView === "new_cKpi") {
     const currentInputKpi = state.uiReducer.currentInput_cKpi
@@ -61,7 +66,7 @@ function mapStateToProps(state, ownProps) {
       inputs,
       currentInputKpi,
       kpiCategories: {},
-      buttons: ["cancel", "create"] // "delete"
+      buttons: ["cancel", "create"]
     }
   } else if (currentInputView === "edit_cKpi") {
     const currentInputKpi = state.uiReducer.currentInput_cKpi
@@ -76,7 +81,7 @@ function mapStateToProps(state, ownProps) {
       inputs,
       currentInputKpi,
       kpiCategories: {},
-      buttons: ["cancel", "save"] // "delete"
+      buttons: ["delete", "cancel", "save"]
     }
   } else {
     return { // shouldn't happen
@@ -118,7 +123,13 @@ function mapDispatchToProps(dispatch) {
       console.log("saveUpdated_cKpiSet", updated_cKpiSet)
       dispatch(saveUpdated_cKpiSet(updated_cKpiSet, true))
     },
-    insertNew_cKpiValues: values => dispatch(insertNew_cKpiValues(values))
+    insertNew_cKpiValues: values => dispatch(insertNew_cKpiValues(values)),
+    delete_rKpiSet: id => {
+      if (id) dispatch(delete_rKpiSet(id))
+    },
+    delete_cKpiSet: id => {
+      if (id) dispatch(delete_cKpiSet(id))
+    }
   }
 }
 
@@ -154,6 +165,16 @@ class KpiSetInputView extends Component {
       this.props.updateCurrentInputViewRefData("none")
     } else if (this.props.currentInputView === "edit_cKpi") {
       this.props.saveUpdated_cKpiSet(this.props.currentInputKpi)
+      this.props.updateCurrentInputViewMyData("none")
+    }
+  }
+
+  delete = () => {
+    if (this.props.currentInputView === "edit_rKpi") {
+      this.props.delete_rKpiSet(get(this.props, 'currentInputKpi._id', false))
+      this.props.updateCurrentInputViewRefData("none")
+    } else if (this.props.currentInputView === "edit_cKpi") {
+      this.props.delete_cKpiSet(get(this.props, 'currentInputKpi._id', false))
       this.props.updateCurrentInputViewMyData("none")
     }
   }
@@ -274,6 +295,10 @@ class KpiSetInputView extends Component {
                 } else if (button === "save") {
                   return <div key={i} onClick={this.save} className={styles.button + " " + styles.saveButton}>
                     Save
+                  </div>
+                } else if (button === "delete") {
+                  return <div key={i} onClick={this.delete} className={styles.button + " " + styles.deleteButton}>
+                    Delete
                   </div>
                 } else {
                   return <div />

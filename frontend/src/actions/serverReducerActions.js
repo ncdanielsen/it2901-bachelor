@@ -136,6 +136,7 @@ export const getrKpiDataEnergyFailure = error => ({type: types.GET_R_KPI_DATA_FA
 
 
 export const getcKpiDataEnergy = () => {
+  console.log("getcKpiDataEnergy")
   return dispatch => {
     dispatch(getcKpiDataEnergyStarted())
     axios
@@ -190,15 +191,7 @@ export const saveUpdated_rKpiSet = (updated_rKpiSet, editExisting=false) => {
     .then(function (result) {
       saveUpdated_rKpiSetSuccess(result.data)
 
-      dispatch(get_rKpiSetsStarted())
-      axios
-        .get("http://localhost:4000/rkpi")
-        .then(res => {
-          dispatch(get_rKpiSetsSuccess(res.data))
-        })
-        .catch(err => {
-          dispatch(get_rKpiSetsFailure(err.message))
-        })
+      dispatch(getrKpiDataEnergy())
     })
     .catch(function (err) {
       dispatch(saveUpdated_rKpiSetFailure(err.message))
@@ -210,13 +203,44 @@ const saveUpdated_rKpiSetStarted = () => ({type: types.SAVE_UPDATED_R_KPI_SET_ST
 const saveUpdated_rKpiSetSuccess = data => ({type: types.SAVE_UPDATED_R_KPI_SET_SUCCESS, payload: data})
 const saveUpdated_rKpiSetFailure = error => ({type: types.SAVE_UPDATED_R_KPI_SET_FAILURE, payload: {error}})
 
-const get_rKpiSetsStarted = () => ({type: types.GET_R_KPI_SETS_STARTED})
-const get_rKpiSetsSuccess = data => ({type: types.GET_R_KPI_SETS_SUCCESS, payload: data})
-const get_rKpiSetsFailure = error => ({type: types.GET_R_KPI_SETS_FAILURE, payload: {error}})
 
 
+export const delete_rKpiSet = (id) => {
+  return dispatch => {
+    dispatch(delete_rKpiSetStarted())
+    axios.delete("http://localhost:4000/rkpi", {data: {"_id": id}})
+    .then(function (result) {
+      delete_rKpiSetSuccess(result.data)
+      dispatch(getrKpiDataEnergy())
+    })
+    .catch(function (err) {
+      dispatch(delete_rKpiSetFailure(err.message))
+    })
+  }
+}
+
+const delete_rKpiSetStarted = () => ({type: types.DELETE_R_KPI_SET_STARTED})
+const delete_rKpiSetSuccess = data => ({type: types.DELETE_R_KPI_SET_SUCCESS, payload: data})
+const delete_rKpiSetFailure = error => ({type: types.DELETE_R_KPI_SET_FAILURE, payload: {error}})
 
 
+export const delete_cKpiSet = (id) => {
+  return dispatch => {
+    dispatch(delete_cKpiSetStarted())
+    axios.delete("http://localhost:4000/ckpi", {data: {"_id": id}})
+    .then(function (result) {
+      delete_cKpiSetSuccess(result.data)
+      dispatch(getcKpiDataEnergy())
+    })
+    .catch(function (err) {
+      dispatch(delete_cKpiSetFailure(err.message))
+    })
+  }
+}
+
+const delete_cKpiSetStarted = () => ({type: types.DELETE_C_KPI_SET_STARTED})
+const delete_cKpiSetSuccess = data => ({type: types.DELETE_C_KPI_SET_SUCCESS, payload: data})
+const delete_cKpiSetFailure = error => ({type: types.DELETE_C_KPI_SET_FAILURE, payload: {error}})
 
 
 export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
@@ -226,15 +250,7 @@ export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
     .then(function (result) {
       saveUpdated_cKpiSetSuccess(result.data)
 
-      dispatch(get_cKpiSetsStarted())
-      axios
-        .get("http://localhost:4000/ckpi")
-        .then(res => {
-          dispatch(get_cKpiSetsSuccess(res.data))
-        })
-        .catch(err => {
-          dispatch(get_cKpiSetsFailure(err.message))
-        })
+      dispatch(getcKpiDataEnergy())
     })
     .catch(function (err) {
       dispatch(saveUpdated_cKpiSetFailure(err.message))
@@ -245,7 +261,3 @@ export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
 const saveUpdated_cKpiSetStarted = () => ({type: types.SAVE_UPDATED_C_KPI_SET_STARTED})
 const saveUpdated_cKpiSetSuccess = data => ({type: types.SAVE_UPDATED_C_KPI_SET_SUCCESS, payload: data})
 const saveUpdated_cKpiSetFailure = error => ({type: types.SAVE_UPDATED_C_KPI_SET_FAILURE, payload: {error}})
-
-const get_cKpiSetsStarted = () => ({type: types.GET_C_KPI_SETS_STARTED})
-const get_cKpiSetsSuccess = data => ({type: types.GET_C_KPI_SETS_SUCCESS, payload: data})
-const get_cKpiSetsFailure = error => ({type: types.GET_C_KPI_SETS_FAILURE, payload: {error}})
