@@ -16,7 +16,6 @@ function mapStateToProps(state) {
     // mock data at the moment, should come from the server
     current_rKpiName: state.serverReducer.current_rKpiName,
     rKpiSets: state.serverReducer.rKpiSets,
-    showSideMenu: state.uiReducer.showSideMenu,
     currentInputViewRefData: state.uiReducer.currentInputViewRefData
   }
 }
@@ -50,7 +49,7 @@ class RefData extends Component {
 
   render() {
     return (
-      <div className={styles.refDataContainer + (this.props.showSideMenu ? "" : (" " + styles.refDataContainerFullScreen))}>
+      <div className={styles.refDataContainer}>
         <div className={this.props.currentInputViewRefData !== "none" ? styles.overflowHidden : ""}>
           <UploadNewKpiSet text="existing sets of reference KPIs" uploadNew={this.uploadNew_rKpiSet} />
           <div className={styles.kpiSets}>

@@ -3,13 +3,9 @@
 .refDataContainer {
   position: relative;
   text-align: center;
-  width: calc(75% + 1px);
+  width: 100%;
   height: 100%;
   overflow-y: scroll;
-}
-
-.refDataContainerFullScreen {
-  width: 100%;
 }
 
 

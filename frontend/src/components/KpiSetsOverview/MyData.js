@@ -20,7 +20,6 @@ function mapStateToProps(state) {
   return {
     current_cKpiName: state.serverReducer.current_cKpiName,
     cKpiSets: state.serverReducer.cKpiSets,
-    showSideMenu: state.uiReducer.showSideMenu,
     currentInputViewMyData: state.uiReducer.currentInputViewMyData
   }
 }
@@ -56,7 +55,7 @@ class MyData extends Component {
 
   render() {
     return (
-      <div className={styles.myDataContainer + (this.props.showSideMenu ? "" : (" " + styles.myDataContainerFullScreen))}>
+      <div className={styles.myDataContainer}>
         <div className={this.props.currentInputViewMyData !== "none" ? styles.overflowHidden : ""}>
           <UploadNewKpiSet uploadNew={this.uploadNew_cKpiSet} text="existing sets of calculated KPIs" />
           <div className={styles.kpiSets}>
