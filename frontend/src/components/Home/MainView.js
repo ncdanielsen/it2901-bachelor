@@ -10,11 +10,11 @@ import {
   getcKpiDataEnergy
 } from "../../actions/serverReducerActions"
 
-import SideMenu from "./SideMenu"
+import SideMenu from "../SideMenu/SideMenu"
 import Graph from "./Graph"
 
-import RefData from "./RefData"
-import MyData from "./MyData"
+import RefData from "../KpiSetsOverview/RefData"
+import MyData from "../KpiSetsOverview/MyData"
 import Instructions from "./Instructions"
 
 import Header from "../Header"

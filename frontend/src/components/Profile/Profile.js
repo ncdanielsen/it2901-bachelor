@@ -8,7 +8,7 @@ import { getUserInfo, deleteUser, logout } from '../../actions/serverReducerActi
 
 import styles from './Profile.module.css'
 
-import SideMenu from "../Home/SideMenu"
+import SideMenu from "../SideMenu/SideMenu"
 import Header from "../Header"
 
 function mapStateToProps(state) {

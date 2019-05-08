@@ -4,7 +4,7 @@ import styles from "./FAQ.module.css"
 import { connect } from "react-redux"
 
 import Header from "../Header"
-import SideMenu from "../Home/SideMenu"
+import SideMenu from "../SideMenu/SideMenu"
 
 
 function mapStateToProps(state) {
