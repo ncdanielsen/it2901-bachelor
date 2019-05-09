@@ -8,10 +8,6 @@ import { getUserInfo, deleteUser, logout } from '../../actions/serverReducerActi
 
 import styles from './Profile.module.css'
 
-//import SideMenu from "../SideMenu/SideMenu"
-//import Header from "../Header"
-
-import ContainerWithSideMenu from "../ContainerWithSideMenu"
 
 function mapStateToProps(state) {
   const userInfo = state.serverReducer.userInfo
@@ -56,39 +52,37 @@ class Profile extends Component {
 
   render() {
     return (
-      <ContainerWithSideMenu>
-        <div className={styles.ProfileMain}>
-          <div>
-            <h1>Profile</h1>
-          </div>
-          <div>
-            <h3>Email address</h3>
-            <p>{this.props.email}</p>
-          </div>
-          <div>
-            <h3>Is admin?</h3>
-            <p>{this.props.admin ? "Yes" : "No"}</p>
-          </div>
-          <div>
-            <h3>Is superuser?</h3>
-            <p>{this.props.superuser ? "Yes" : "No"}</p>
-          </div>
-          <div className={styles.paddingBottom} />
-          <div
-            className={styles.logoutButton}
-            onClick={this.logout}
-          >
-            Log out
-          </div>
-          <div
-            className={styles.logoutButton}
-            style={{background: 'red'}}
-            onClick={this.deleteUser}
-          >
-            Delete user
-          </div>
+      <div className={styles.ProfileMain}>
+        <div>
+          <h1>Profile</h1>
         </div>
-      </ContainerWithSideMenu>
+        <div>
+          <h3>Email address</h3>
+          <p>{this.props.email}</p>
+        </div>
+        <div>
+          <h3>Is admin?</h3>
+          <p>{this.props.admin ? "Yes" : "No"}</p>
+        </div>
+        <div>
+          <h3>Is superuser?</h3>
+          <p>{this.props.superuser ? "Yes" : "No"}</p>
+        </div>
+        <div className={styles.paddingBottom} />
+        <div
+          className={styles.logoutButton}
+          onClick={this.logout}
+        >
+          Log out
+        </div>
+        <div
+          className={styles.logoutButton}
+          style={{background: 'red'}}
+          onClick={this.deleteUser}
+        >
+          Delete user
+        </div>
+      </div>
     )
   }
 }
