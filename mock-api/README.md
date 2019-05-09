@@ -40,9 +40,45 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 > NOTE: This is a defintion to mock the real rest API. Changes may occur 
 
 ## Download functions
-### ../ckpi/ returns a set of predefined CKPI values. Will be updated in the future.
+### ../ckpi/ returns a set of predefined CKPI values.
 
-### ../rkpi/ returns a set of predefined RKPI values. Will be updated in the future.
+``` JS
+[{
+    _id: Number,
+    name: String,
+    description: String,
+    created: Date,
+    lastUpdated: Date,
+    owner: String,
+    values: [
+      {
+       name: String,
+       data: [
+        {time: Date, value: Number, weight: Number}
+       ]
+      }
+    ]
+}]
+```
+
+### ../rkpi/ returns a set of predefined RKPI values.
+
+``` JS
+[{
+    _id: Number,
+    name: String,
+    description: String,
+    created: Date,
+    lastUpdated: Date,
+    owner: String,
+    values: [
+     {name: String, value: Number, weight: Number}
+    ]
+}]
+```
+
+  
+
 
 ### ../kpi-list/categories
 
