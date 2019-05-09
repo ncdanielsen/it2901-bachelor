@@ -16,15 +16,15 @@
 
 .chartTypeDropDown {
   position: absolute;
-  top: 13%;
+  top: 2%;
   right: 2.5%;
   display: inline-flex;
 }
 
 .chartContainer {
-  padding-top: 9%;
+  padding-top: 12%;
 }
 
 .chartContainerFullScreen {
-  padding-top: 5%;
+  padding-top: 6%;
 }

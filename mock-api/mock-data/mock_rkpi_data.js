@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: "Some name",
+    name: "Cold climate",
     created: Math.ceil(new Date().getTime()/1000),
     lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Private",
@@ -32,7 +32,7 @@ module.exports = [
     ]
   },
   {
-    name: "Another name",
+    name: "Warm climate",
     created: Math.ceil(new Date().getTime()/1000),
     lastUpdated: Math.ceil(new Date().getTime()/1000),
     owner: "Shared",

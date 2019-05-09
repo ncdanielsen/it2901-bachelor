@@ -1,15 +1,3 @@
-.FaqContainer {
-  position: relative;
-  width: calc(75% + 1px);
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  overflow-y: scroll;
-}
-
-.FaqContainerFullScreen {
-  width: 100%;
-}
 
 .FaqMain {
   width: 90%;
@@ -36,11 +24,4 @@
 
 .heading {
   font-weight: bold, sans-serif;
-}
-
-.Content {
-  display: flex;
-  justify-content: flex-start;
-  height: 90vh;
-  width: 100%;
 }

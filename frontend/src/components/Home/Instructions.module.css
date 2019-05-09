@@ -1,14 +1,7 @@
 
 .instructionsContainer {
-  width: calc(75% + 1px);
-  display: flex;
-  justify-content: center;
   text-align: center;
   padding-top: 8%;
-}
-
-.instructionsContainerFullScreen {
-  width: 100%;
 }
 
 .instructionsList {

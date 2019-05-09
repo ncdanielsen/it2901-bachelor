@@ -6,56 +6,51 @@ import styles from "./MainView.module.css"
 import { Route, Switch } from "react-router" // react-router v4
 
 import {
-  getrKpiDataEnergy,
-  getcKpiDataEnergy
+  get_rKpiData,
+  get_cKpiData
 } from "../../actions/serverReducerActions"
 
-import SideMenu from "./SideMenu"
 import Graph from "./Graph"
 
-import RefData from "./RefData"
-import MyData from "./MyData"
+import RefData from "../KpiSetsOverview/RefData"
+import MyData from "../KpiSetsOverview/MyData"
 import Instructions from "./Instructions"
 
-import Header from "../Header"
+import ContainerWithSideMenu from "../ContainerWithSideMenu"
 
 function mapStateToProps(state) {
-  return {
-    showSideMenu: state.uiReducer.showSideMenu
-  }
+  return {}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getrKpiDataEnergy: () => dispatch(getrKpiDataEnergy()),
-    getcKpiDataEnergy: () => dispatch(getcKpiDataEnergy())
+    get_rKpiData: () => dispatch(get_rKpiData()),
+    get_cKpiData: () => dispatch(get_cKpiData())
   }
 }
 
 class MainView extends Component {
+
   componentWillMount() {
-    this.props.getrKpiDataEnergy()
-    this.props.getcKpiDataEnergy()
+    // every time the user enters this view (Home), reload rKpiData and cKpiData from server
+    this.props.get_rKpiData()
+    this.props.get_cKpiData()
   }
 
   render() {
     return (
-      <div>
-        <Header />
-        <div className={styles.Content}>
-        {this.props.showSideMenu && <SideMenu />}
-          <Switch>
-            {/* The Switch checks which route matches current pathname, it returns only that child.
-                It receives pathname as prop since it is a subcomponent of ConnectedRouter.
-                Only paths starting with "/home/" will work here, since "/home/*" is already decided in App.js */}
-            <Route exact path="/home" component={Instructions} />
-            <Route exact path="/home/refData" component={RefData} />
-            <Route exact path="/home/myData" component={MyData} />
-            <Route exact path="/home/graph" component={Graph} />
-            <Route render={() => (<div>Unknown route</div>)} />
-          </Switch>
-        </div>
-      </div>
+      <ContainerWithSideMenu>
+        <Switch>
+          {/* The Switch checks which route matches current pathname, it returns only that child.
+              It receives pathname as prop since it is a subcomponent of ConnectedRouter.
+              Only paths starting with "/home/" will work here, since "/home/*" is already decided in App.js */}
+          <Route exact path="/home" component={Instructions} />
+          <Route exact path="/home/refData" component={RefData} />
+          <Route exact path="/home/myData" component={MyData} />
+          <Route exact path="/home/graph" component={Graph} />
+          <Route render={() => (<div>Unknown route</div>)} />
+        </Switch>
+      </ContainerWithSideMenu>
     )
   }
 }
