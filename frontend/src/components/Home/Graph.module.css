@@ -3,16 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  /*font-size: 150%;*/
 }
 
-.GraphContainerFullScreen {
-  width: 100%;
-}
 
 .chartTypeDropDown {
   position: absolute;

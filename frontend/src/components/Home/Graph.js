@@ -109,7 +109,7 @@ class Graph extends Component {
    }
 
     return (
-      <div id="graphContainerId" className={styles.GraphContainer + (this.props.showSideMenu ? "" : (" " + styles.GraphContainerFullScreen))}>
+      <div id="graphContainerId" className={styles.GraphContainer}>
         <div className={styles.chartContainer + (this.props.showSideMenu ? "" : (" " + styles.chartContainerFullScreen))}>
           {plot}
         </div>
