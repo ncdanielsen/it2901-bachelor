@@ -16,8 +16,6 @@ import RefData from "../KpiSetsOverview/RefData"
 import MyData from "../KpiSetsOverview/MyData"
 import Instructions from "./Instructions"
 
-import ContainerWithSideMenu from "../ContainerWithSideMenu"
-
 function mapStateToProps(state) {
   return {}
 }
@@ -39,18 +37,16 @@ class MainView extends Component {
 
   render() {
     return (
-      <ContainerWithSideMenu>
-        <Switch>
-          {/* The Switch checks which route matches current pathname, it returns only that child.
-              It receives pathname as prop since it is a subcomponent of ConnectedRouter.
-              Only paths starting with "/home/" will work here, since "/home/*" is already decided in App.js */}
-          <Route exact path="/home" component={Instructions} />
-          <Route exact path="/home/refData" component={RefData} />
-          <Route exact path="/home/myData" component={MyData} />
-          <Route exact path="/home/graph" component={Graph} />
-          <Route render={() => (<div>Unknown route</div>)} />
-        </Switch>
-      </ContainerWithSideMenu>
+      <Switch>
+        {/* The Switch checks which route matches current pathname, it returns only that child.
+            It receives pathname as prop since it is a subcomponent of ConnectedRouter.
+            Only paths starting with "/home/" will work here, since "/home/*" is already decided in App.js */}
+        <Route exact path="/home" component={Instructions} />
+        <Route exact path="/home/refData" component={RefData} />
+        <Route exact path="/home/myData" component={MyData} />
+        <Route exact path="/home/graph" component={Graph} />
+        <Route render={() => (<div>Unknown route</div>)} />
+      </Switch>
     )
   }
 }
