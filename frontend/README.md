@@ -16,35 +16,35 @@ For end-to-end testing with Cypress, run `npx cypress open`.<br>
 
 ## About
 
-This is a React web app, which was created with create-react-app.<br>
+This is a React web app, which was created with [create-react-app](https://github.com/facebook/create-react-app).<br>
 
 ## Libraries
 
 ### React
 
-Prerequisite to understand this app [https://reactjs.org](https://reactjs.org).
+Prerequisite to understand this app, [react](https://reactjs.org).
 
 ### Redux
 
-Used for state management, also a prerequisite [https://redux.js.org](https://redux.js.org).
+Used for state management, also a prerequisite, [redux](https://redux.js.org).
 
 ### Redux-Thunk, Axios
 
-For async action dispatching [https://github.com/reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk).<br>
-This is useful for dispatching actions with async api requests, for which axios is used [https://github.com/axios/axios](https://github.com/axios/axios).
+For async action dispatching, [redux-thunk](https://github.com/reduxjs/redux-thunk).<br>
+This is useful for dispatching actions with async api requests, for which axios is used, [axios](https://github.com/axios/axios).
 
 ### React-Router, History, Connected-React-Router
 
-This combination is used for routing. The routing state is kept in its own reducer, and route changes are made by dispatching actions. [https://reacttraining.com/react-router/](https://reacttraining.com/react-router/), [https://github.com/ReactTraining/history](https://github.com/ReactTraining/history), [https://github.com/supasate/connected-react-router](https://github.com/supasate/connected-react-router).
+This combination is used for routing. The routing state is kept in its own reducer, and route changes are made by dispatching actions. [react-router](https://reacttraining.com/react-router/), [history](https://github.com/ReactTraining/history), [connected-react-router](https://github.com/supasate/connected-react-router).
 
 ### Recharts
 
-For declarative graph plotting [http://recharts.org](http://recharts.org).<br>
+For declarative graph plotting, [recharts](http://recharts.org).<br>
 Other libraries can be added as well, no problem.
 
 ### Lodash
 
-In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently [https://lodash.com](https://lodash.com).
+In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently, [https://lodash.com](https://lodash.com).
 
 <br>
 
