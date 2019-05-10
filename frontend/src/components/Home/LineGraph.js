@@ -9,6 +9,7 @@ import { LineChart, XAxis, YAxis, Legend, Tooltip, CartesianGrid, Line } from 'r
 
 
 const strokeColors = ["#3B5EB0", "#44B03B", "#A93BB0", "#3BAEB0", "#B06D3B"]
+const strokeW = 2
 
 // A function for finding the corresponding category to a KPI which has been selected
 function findCategory(categories, kpiName) {
@@ -25,13 +26,6 @@ function findCategory(categories, kpiName) {
 
 
 export default class LineGraph extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      strokeW: 2
-    }
-  }
 
   render() {
     const currentKpisSelected = get(this.props, 'currentKpisSelected', [])
@@ -95,7 +89,7 @@ export default class LineGraph extends Component {
                             key={shortid.generate()}
                             type="monotone"
                             dataKey={"dataKey" + i}
-                            strokeWidth={this.state.strokeW}
+                            strokeWidth={strokeW}
                             stroke={strokeColors[i % strokeColors.length]}
                             />
                 })
