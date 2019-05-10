@@ -44,7 +44,7 @@ Other libraries can be added as well, no problem.
 
 ### Lodash
 
-In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently, [https://lodash.com](https://lodash.com).
+In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently, [lodash](https://lodash.com).
 
 <br>
 
