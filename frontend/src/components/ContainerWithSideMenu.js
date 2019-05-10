@@ -19,8 +19,10 @@ class ContainerWithSideMenu extends Component {
         <Header />
         <div className={styles.ContentWithSideMenu}>
           {this.props.showSideMenu && <SideMenu />}
+          {/* Changes width of content based on whether SideMenu is shown or not */}
           <div className={styles.ContentContainer + (this.props.showSideMenu ? "" : (" " + styles.ContentContainerFullScreen))}>
             {this.props.children}
+            {/*this.props.children == components passed inside <ContainerWithSideMenu></ContainerWithSideMenu>*/}
           </div>
         </div>
       </div>

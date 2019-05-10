@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import styles from "./MainView.module.css"
+//import styles from "./MainView.module.css" // unused at the moment
 
 import { Route, Switch } from "react-router" // react-router v4
 

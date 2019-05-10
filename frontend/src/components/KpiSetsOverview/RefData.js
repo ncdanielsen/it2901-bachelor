@@ -11,9 +11,15 @@ import KpiSetInputView from './KpiSetInputView'
 import UploadNewKpiSet from './UploadNewKpiSet'
 import KpiSetListItem from './KpiSetListItem'
 
+/*
+  This component shows an overview of the existing rKpiSets and a button for creating a new rKpiSet.
+  It also contains an instance of the KpiSetInputView component, which is another smart component.
+  Note: Currently there are only minor differences between MyData and RefData,
+  and they could probably be turned into just one component. However, differences are expected to increase.
+*/
+
 function mapStateToProps(state) {
   return {
-    // mock data at the moment, should come from the server
     current_rKpiName: state.serverReducer.current_rKpiName,
     rKpiSets: state.serverReducer.rKpiSets,
     currentInputViewRefData: state.uiReducer.currentInputViewRefData
@@ -33,13 +39,15 @@ function mapDispatchToProps(dispatch) {
 class RefData extends Component {
 
   uploadNew_rKpiSet = () => {
-    this.props.setEmtpy_rKpi()
-    this.props.updateCurrentInputViewRefData("new_rKpi")
+    this.props.setEmtpy_rKpi() // update the state to be ready for fresh input
+    this.props.updateCurrentInputViewRefData("new_rKpi") // activates input view
   }
 
   editKpiSet = kpiSetName => {
+    // make sure there exists an rKpiSet with kpiSetName
     const kpiSetIndex = this.props.rKpiSets.findIndex(rKpiSet => rKpiSet._id === kpiSetName)
     if (kpiSetIndex !== -1) {
+      // inserts copy of the rKpiSet in the reducer which can be edited without touching the original
       this.props.setCurrentInput_rKpi(this.props.rKpiSets[kpiSetIndex])
       this.props.updateCurrentInputViewRefData("edit_rKpi")
     }
@@ -60,7 +68,6 @@ class RefData extends Component {
                 isCalculatedKpi={false}
                 showOwner={true}
                 kpiSet={kpiSet}
-                description={kpiSet.description}
                 editKpiSet={() => this.editKpiSet(kpiSet._id)}
                 selectKpiSet={() => this.selectKpiSet(kpiSet._id)}
               />

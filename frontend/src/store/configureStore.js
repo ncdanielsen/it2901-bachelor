@@ -13,7 +13,7 @@ export const history = createBrowserHistory()
 
 // this function sets up the redux store
 export default function configureStore(preloadedState) {
-  // loggerMiddleware logs to console when redux related actions happen
+  // loggerMiddleware logs to console when redux related actions happen, can be removed if not found useful
   // thunkMiddleware allows async actions
   // routerMiddleware keeps the router reducer in sync with browser history
   const middlewares = [loggerMiddleware, thunkMiddleware, routerMiddleware(history)]

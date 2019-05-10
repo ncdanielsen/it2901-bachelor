@@ -1,6 +1,8 @@
 import React from "react"
 import styles from "./About.module.css"
 
+// Currently only placeholder info in this component
+
 const About = () => (
   <div className={styles.AboutMain}>
     <h1>ABOUT</h1>

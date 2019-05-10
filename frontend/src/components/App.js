@@ -44,13 +44,13 @@ class App extends Component {
           // all is fine
         })
         .catch(err => {
-          this.props.logout()
+          this.props.logout() // token not valid, log out
         })
     }
   }
 
   render () {
-    if (!this.props.isLoggedIn) {
+    if (!this.props.isLoggedIn) { // when not logged in, every path is redirected to login
       return (
         <ConnectedRouter history={history}>
           <Switch>
@@ -63,7 +63,7 @@ class App extends Component {
     } else {
       return (
         <div className={styles.App}>
-          <ContainerWithSideMenu>
+          <ContainerWithSideMenu>{/* When logged in, every path has Header and Sidemenu */}
             <ConnectedRouter history={history}>
               <Switch>
                 {" "}

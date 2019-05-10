@@ -13,6 +13,11 @@ import { push, replace } from "connected-react-router"
 import DataSource from "./DataSource.js"
 import KpiCategory from "./KpiCategory.js"
 
+/*
+  This component lets the user navigate between My Data, Reference Data and KPI Overview (graph).
+  When KPI Overview is selected, it also shows the kpi select options
+*/
+
 function mapStateToProps(state) {
   /* the path props are used to figure out where the user is,
      which is needed to determine whether to go to or from the graph view
@@ -51,7 +56,7 @@ function mapDispatchToProps(dispatch) {
     push: (url) => dispatch(push(url)),
     replace: (url) => dispatch(replace(url)),
     getKpiOptions: () => {
-      dispatch(getKpiList()) // currently not useful
+      dispatch(getKpiList())
       dispatch(getKpiCategories())
     },
     updateMultiSelect: multiSelect => dispatch(updateMultiSelect(multiSelect))
@@ -68,6 +73,9 @@ class SideMenu extends Component {
   }
 
   componentDidMount() {
+    /* get kpi options from server every time component mounts.
+    Note: perhaps a bit unnecessary,
+    can probably do this somewhere else such as in App "onLoggedIn" */
     this.props.getKpiOptions()
   }
 
@@ -154,13 +162,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SideMenu)
-
-
-/*
-
-<div className={styles.kpiContainer}>
-          <div className={styles.buttonTitle+" "+styles.kpiTitle} onClick={() => console.log("KPI Overview")}>
-            KPI Overview
-          </div>
-        <div>
-*/

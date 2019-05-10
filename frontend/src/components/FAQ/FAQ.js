@@ -1,6 +1,8 @@
 import React from "react"
 import styles from "./FAQ.module.css"
 
+// Might wanna include more visualisations or links here
+
 const Faq = () => (
   <div className={styles.FaqMain}>
     <div>
@@ -26,11 +28,11 @@ const Faq = () => (
     <br />
     <h3>
       I have selected a KPI to view from the side menu bars, but no data
-      shows up. What's wrong?
+      shows up. What is wrong?
     </h3>
     <p>
       Make sure KPI data is selected in My Data Source. No data will
-      show up if no source is selected. <br /> If a specific KPI don't
+      show up if no source is selected. <br /> If a specific KPI does not
       show up, the KPI set for source might either lack data for the
       KPI, or something might be wrong in the formating.
     </p>

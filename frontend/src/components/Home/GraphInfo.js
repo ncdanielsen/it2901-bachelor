@@ -4,6 +4,12 @@ import styles from './GraphInfo.module.css'
 
 export default class GraphInfo extends Component {
 
+  /*
+    This component displays a box with this.props.title as title.
+    When the box is hovered, it expands to also show info items.
+    this.props.info = list of strings with information
+  */
+
   constructor(props) {
     super(props)
     this.state = {
