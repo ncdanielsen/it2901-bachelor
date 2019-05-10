@@ -1,3 +1,55 @@
+## Getting started
+
+In order to get started with the frontend, simply run:<br><br>
+`npm install`<br>
+`npm start`<br><br>
+
+The website can then be accessed at [http://localhost:3000](http://localhost:3000).<br>
+
+Note: Also make sure that the backend is up and running. See README in /mock-api for details.<br>
+
+The frontend currently communicates with the server at [http://localhost:4000](http://localhost:4000).<br>
+
+## Testing
+
+For end-to-end testing with Cypress, run `npx cypress open`.<br>
+
+## About
+
+This is a React web app, which was created with create-react-app.<br>
+
+## Libraries
+
+### React
+
+Prerequisite to understand this app [https://reactjs.org](https://reactjs.org).
+
+### Redux
+
+Used for state management, also a prerequisite [https://redux.js.org](https://redux.js.org).
+
+### Redux-Thunk, Axios
+
+For async action dispatching [https://github.com/reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk).<br>
+This is useful for dispatching actions with async api requests, for which axios is used [https://github.com/axios/axios](https://github.com/axios/axios).
+
+### React-Router, History, Connected-React-Router
+
+This combination is used for routing. The routing state is kept in its own reducer, and route changes are made by dispatching actions. [https://reacttraining.com/react-router/](https://reacttraining.com/react-router/), [https://github.com/ReactTraining/history](https://github.com/ReactTraining/history), [https://github.com/supasate/connected-react-router](https://github.com/supasate/connected-react-router).
+
+### Recharts
+
+For declarative graph plotting [http://recharts.org](http://recharts.org).<br>
+Other libraries can be added as well, no problem.
+
+### Lodash
+
+In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently [https://lodash.com](https://lodash.com).
+
+<br>
+
+## Below: highly relevant auto-generated readme from create-react-app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
