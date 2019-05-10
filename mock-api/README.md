@@ -40,129 +40,132 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 > NOTE: This is a defintion to mock the real rest API. Changes may occur 
 
 ## Download functions
-### ../ckpi/ returns a set of predefined CKPI values.
 
-``` JS
-[{
-    _id: Number,
-    name: String,
-    description: String,
-    created: Date,
-    lastUpdated: Date,
-    owner: String,
-    values: [
-      {
-       name: String,
-       data: [
-        {time: Date, value: Number, weight: Number}
-       ]
-      }
-    ]
-}]
-```
 
-### ../rkpi/ returns a set of predefined RKPI values.
+### ../ckpi/ 
 
-``` JS
-[{
-    _id: Number,
-    name: String,
-    description: String,
-    created: Date,
-    lastUpdated: Date,
-    owner: String,
-    values: [
-     {name: String, value: Number, weight: Number}
-    ]
-}]
-```
+Returns a set of predefined Calculated KPI values, which is analogous to
+actual sensor data from buildings.
 
-  
+  - Method:  
+    GET
 
+  - Response:
+    
+    ``` JS
+    
+        _id: Number,
+        name: String,
+        description: String,
+        created: Date,
+        lastUpdated: Date,
+        owner: String,
+        values: [
+          {
+           name: String,
+           data: [
+            {time: Date, value: Number, weight: Number}
+           ]
+          }
+        ]
+    ```
+
+### ../rkpi/
+
+Returns a set of predefined Reference KPI values.
+
+  - Method:  
+    GET
+
+  - Response:
+    
+    ``` JS
+    
+        _id: Number,
+        name: String,
+        description: String,
+        created: Date,
+        lastUpdated: Date,
+        owner: String,
+        values: [
+         {name: String, value: Number, weight: Number}
+        ]
+    ```
 
 ### ../kpi-list/categories
 
-Return a list of all available categories of kpis, with KPIs included 
+Return a list of all available categories of kpis, with KPIs included
 
-``` JS
-[{
-    id: int,
-    name: string, 
-    children: [ // Note: Same list of JSONs as in kpi-list
-        {
-            id: int,
-            unit: String,
-            type: Number type, // (float, int, datetime, etc)
-    		timeseries: Boolean 
-            description: String // I.e. "Amount of energy the bulding has delivered to 										national grid" 
-            
-            // Note: In database, use only id. Then combine in the 				backend. 
-        }
-    ]
-}]
-```
+  - Method:  
+    GET
+
+  - Response:
+    
+    ```  JS
+    
+        id: Integer,
+        name: string, 
+        children: [ // Note: Same list of JSONs as in kpi-list
+            {
+                id: Integer,
+                unit: String,
+                type: Number type, // (Float, Integer, datetime, etc)
+                timeseries: Boolean 
+                description: String // I.e. "Amount of energy the building has delivered to national grid" 
+                
+                // Note: In database, use only id. Then combine in the backend. 
+            }
+        ]
+    ```
 
 
 
 ### ../kpi-list/list
 
+</div>
+
 Returns all possible KPIs as JSON
 
-``` JS
-[{
-    id: int,
-    name, 
-    unit: String, // "kw/h", "%" 
-    type: Number type, // (float, int, datetime, etc)
-    timeseries: Boolean 
-    description: String // I.e. "Amount of energy the bulding has delivered to national 							grid" 
-}]
-```
+  - Method:  
+    GET
 
+  - Response:
+    
+    ``` JS
+    
+        id: Integer,
+        name, 
+        unit: String, // "kw/h", "%" 
+        type: Number type, // (Float, Integer, datetime, etc)
+        timeseries: Boolean 
+        description: String // I.e. "Amount of energy the bulding has delivered to national grid" 
+    ```
  
 
-### ../buildings/
-
-Returns a list of all buildings as JSON
-
-```JS
-[{
-    id: int,
-    name: String, 
-    adress: String, 
-    neighborhood: neighborhood_id, 
-}]
-```
-
-
-
-### ../neighborhoods/
-
-Returns a lift of all buildings as JSON
-
-```JS
-[{
-    id: int, 
-    name: String, 
-    buildings: [building_id] // List of building IDs 
-}]
-```
-
-
-
 ### ../buildingkpi/{buildingID}-{kpiID}
+
 Returns a list of KPI values for the specified buildingID and kpiID.
 
-**Data format:**
+  - Method:  
+    GET
 
-```{js}
-[{
-    building_id: int, 
-    kpi_id: int, 
-    values: [float] // list of floats
-    times: [float] // list of floats (unix time)
-}]
-```
+  - URL Parameters:
+    
+    ``` JS
+    
+        building_id: Number, 
+        kpi_id: Number
+    ```
+
+  - Response:
+    
+    ``` JS
+    
+        building_id: Integer, 
+        kpi_id: Integer, 
+        values: [Float] // list of Floats
+        times: [Float] // list of Floats (unix time)
+    ```
 
 
 
@@ -170,20 +173,46 @@ Returns a list of KPI values for the specified buildingID and kpiID.
 
 Return KPI data for neighborhood as a JSON.
 
-**Data format:**
+  - Method:  
+    GET
 
-```{js}
-[{
-    neighbourhood_id: int, 
-    kpi_id: int, 
-    values: [float] // list of floats
-    times: [float] // list of floats (unix time)
-}]
-```
+  - URL Parameters:
+    
+    ``` JS
+    
+        neighbourhood_id: Number, 
+        kpi_id: Number
+    ```
+
+  - Response:
+    
+    ``` JS
+    
+        neighbourhood_id: Integer, 
+        kpi_id: Integer, 
+        values: [Float] // list of Floats
+        times: [Float] // list of Floats (unix time)
+    ```
 
 
 
+### ../users/profile
 
+Returns a JSON containing information about the user currently logged
+in.
+
+  - Method:  
+    GET
+
+  - Response:
+    
+    ``` JS
+    
+        _id: ObjectId, // automatic and unique id created by database.
+        email: String, // is unique.
+        superuser: Boolean, 
+        admin: Boolean 
+    ```
 
 
 
@@ -194,91 +223,201 @@ Return KPI data for neighborhood as a JSON.
 
 POST request that takes in email and password, and creates a user.
 
-**User format**
-``` JS
-[{
-    _id: mongoose.Schema.Types.ObjectId, // automatic and unique id created by mongoose.
-    email: String, // is unique.
-    password: String, // is currently not hashed and is stored as plain text. No real life information should be stored.
-    superuser: boolean, // is meant to determine if the user should have access to restricted data. Currently there is no way to make a user into a superuser outside of the backend.
-    admin: boolean // is meant to give authorized users the ability to create and delete other users. Currently there is no way to make a user into an admin outside of the backend. 
+NOTE: Passwords are currently not hashed and are stored as plain text.
+No real passwords should be stored here.
 
-}]
-```
-**Upload format:**
+  - Method:  
+    POST
 
-``` JS
-[{
-    email: String, // is unique.
-    password: String, // is currently not hashed and is stored as plain text. No real life information should be stored.
-}]
-```
+  - Data Parameters:
+    
+    ``` JS
+    
+        email: String, 
+        password: String
+    ```
 
 
 ### ../users/login
 
-POST request that takes in email and password, and checks the info against the database. Returns a token that is encoded.
+POST request that takes in email and password, and checks the info
+against the database. Returns a JSON web token.
 
-**Upload data format:**
+  - Method:  
+    POST
 
-``` JS
-[{
-    email: String, 
-    password: String 
+  - Data Parameters:
+    
+    ``` JS
+    
+        email: String, 
+        password: String
+    ```
 
-}]
-```
-**Return data format:**
-
-``` JS
-[{
-    message: String, 
-    token: String 
-
-}]
-```
-
-
-### ../users/delete/{userID}
-
-Delete request that deletes the user specified in the url. Valid token must be included in the header authorization field
+  - Response:
+    
+    ``` JS
+    
+        token: String // JSON web token
+    ```
 
 
+### ../rkpi
 
-## Deleting Data
+Uploads a new set of RKPI values.
 
-### ../rkpi/ And ../ckpi/
+  - Method:  
+    POST
 
-Both are delete requests that remove the specified data from the server. Pass on the id of the data you want deleted in the request body.
+  - Data Parameters:
+    
+    ``` JS
+    
+        name: String,
+        created: Date,
+        owner: String,
+        description: String,
+        values: [
+            {name: String, value: Number, weight: Number}
+        ]
+    ```
 
-**Data format:**
+### ../ckpi/ 
 
-``` JS
-[{
-    _id: mongoose.Schema.Types.ObjectId, 
+Uploads a new set of CKPI values.
 
-}]
-```
+  - Method:  
+    POST
+
+  - Data Parameters:
+    
+    ``` JS
+    
+        name: String,
+        description: String,
+        created: Date,
+        owner: String,
+        values: [
+          {
+           name: String,
+           data: [
+            {time: Date, value: Number, weight: Number}
+           ]
+          }
+        ]
+    ```
+
+## Delete-functions
+
+### ../users/{userID}
+
+Deletes the user specified in the URL parameter
+
+  - Method:  
+    Delete
+
+  - URL Parameters:
+    
+    ``` JS
+    
+        userID: String
+    ```
+
+### ../ckpi/ 
+
+Deletes the set of CKPI values specified in the request body
+
+  - Method:  
+    DELETE
+
+  - Data Parameters:
+    
+    ``` JS
+        
+        _id: String,
+    ```
+
+### ../rkpi
+
+Deletes the set of specified RKPI values
+
+  - Method:  
+    Delete
+
+  - Data Parameters:
+    
+    ``` JS
+    
+        _id: String
+    ```
+
+## Update-functions
+
+### ../ckpi/ 
+
+Updates the set of specified CKPI values with the new values provided
+
+  - Method:  
+    PUT
+
+  - Data Parameters:
+    
+    ``` JS
+        
+        _id: String,
+        name: String,
+        description: String,
+        created: Date,
+        owner: String,
+        values: [
+          {
+           name: String,
+           data: [
+            {time: Date, value: Number, weight: Number}
+           ]
+          }
+        ]
+    ```
+
+### ../rkpi
+
+Updates the set of specified RKPI values with the new ones provided
+
+  - Method:  
+    PUT
+
+  - Data Parameters:
+    
+    ``` JS
+    
+        _id: String,
+        name: String,
+        created: Date,
+        owner: String,
+        description: String,
+        values: [
+            {name: String, value: Number, weight: Number}
+        ]
+    ```
+
 
 
 ## Middleware-functions
 
 ### check_token_validity
-Every route that has this function additionally needs a valid token to work. This token must be located in the header authorization field.
 
-**Header data format:**
+Because of the user system, all functions except ../users/login and
+../users/signup will require a valid token to work. This token is a JSON
+web token with documentation available at https://jwt.io/. This token
+must be located in the header authorization field.
 
-``` JS
-[{
-    Authorization: "Bearer " + token 
-}]
-```
+  - Header Parameters:
+    
+    ``` JS
+    
+        Authorization: "Bearer " + token
+    ```
 
-
-
-
-
-> Not yet defined 
 
 # How to develop in Express.js
 
