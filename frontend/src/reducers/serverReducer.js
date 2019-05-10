@@ -12,6 +12,7 @@ const tokenFromCookie = getCookie("access_token")
 const tokenFromCookieIsSet = tokenFromCookie !== ""
 
 if (tokenFromCookieIsSet) {
+  // add header to all requests
   axios.defaults.headers.common['Authorization'] = "Bearer " + tokenFromCookie
 }
 
@@ -29,139 +30,83 @@ const initialState = {
   multiSelectKpisWereSelected: []
 }
 
+/* note: check out serverReducerTypes for types which currently only
+  return state and so are not checked for here, but which might be
+  interesting to check for in the future, e.g. for showing spinning wheels
+  or handling failures */
+
+
 export default function serverReducer(state = initialState, action) {
   switch (action.type) {
-    //case types.LOGIN_SUCCESS:
-      //return {...state, isLoggedIn: !state.isLoggedIn} // NB NB temporary simulation
 
-    case types.LOGIN_STARTED:
-      console.log("LOGIN_STARTED", action)
-      return state
     case types.LOGIN_SUCCESS:
-      console.log("LOGIN_SUCCESS", action)
+      // add header to all requests
       const token = get(action, 'payload.token', "")
       axios.defaults.headers.common['Authorization'] = "Bearer " + token
-      setCookie("access_token", token, 50)
+      setCookie("access_token", token, 50) // store token in cookie
       return {...state, isLoggedIn: true}
-    case types.LOGIN_FAILURE:
-      console.log("LOGIN_FAILURE", action)
-      return state
 
     case types.LOGOUT:
       deleteCookie("access_token")
       return {...initialState, isLoggedIn: false}
 
-
-    case types.GET_USER_INFO_STARTED:
-      console.log("GET_USER_INFO_STARTED", action)
-      return state
     case types.GET_USER_INFO_SUCCESS:
-      console.log("GET_USER_INFO_SUCCESS", action)
       return {...state, userInfo: get(action, "payload", {})}
-    case types.GET_USER_INFO_FAILURE:
-      console.log("GET_USER_INFO_FAILURE", action)
-      return state
 
-
-    /*case types.DELETE_USER_STARTED:
-      console.log("DELETE_USER_STARTED", action)
-      return state
-    case types.DELETE_USER_SUCCESS:
-      console.log("DELETE_USER_SUCCESS", action)
-      return state
-    case types.DELETE_USER_FAILURE:
-      console.log("DELETE_USER_FAILURE", action)
-      return state*/
-
-
-    case types.CREATE_USER_STARTED:
-      console.log("CREATE_USER_STARTED", action)
-      return state
-    case types.CREATE_USER_SUCCESS:
-      console.log("CREATE_USER_SUCCESS", action)
-      return state
-    case types.CREATE_USER_FAILURE:
-      console.log("CREATE_USER_FAILURE", action)
-      return state
-
-
-    case types.GET_KPI_LIST_STARTED:
-      return state
     case types.GET_KPI_LIST_SUCCESS:
       return {...state, kpis: action.payload}
-    case types.GET_KPI_LIST_FAILURE:
-      return state
 
-    case  types.GET_R_KPI_DATA_STARTED:
-      return state
     case  types.GET_R_KPI_DATA_SUCCESS:
-      console.log("GET_R_KPI_DATA_SUCCESS", action)
       return {...state, rKpiSets: action.payload}
-    case  types.GET_R_KPI_DATA_FAILURE:
-      return state
 
-    case  types.GET_C_KPI_DATA_STARTED:
-      return state
     case  types.GET_C_KPI_DATA_SUCCESS:
-      console.log("GET_C_KPI_DATA_SUCCESS", action)
       return {...state, cKpiSets: action.payload}
-    case  types.GET_C_KPI_DATA_FAILURE:
-      return state
 
-    case types.GET_KPI_CATEGORIES_STARTED:
-      return state
     case types.GET_KPI_CATEGORIES_SUCCESS:
       return {...state, kpiCategories: action.payload}
-    case types.GET_KPI_CATEGORIES_FAILURE:
-      return state
-    case types.SAVE_UPDATED_R_KPI_SET_STARTED: // will be useful for showing spinning wheel
-      return state
-    case types.SAVE_UPDATED_R_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
-      return state
-    case types.SAVE_UPDATED_R_KPI_SET_FAILURE: // will be useful for showing spinning wheel
-      return state
-    case types.SAVE_UPDATED_C_KPI_SET_STARTED: // will be useful for showing spinning wheel
-      return state
-    case types.SAVE_UPDATED_C_KPI_SET_SUCCESS: // will be useful for showing spinning wheel
-      return state
-    case types.SAVE_UPDATED_C_KPI_SET_FAILURE: // will be useful for showing spinning wheel
-      return state
 
-    case types.UPDATE_CURRENT_R_KPI_NAME:
+    case types.UPDATE_CURRENT_R_KPI_NAME: // deselect (set to blank string) if already selected, otherwise select
       return {...state, current_rKpiName: (action.payload.name === state.current_rKpiName ? "" : action.payload.name)}
 
-    case types.UPDATE_CURRENT_C_KPI_NAME:
+    case types.UPDATE_CURRENT_C_KPI_NAME: // deselect (set to blank string) if already selected, otherwise select
       return {...state, current_cKpiName: (action.payload.name === state.current_cKpiName ? "" : action.payload.name)}
 
     case types.UPDATE_KPI_IS_SELECTED:
+      // check it the kpi is already selected, kpiIndex === -1 if not
       const kpiIndex = state.currentKpisSelected.findIndex(selectedKpi => selectedKpi === action.payload.kpiName)
       let currentKpisSelected
-      if (state.multiSelect) {
-        currentKpisSelected = [...[], ...state.currentKpisSelected]
+      if (state.multiSelect) { // when multiSelect activated
+        currentKpisSelected = [...[], ...state.currentKpisSelected] // new array, copy state.currentKpisSelected
         if (action.payload.isSelected && kpiIndex === -1) {
-          currentKpisSelected.push(action.payload.kpiName)
+          currentKpisSelected.push(action.payload.kpiName) // add kpi to list of selected kpis
         } else if (!action.payload.isSelected && kpiIndex !== -1) {
-          currentKpisSelected.splice(kpiIndex, 1)
+          currentKpisSelected.splice(kpiIndex, 1) // remove kpi from list of selected kpis
         }
-      } else {
+      } else { // when multiSelect not activated
         if (action.payload.isSelected) {
-          currentKpisSelected = [action.payload.kpiName]
+          currentKpisSelected = [action.payload.kpiName] // only one kpi in the array
         } else {
-          currentKpisSelected = []
+          currentKpisSelected = [] // deselect
         }
       }
-      return {...state, currentKpisSelected}
+      return {...state, currentKpisSelected} // update list of currentKpisSelected
 
     case types.UPDATE_MULTI_SELECT:
-      let newState = {...{}, ...state}
+      let newState = {...{}, ...state} // fresh copy of the state
       if (!action.payload.multiSelect && newState.currentKpisSelected.length > 1) {
+        /*
+          when deselecting multiSelect,
+          store info about which kpis were selected in multiSelectKpisWereSelected,
+          for the purpose of restoring this state when re-activating
+        */
         newState.multiSelectKpisWereSelected = [...[], ...newState.currentKpisSelected]
-        newState.currentKpisSelected.splice(1)
+        newState.currentKpisSelected.splice(1) // remove all kpis from list except the one at index 0
       }
       if (action.payload.multiSelect && newState.multiSelectKpisWereSelected.length > 1) {
+        // restore multiSelect state
         newState.currentKpisSelected = newState.multiSelectKpisWereSelected
       }
-      newState.multiSelect = action.payload.multiSelect
+      newState.multiSelect = action.payload.multiSelect // actually update multiSelect
       return newState
 
     default:

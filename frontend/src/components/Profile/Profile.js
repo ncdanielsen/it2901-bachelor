@@ -8,6 +8,10 @@ import { getUserInfo, deleteUser, logout } from '../../actions/serverReducerActi
 
 import styles from './Profile.module.css'
 
+/*
+  This component displays user info and has buttons for
+  logging out or deleting the user.
+*/
 
 function mapStateToProps(state) {
   const userInfo = state.serverReducer.userInfo
@@ -31,18 +35,20 @@ function mapDispatchToProps(dispatch) {
 class Profile extends Component {
 
   componentWillMount() {
+    // ask server for user info every time this component mounts (== every time the user visits /profile)
     this.props.getUserInfo()
   }
 
   logout = () => {
-    this.props.logout()
-    this.props.push("/login")
+    this.props.logout() // reinit info in reducers and cookie
+    this.props.push("/login") // go to the login page
   }
 
   deleteUser = () => {
     if (this.props.id === "") {
       alert("User id not found, can't delete")
     } else {
+      // window.confirm lets the user answer "ok" or "cancel", returning true or false
       let isSure = window.confirm("Are you sure you want to delete this user?")
       if (isSure) {
         this.props.deleteUser(this.props.id)

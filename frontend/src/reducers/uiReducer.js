@@ -4,7 +4,7 @@ import { LOGOUT } from '../actionTypes/serverReducerTypes'
 import { get, has, set } from 'lodash'
 import moment from 'moment'
 
-const currentInput_rKpi = { // default values in form when creating new rKpi
+const currentInput_rKpi = { // default values in form when creating new rKpi, should perhaps move this to another file?
   name: "",
   created: new Date(),
   lastUpdated: new Date(),
@@ -37,9 +37,10 @@ const currentInput_rKpi = { // default values in form when creating new rKpi
   ]
 }
 
+// the data function is used by currentInput_cKpi for default values, probably wanna change this
 const data = () => ([{time:0,value:Math.random()*100},{time:1,value:Math.random()*100},{time:2,value:Math.random()*100}])
 
-const currentInput_cKpi = {
+const currentInput_cKpi = { // default values in form when creating new cKpi, should perhaps move this to another file?
   name: "",
   created: new Date(),
   lastUpdated: new Date(),
@@ -76,10 +77,10 @@ const initialState = {
   showSideMenu: true,
   currentInputViewMyData: "none", // possible values: none || new_cKpi || edit_cKpi
   currentInputViewRefData: "none", // possible values: none || new_rKpi || edit_rKpi
-  chartType: "Line",
+  chartType: "Line", // possible values: Line || Radar, probably want to expand options here in the future
   currentInput_rKpi: {...currentInput_rKpi, ...{}},
   fromDateTime: moment(new Date().getTime()).subtract(7, 'days'), // set to one week before the current date
-  toDateTime: moment(new Date().getTime()),
+  toDateTime: moment(new Date().getTime()), // right now
   currentInput_cKpi: {...currentInput_cKpi, ...{}}
 }
 
@@ -96,22 +97,25 @@ export default function uiReducer(state = initialState, action) {
       return {...state, showSideMenu: get(action.payload, 'showSideMenu', true)}
     case types.UPDATE_CHART_TYPE:
       return {...state, chartType: get(action.payload, 'chartType', "Radar")}
-    case types.UPDATE_R_KPI_INPUT_VALUE:
+    case types.UPDATE_R_KPI_INPUT_VALUE: // for the edit/new rKpiSet view, this is where the values are changed
       newState = {...state, ...{}}
       keyName = get(action.payload, 'keyName', "")
       newValue = get(action.payload, 'newValue', 0)
-      if (has(newState.currentInput_rKpi, keyName)) {
+      if (has(newState.currentInput_rKpi, keyName)) { // look for the keyName on currentInput_rKpi
         set(newState.currentInput_rKpi, keyName, newValue)
-      } else {
+      } else { // look for the keyName in currentInput_rKpi.values
+        // make sure the value to be updated exists
         const keyNameIndexInValuesList = newState.currentInput_rKpi.values.findIndex(rKpi => rKpi.name === keyName)
         if (keyNameIndexInValuesList !== -1) {
           set(newState.currentInput_rKpi, 'values[' + keyNameIndexInValuesList + '].value', parseFloat(newValue))
-        }
+        } // if keyName not found anywhere, do nothing. Might wanna display warning?
       }
       return newState
     case types.SET_EMPTY_R_KPI:
       return {...state, currentInput_rKpi: {...currentInput_rKpi, ...{}}}
     case types.SET_CURRENT_INPUT_R_KPI:
+      /* when an rKpiSet is selected, create a copy of it for the input view,
+      which can be edited without touching the original */
       return {...state, currentInput_rKpi: get(action.payload, 'rKpiSet', {...currentInput_rKpi, ...{}})}
     case types.UPDATE_CURRENT_INPUT_VIEW_MY_DATA:
       return {...state, currentInputViewMyData: get(action.payload, 'currentInputView', false)}
@@ -120,21 +124,26 @@ export default function uiReducer(state = initialState, action) {
     case types.SET_EMPTY_C_KPI:
       return {...state, currentInput_cKpi: {...currentInput_cKpi, ...{}}}
     case types.SET_CURRENT_INPUT_C_KPI:
+      /* when a cKpiSet is selected, create a copy of it for the input view,
+      which can be edited without touching the original */
       return {...state, currentInput_cKpi: get(action.payload, 'cKpiSet', {...currentInput_cKpi, ...{}})}
     case types.UPDATE_C_KPI_INPUT_VALUE:
+      // update value in current copy of cKpiSet
       newState = {...state, ...{}}
       keyName = get(action.payload, 'keyName', "")
       newValue = get(action.payload, 'newValue', "")
       if (has(newState.currentInput_cKpi, keyName)) {
-        set(newState.currentInput_cKpi, keyName, newValue)
+        set(newState.currentInput_cKpi, keyName, newValue) // update value if keyName found
       }
       return newState
-    case types.INSERT_NEW_C_KPI_VALUES:
+    case types.INSERT_NEW_C_KPI_VALUES: // when uploading file for a cKpiSet, do this
+      // Asssumes specific format as shown in the <pre> tag in KpiSetInputView
       newState = {...state, ...{}}
       const cKPIs = get(action.payload, 'cKPIs', [])
       cKPIs.forEach(cKpi => {
         const kpiName = get(cKpi, 'name', "")
         const newData = get(cKpi, 'data', "")
+        // look for keyName in currentInput_cKpi.values, update value if found
         const keyNameIndexInValuesList = newState.currentInput_cKpi.values.findIndex(cKpi => cKpi.name === kpiName)
         if (keyNameIndexInValuesList !== -1) {
           set(newState.currentInput_cKpi, 'values[' + keyNameIndexInValuesList + '].data', newData)

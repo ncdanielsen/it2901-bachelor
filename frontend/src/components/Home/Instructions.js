@@ -3,10 +3,17 @@ import { connect } from "react-redux"
 
 import styles from "./Instructions.module.css"
 
-import Icon from '@material-ui/core/Icon'
+import Icon from '@material-ui/core/Icon' // also depends on <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> in the header in /public/index.html
 
+// root="true" results in the className={styles.icon} being applied to the root element instead of on a container
 const Check = () => <Icon root="true" className={styles.icon} color="primary">check</Icon>
 const Fail = () =>  <Icon root="true" className={styles.icon} color="error">cancel</Icon>
+
+/*
+  This component is shown on the home page.
+  It is also shown instead of a graph in KPI Overview if data sources are not provided.
+  It features indicators as to whether a required step to show data has been completed.
+*/
 
 function mapStateToProps(state) {
   return {
@@ -14,10 +21,6 @@ function mapStateToProps(state) {
     current_cKpiName: state.serverReducer.current_cKpiName,
     currentKpisSelected: state.serverReducer.currentKpisSelected
   }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {}
 }
 
 class Instructions extends Component {
@@ -38,7 +41,4 @@ class Instructions extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Instructions)
+export default connect(mapStateToProps)(Instructions)
