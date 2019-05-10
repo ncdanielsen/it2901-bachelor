@@ -7,7 +7,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, Legend } from 'r
 
 function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDateTime, categories) {
   let data = []
-  // need unix time here since time is stored as unix in the database
+  // need unix time here since time is stored as unix time in the database
   let to = toDateTime.unix()
   let from = fromDateTime.unix()
 
@@ -31,30 +31,22 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     // get current kpi in iteration
     let kpi = (get(cKpiSet, "values", []).filter(kpi => kpi.name === data[i].name))
 
-    /*
-    // check to see if calculated KPI data are available for currently selected KPI and datetime
-    if (kpi.length !== 0) {
-      let list_values = []
-      kpi[0].data.filter(value => value.time >= from && value.time <= to)
-                 .forEach(value => list_values.push(value.value))
-      if (list_values.length !== 0) {
-        data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length)
-      }
-    */
     // check to see if calculated KPI data are available for currently selected KPI and datetime
     if (kpi.length !== 0) {
       let list_values = []
       get(kpi, '[0].data', []).filter(value => value.time >= from && value.time <= to)
                  .forEach(value => list_values.push(value.value))
+      // Aggregates and averages the values for each KPI since only one collected value can be shown in the radar graph           
       if (list_values.length !== 0) {
         data[i].cKPIvalue = (list_values.reduce((totValue, currValue) => totValue + currValue) / list_values.length)
       }
 
     } else {
+      // if there are no data values for the KPI in the selected time frame the value is set to 0
       data[i].cKPIvalue = 0
     }
 
-    // adds the category name to each selected kpi shown in graph
+    // adds the category name to each selected kpi shown in the graph
     for (let j = 0; j < categories.length; j++) {
       categories[j]["kpi_names"]
         .forEach(category => {
@@ -65,7 +57,6 @@ function makeData(kpis, rKpis, cKpiSet, currentKpisSelected, fromDateTime, toDat
     }
 
   }
-
   return data
 }
 
@@ -86,7 +77,6 @@ export default class RadarGraph extends Component {
               outerRadius={this.props.chartSize*0.38}
               width={this.props.chartSize*2}
               height={this.props.chartSize}
-              /*data={this.props.currentKpisSelected.map(selectKpi => get(this.props, 'cKpiSet.values', []).find(kpi => kpi.name === selectKpi))}*/
               data={graphData}
               margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
             >

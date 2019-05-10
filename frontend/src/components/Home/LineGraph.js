@@ -5,13 +5,12 @@ import shortid from 'shortid' // for generating unique ids
 import moment from 'moment'
 import { get } from 'lodash'
 
-//import styles from './LineGraph.module.css'
 import { LineChart, XAxis, YAxis, Legend, Tooltip, CartesianGrid, Line } from 'recharts' // ReferenceLine
 
 
 const strokeColors = ["#3B5EB0", "#44B03B", "#A93BB0", "#3BAEB0", "#B06D3B"]
 
-
+// A function for finding the corresponding category to a KPI which has been selected
 function findCategory(categories, kpiName) {
 
   for (let j = 0; j < categories.length; j++) {
@@ -34,52 +33,44 @@ export default class LineGraph extends Component {
     }
   }
 
-  updateStroke = (width) => {
-    this.setState({strokeW: this.state.strokeW + width})
-  }
-
   render() {
     const currentKpisSelected = get(this.props, 'currentKpisSelected', [])
-    //const kpis = get(this.props, 'kpis', [])
-
     const cKpiValues = get(this.props, 'cKpiSet.values', [])
     const cKpiKeys = Object.keys(get(cKpiValues, '[0].data[0]', {}))
 
     let data = []
+
+    // iterates over the currently selected KPIs and builds the data array which is to be sent to the graph
     currentKpisSelected.forEach((currentKpiSelected, i) => {
       const current_cKpiIndex = cKpiValues.findIndex(cKpiValue => cKpiValue.name === currentKpiSelected)
       const current_cKpi = current_cKpiIndex === -1 ? [] : cKpiValues[current_cKpiIndex]
       const current_cKpiData = get(current_cKpi, 'data', [])
       const referenceLineValue = get(this.props.rKpis, '[' + currentKpiSelected + ']', "rKpiValueNotFound")
 
-      let dataIndex = 0 // index for dataitems as they are added to the data list
+      let dataIndex = 0 // index for dataitems as they are added to the data array
 
-      current_cKpiData.forEach((current_cKpiDataPoint, index) => {
+      current_cKpiData.forEach((current_cKpiDataPoint) => {
 
         // check for data within the selected timeframe
+        // time and date is converted to unix time since this is the format used in the database
         if (current_cKpiDataPoint["time"] >= this.props.fromDateTime.unix() && current_cKpiDataPoint["time"] <= this.props.toDateTime.unix()) {
 
-          if (i === 0) { // only gets time from the first selected kpi, assume all KPIs have the same times
+          if (i === 0) { // only gets time from the first selected kpi, assume all KPIs have the same time and date for each datapoint
             let timeValue = {time: moment.unix(current_cKpiDataPoint["time"]).format("Do MMM YY")}
             data.push(timeValue)
           }
 
+          // adds the data value for each KPI for each time and date
           data[dataIndex]["dataKey" + i] = current_cKpiDataPoint["value"]
 
+          // adds reference data as well if reference data is selected and available
           if (referenceLineValue !== "rKpiValueNotFound") {
-            //console.log(referenceLineValue)
-            //const kpiIndex = Object.keys(kpis).findIndex(kpiIndex => kpis[kpiIndex]._id === currentKpiSelected)
             data[dataIndex]["reference" + i] = referenceLineValue
           }
           dataIndex += 1
         }
       })
-
-
-
     })
-
-    //console.log(data)
 
 
     return (
@@ -106,7 +97,6 @@ export default class LineGraph extends Component {
                             dataKey={"dataKey" + i}
                             strokeWidth={this.state.strokeW}
                             stroke={strokeColors[i % strokeColors.length]}
-                            onMouseOver={() => console.log("over")}
                             />
                 })
               }
@@ -127,9 +117,7 @@ export default class LineGraph extends Component {
                 })
               }
 
-
               <Legend />
-
           </LineChart>
       </div>
     )}
