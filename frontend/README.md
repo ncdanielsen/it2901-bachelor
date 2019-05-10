@@ -46,6 +46,9 @@ Other libraries can be added as well, no problem.
 
 In order to avoid crashes, functions such as `get`, `has` and `set` have been used frequently, [lodash](https://lodash.com).
 
+### And more...
+For full details, see package.json.
+
 <br>
 
 ## Below: highly relevant auto-generated readme from create-react-app
