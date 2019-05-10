@@ -35,7 +35,7 @@ export const createUser = (email, password) => {
       .post("http://localhost:4000/users/signup", {email, password})
       .then(res => {
         dispatch(createUserSuccess(res.data))
-        dispatch(login(email, password))
+        dispatch(login(email, password)) // log in immediately when new user created
       })
       .catch(err => {
         dispatch(createUserFailure(err.message))
@@ -83,7 +83,7 @@ export const deleteUser = (userId) => {
       .delete("http://localhost:4000/users/delete/" + userId)
       .then(res => {
         dispatch(deleteUserSuccess(res.data))
-        dispatch(logout())
+        dispatch(logout()) // log out immediately when user deleted
       })
       .catch(err => {
         dispatch(deleteUserFailure(err.message))
@@ -136,7 +136,7 @@ export const get_rKpiDataFailure = error => ({type: types.GET_R_KPI_DATA_FAILURE
 
 
 export const get_cKpiData = () => {
-  console.log("get_cKpiData")
+  //console.log("get_cKpiData")
   return dispatch => {
     dispatch(get_cKpiDataStarted())
     axios
@@ -187,11 +187,12 @@ const getKpiCategoriesFailure = error => ({type: types.GET_KPI_CATEGORIES_FAILUR
 export const saveUpdated_rKpiSet = (updated_rKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_rKpiSetStarted())
+    // if create new, use post, if edit edit existing, use put
     axios[editExisting ? "put" : "post"]("http://localhost:4000/rkpi", updated_rKpiSet)
     .then(function (result) {
-      saveUpdated_rKpiSetSuccess(result.data)
+      dispatch(saveUpdated_rKpiSetSuccess(result.data))
 
-      dispatch(get_rKpiData())
+      dispatch(get_rKpiData()) // immediately update rKpiData
     })
     .catch(function (err) {
       dispatch(saveUpdated_rKpiSetFailure(err.message))
@@ -210,8 +211,8 @@ export const delete_rKpiSet = (id) => {
     dispatch(delete_rKpiSetStarted())
     axios.delete("http://localhost:4000/rkpi", {data: {"_id": id}})
     .then(function (result) {
-      delete_rKpiSetSuccess(result.data)
-      dispatch(get_rKpiData())
+      dispatch(delete_rKpiSetSuccess(result.data))
+      dispatch(get_rKpiData()) // immediately update rKpiData
     })
     .catch(function (err) {
       dispatch(delete_rKpiSetFailure(err.message))
@@ -229,8 +230,8 @@ export const delete_cKpiSet = (id) => {
     dispatch(delete_cKpiSetStarted())
     axios.delete("http://localhost:4000/ckpi", {data: {"_id": id}})
     .then(function (result) {
-      delete_cKpiSetSuccess(result.data)
-      dispatch(get_cKpiData())
+      dispatch(delete_cKpiSetSuccess(result.data))
+      dispatch(get_cKpiData()) // immediately update cKpiData
     })
     .catch(function (err) {
       dispatch(delete_cKpiSetFailure(err.message))
@@ -246,11 +247,12 @@ const delete_cKpiSetFailure = error => ({type: types.DELETE_C_KPI_SET_FAILURE, p
 export const saveUpdated_cKpiSet = (updated_cKpiSet, editExisting=false) => {
   return dispatch => {
     dispatch(saveUpdated_cKpiSetStarted())
+    // if create new, use post, if edit edit existing, use put
     axios[editExisting ? "put" : "post"]("http://localhost:4000/ckpi", updated_cKpiSet)
     .then(function (result) {
-      saveUpdated_cKpiSetSuccess(result.data)
+      dispatch(saveUpdated_cKpiSetSuccess(result.data))
 
-      dispatch(get_cKpiData())
+      dispatch(get_cKpiData()) // immediately update cKpiData
     })
     .catch(function (err) {
       dispatch(saveUpdated_cKpiSetFailure(err.message))
