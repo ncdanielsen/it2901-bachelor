@@ -4,6 +4,13 @@ import styles from './Dropdown.module.css'
 
 export default class Dropdown extends Component {
 
+  /*
+    This component displays a box with this.props.title as title.
+    When the box is hovered, it expands to also show options,
+    which trigger this.props.updateActiveOption(option) when clicked.
+    this.props.options = list of strings
+  */
+
   constructor(props) {
     super(props)
     this.state = {

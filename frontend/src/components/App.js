@@ -16,6 +16,7 @@ import Profile from "./Profile/Profile"
 import About from "./About/About"
 import Faq from "./FAQ/FAQ"
 import Login from "./Login"
+import ContainerWithSideMenu from './ContainerWithSideMenu'
 
 function mapStateToProps(state) {
   const pathname = state.router.location.pathname
@@ -43,13 +44,13 @@ class App extends Component {
           // all is fine
         })
         .catch(err => {
-          this.props.logout()
+          this.props.logout() // token not valid, log out
         })
     }
   }
 
   render () {
-    if (!this.props.isLoggedIn) {
+    if (!this.props.isLoggedIn) { // when not logged in, every path is redirected to login
       return (
         <ConnectedRouter history={history}>
           <Switch>
@@ -62,21 +63,23 @@ class App extends Component {
     } else {
       return (
         <div className={styles.App}>
-          <ConnectedRouter history={history}>
-            <Switch>
-              {" "}
-              {/* Checks which route matches current pathname, returns only that child */}
-              <Route exact path="/home/*" component={MainView} />{" "}
-              {/* the * is there because /home/ also has subviews linked to pathname */}
-              <Route exact path="/about" component={About} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/faq" component={Faq} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/" render={() => <Redirect to="/home/" />} />{" "}
-              {/* When going to "/", go to /home. When Login stuff ready, send to Login if not logged in */}
-              <Route render={() => <div>Unknown route App</div>} />
-            </Switch>
-          </ConnectedRouter>
+          <ContainerWithSideMenu>{/* When logged in, every path has Header and Sidemenu */}
+            <ConnectedRouter history={history}>
+              <Switch>
+                {" "}
+                {/* Checks which route matches current pathname, returns only that child */}
+                <Route exact path="/home/*" component={MainView} />{" "}
+                {/* the * is there because /home/ also has subviews linked to pathname */}
+                <Route exact path="/about" component={About} />
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/faq" component={Faq} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/" render={() => <Redirect to="/home/" />} />{" "}
+                {/* When going to "/", go to /home. When Login stuff ready, send to Login if not logged in */}
+                <Route render={() => <div>Unknown route App</div>} />
+              </Switch>
+            </ConnectedRouter>
+          </ContainerWithSideMenu>
         </div>
       )
     }

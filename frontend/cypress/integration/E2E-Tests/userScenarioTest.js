@@ -1,7 +1,7 @@
 context("Test User Scenarios", () =>{
-    
+
     describe("Usability test Scenario", function() {
-    
+
         it("Try to create a user", function(){
             cy.visit("http://localhost:3000/home/")
             cy.url().should('contain', 'login')
@@ -16,12 +16,12 @@ context("Test User Scenarios", () =>{
             cy.login()
             cy.url().should('contain', '/home')
             cy.contains('FAQ').click()
-            cy.url().should('contain', '/Faq')
+            cy.url().should('contain', '/faq')
             cy.contains('Frequently Asked Questions')
         })
 
         it("Try to upload ckpi data", function(){
-            
+
         })
         it("Try to view your uploaded data", function(){
             cy.login()
@@ -85,9 +85,8 @@ context("Test User Scenarios", () =>{
             cy.contains('Delete user').click()
             cy.url().should('include', '/login')
         })
-        
-        
-    })
-    
-})
 
+
+    })
+
+})

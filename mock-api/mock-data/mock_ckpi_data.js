@@ -40,11 +40,11 @@ const data = () => {
 
 module.exports = [
 	{
-	 name: "My name for the data set",
-	 description: "Some description",
+	 name: "Building2",
+	 description: "A building in Stavanger",
 	 created: Math.ceil((new Date()).getTime()/1000),
 	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
-   owner: "Private",
+   owner: "Shared",
 	 values: [
 	   {name: "Energy need", data: data()},
 	   {name: "Energy use", data: data()},
@@ -71,8 +71,8 @@ module.exports = [
 	 ]
 	},
 	{
-	 name: "And this is the second one",
-	 description: "Some description 2",
+	 name: "Building1",
+	 description: "A building in Bergen",
 	 created: Math.ceil((new Date()).getTime()/1000),
 	 lastUpdated: Math.ceil((new Date()).getTime()/1000),
    owner: "Shared",

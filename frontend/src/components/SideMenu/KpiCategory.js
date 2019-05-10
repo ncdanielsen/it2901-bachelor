@@ -4,6 +4,9 @@ import styles from "./KpiCategory.module.css"
 import Kpi from "./Kpi.js"
 
 // list item for kpi categories
+// selectCategory == function to run when the KpiCategory element is clicked
+// selectKpi == function used to toggle kpiIsSelected
+// currentKpisSelected == array of ids (strings)
 const KpiCategory = ({
   category,
   categoryIsSelected,
@@ -40,7 +43,7 @@ const KpiCategory = ({
               key={i}
               kpi={kpi}
               kpiIsSelected={kpiIsSelected}
-              selectKpi={() => selectKpi(kpi.name, !kpiIsSelected)}
+              selectKpi={() => selectKpi(kpi.name, !kpiIsSelected)} // toggle kpiIsSelected
             />
           )
         })}

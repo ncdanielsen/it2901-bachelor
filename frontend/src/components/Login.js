@@ -10,6 +10,13 @@ import fmeLogo from "../images/fme.png"
 
 import styles from './Login.module.css'
 
+/*
+  This is the view shown when not logged in.
+  Here you can create a new user or log in.
+  The view has 4 input boxes; a username field and password field for both createNewUser and login.
+  Each input box has a value in the component state
+*/
+
 function mapStateToProps(state) {
   return {}
 }
@@ -35,6 +42,7 @@ class Login extends Component {
   }
 
   updateField = (e, fieldName) => {
+    /* This function takes in the onChange event object and which field to update in state */
     const newValue = get(e, 'target.value', "")
     if (fieldName === "loginEmail") {
       this.setState({loginEmail: newValue})
@@ -51,12 +59,12 @@ class Login extends Component {
 
 
   login = (e) => {
-    e.preventDefault()
+    e.preventDefault() // prevent the browser from interrupting with state handling for input fields
     this.props.login(this.state.loginEmail, this.state.loginPassword)
   }
 
   createNewUser = (e) => {
-    e.preventDefault()
+    e.preventDefault() // prevent the browser from interrupting with state handling for input fields
     this.props.createUser(this.state.createNewUserEmail, this.state.createNewUserPassword)
   }
 
@@ -92,7 +100,7 @@ class Login extends Component {
                 <br />
                 <button
                   className={styles.loginButton}
-                  type="submit"
+                  type="submit" // triggers onSubmit for the form
                 >
                   Log in
                 </button>
@@ -124,7 +132,7 @@ class Login extends Component {
                 <br />
                 <button
                   className={styles.loginButton}
-                  type="submit"
+                  type="submit" // triggers onSubmit for the form
                 >
                   Create new user
                 </button>

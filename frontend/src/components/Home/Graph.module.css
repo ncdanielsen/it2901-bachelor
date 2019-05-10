@@ -3,28 +3,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  /*font-size: 150%;*/
 }
 
-.GraphContainerFullScreen {
-  width: 100%;
-}
 
 .chartTypeDropDown {
   position: absolute;
-  top: 13%;
+  top: 2%;
   right: 2.5%;
   display: inline-flex;
 }
 
 .chartContainer {
-  padding-top: 9%;
+  padding-top: 12%;
 }
 
 .chartContainerFullScreen {
-  padding-top: 5%;
+  padding-top: 6%;
 }

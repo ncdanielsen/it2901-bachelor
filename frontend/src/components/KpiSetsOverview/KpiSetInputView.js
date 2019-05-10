@@ -17,7 +17,7 @@ import {
   delete_cKpiSet,
   updateCurrent_rKpiName,
   updateCurrent_cKpiName
-} from '../../actions/serverReducerActions' // uncomment when server is ready
+} from '../../actions/serverReducerActions'
 
 import { get } from 'lodash'
 
@@ -112,19 +112,19 @@ function mapDispatchToProps(dispatch) {
     updateCurrentInputViewMyData: currentInputView => dispatch(updateCurrentInputViewMyData(currentInputView)),
     updateCurrentInputViewRefData: currentInputView => dispatch(updateCurrentInputViewRefData(currentInputView)),
     createNew_rKpiSet: (new_rKpiSet) => {
-      console.log("new_rKpiSet", new_rKpiSet)
+      //console.log("new_rKpiSet", new_rKpiSet)
       dispatch(saveUpdated_rKpiSet(new_rKpiSet, false))
     },
     createNew_cKpiSet: (new_cKpiSet) => {
-      console.log("new_cKpiSet", new_cKpiSet)
+      //console.log("new_cKpiSet", new_cKpiSet)
       dispatch(saveUpdated_cKpiSet(new_cKpiSet, false))
     },
     saveUpdated_rKpiSet: (updated_rKpiSet) => {
-      console.log("saveUpdated_rKpiSet", updated_rKpiSet)
+      //console.log("saveUpdated_rKpiSet", updated_rKpiSet)
       dispatch(saveUpdated_rKpiSet(updated_rKpiSet, true))
     },
     saveUpdated_cKpiSet: (updated_cKpiSet) => {
-      console.log("saveUpdated_cKpiSet", updated_cKpiSet)
+      //console.log("saveUpdated_cKpiSet", updated_cKpiSet)
       dispatch(saveUpdated_cKpiSet(updated_cKpiSet, true))
     },
     insertNew_cKpiValues: values => dispatch(insertNew_cKpiValues(values)),
