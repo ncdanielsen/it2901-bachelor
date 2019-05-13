@@ -10,5 +10,10 @@ module.exports.building_schema = new Schema({
         zip: Number,
         city: String
     },
-    restricted: {type: "boolean", default: false, required: true}
 });
+
+/**
+ * NOTE: Is currently not used by the frontend.
+ * 
+ * 
+ */
