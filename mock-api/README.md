@@ -37,14 +37,15 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 
 # REST API Definition 
 
-> NOTE: This is a defintion to mock the real rest API. Changes may occur 
+> NOTE: This is a defintion to mock the real rest API. Changes may occur
+        If more information about the data models is wanted, see the documentation in each of the schemas.
 
 ## Download functions
 
 
 ### ../ckpi/ 
 
-Returns a set of predefined Calculated KPI values, which is analogous to
+Returns all sets of Calculated KPI values, which is analogous to
 actual sensor data from buildings.
 
   - Method:  
@@ -72,7 +73,7 @@ actual sensor data from buildings.
 
 ### ../rkpi/
 
-Returns a set of predefined Reference KPI values.
+Returns all sets of Reference KPI values.
 
   - Method:  
     GET
@@ -109,7 +110,7 @@ Return a list of all available categories of kpis, with KPIs included
             {
                 id: Integer,
                 unit: String,
-                type: Number type, // (Float, Integer, datetime, etc)
+                type: Number, // (Float, Integer, datetime, etc)
                 timeseries: Boolean 
                 description: String // I.e. "Amount of energy the building has delivered to national grid" 
                 
@@ -121,8 +122,6 @@ Return a list of all available categories of kpis, with KPIs included
 
 
 ### ../kpi-list/list
-
-</div>
 
 Returns all possible KPIs as JSON
 
@@ -136,13 +135,15 @@ Returns all possible KPIs as JSON
         id: Integer,
         name, 
         unit: String, // "kw/h", "%" 
-        type: Number type, // (Float, Integer, datetime, etc)
+        type: Number, // (Float, Integer, datetime, etc)
         timeseries: Boolean 
         description: String // I.e. "Amount of energy the bulding has delivered to national grid" 
     ```
  
 
 ### ../buildingkpi/{buildingID}-{kpiID}
+
+NOTE: Is currently not used by the frontend.
 
 Returns a list of KPI values for the specified buildingID and kpiID.
 
@@ -170,6 +171,8 @@ Returns a list of KPI values for the specified buildingID and kpiID.
 
 
 ### ../neighborhoodkpi/{neighbourhoodID}-{kpiID}
+
+NOTE: Is currently not used by the frontend.
 
 Return KPI data for neighborhood as a JSON.
 
@@ -210,7 +213,7 @@ in.
     
         _id: ObjectId, // automatic and unique id created by database.
         email: String, // is unique.
-        superuser: Boolean, 
+        superuser: Boolean, //
         admin: Boolean 
     ```
 
@@ -258,7 +261,7 @@ against the database. Returns a JSON web token.
     
     ``` JS
     
-        token: String // JSON web token
+        token: String // JSON web token. Explanation at Middleware Functions down below in the document.
     ```
 
 
@@ -320,7 +323,7 @@ Deletes the user specified in the URL parameter
     
     ``` JS
     
-        userID: String
+        userID: String  //The same as a users _id
     ```
 
 ### ../ckpi/ 
@@ -406,8 +409,8 @@ Updates the set of specified RKPI values with the new ones provided
 
 ### check_token_validity
 
-Because of the user system, all functions except ../users/login and
-../users/signup will require a valid token to work. This token is a JSON
+Because of the user system, all functions except "../users/login" and
+"../users/signup" will require a valid token to work. This token is a JSON
 web token with documentation available at https://jwt.io/. This token
 must be located in the header authorization field.
 
