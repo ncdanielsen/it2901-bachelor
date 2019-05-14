@@ -44,7 +44,7 @@ The backend uses a MongoDB database, and runs a express.js server on Nodejs.
 
 ### ../ckpi/ 
 
-Returns a set of predefined Calculated KPI values, which is analogous to
+Returns all sets of Calculated KPI values, which is analogous to
 actual sensor data from buildings.
 
   - Method:  
@@ -72,7 +72,7 @@ actual sensor data from buildings.
 
 ### ../rkpi/
 
-Returns a set of predefined Reference KPI values.
+Returns all sets of Reference KPI values.
 
   - Method:  
     GET
@@ -322,7 +322,7 @@ Deletes the user specified in the URL parameter
     
     ``` JS
     
-        userID: String
+        userID: String  //The same as a users _id
     ```
 
 ### ../ckpi/ 
