@@ -1,0 +1,27 @@
+
+.FaqMain {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  max-width: 800px;
+  line-height: 32px;
+  font-size: 120%;
+}
+.FaqMain h1 {
+  color: rgb(70, 70, 70);
+  line-height: 60px;
+}
+.FaqMain h3 {
+  font-weight: bold;
+  height: 90%;
+  line-height: 24px;
+}
+
+.paddingBottom {
+  height: 10vh;
+  width: 100%;
+}
+
+.heading {
+  font-weight: bold, sans-serif;
+}

@@ -1,0 +1,14 @@
+
+.instructionsContainer {
+  text-align: center;
+  padding-top: 8%;
+}
+
+.instructionsList {
+  text-align: left;
+  line-height: 40px;
+}
+
+.icon {
+  vertical-align: middle;
+}

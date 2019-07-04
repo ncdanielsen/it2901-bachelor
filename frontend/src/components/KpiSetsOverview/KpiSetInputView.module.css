@@ -1,0 +1,138 @@
+.inputViewContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background: rgba(0,0,0,0.35);
+}
+
+.darkBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+}
+
+.kpiSet {
+  position: relative;
+  margin-left: calc(15% - 30px);
+  width: 70%;
+  padding: 30px 30px;
+  padding-bottom: 10px;
+  /*
+  border: 1px solid rgba(215, 215, 215, 0.5);
+  box-shadow: 2px 2px 20px rgb(215,215,215);
+  display: flex;
+  */
+  border-radius: 10px;
+  margin-top: 40px;
+  background: white;
+  text-align: left;
+}
+
+.kpiCategoryContainer {
+  width: 100%;
+}
+
+.kpiCategoryTitle {
+  margin-top: 25px;
+  margin-left: 15px;
+  line-height: 30px;
+  font-style: italic;
+  font-size: 20px;
+  /*text-decoration: underline;*/
+}
+
+.inputsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.label {
+  /*align-self: flex-start;*/
+  margin: 10px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.title {
+  /*font-style: italic;*/
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+.separationLine {
+  height: 1px;
+  width: 100%;
+  background: rgb(210,210,210);
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.inputTitle {
+  line-height: 25px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.inputField {
+  resize: none;
+  min-height: 20px;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.textarea {
+  min-height: 50px;
+  min-width: 230px;
+  border-color: rgb(220,220,220);
+}
+
+.buttonsContainer {
+  width: 100%;
+  text-align: right;
+}
+
+.button {
+  display: inline-block;
+  margin: 10px;
+  min-height: 30px;
+  line-height: 30px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background: rgb(200,200,200);
+}
+
+.deleteButton {
+  background: rgb(255, 77, 102);
+}
+
+.saveButton {
+  background: #5aa5cc;/* #5aa5cc;*/
+}
+
+.smallPaddingBottom {
+  height: 4vh;
+  width: 100%;
+}
+
+.uploadContainer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.formatInstructionsContainer {
+  padding-top: 15px;
+  font-size: 12px;
+  /*padding-bottom: 5px;*/
+}

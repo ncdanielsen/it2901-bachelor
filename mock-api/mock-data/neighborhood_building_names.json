@@ -1,0 +1,16 @@
+[{
+  "name": "Zero Village Bergen",
+  "neigh_id": 1,
+  "buildings": [
+    "ZVB Blokk A",
+    "ZVB Blokk B",
+    "ZVB Blokk C"
+  ]
+},{
+    "name": "Knowledge Axis",
+    "neigh_id": 2,
+    "buildings": [
+      "Perleporten",
+      "Elgeseter gate 10"
+    ]
+  }]

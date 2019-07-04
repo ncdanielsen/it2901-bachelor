@@ -1,0 +1,179 @@
+[
+  {
+    "name": "Energy need",
+    "kpi_id": 0,
+    "unit": "kWh/m2",
+    "type": "float",
+    "timeseries": true,
+    "description": "Energy need of building"
+  },{
+  "name": "Energy use",
+  "kpi_id": 1,
+  "unit": "kWh",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy used"
+},{
+  "name": "Energy generation",
+  "kpi_id": 2,
+  "unit": "kWh",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy generated"
+},{
+  "name": "Delivered energy",
+  "kpi_id": 3,
+  "unit": "kWh",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy delivered to grid (?)"
+},{
+  "name": "Exported energy",
+  "kpi_id": 4,
+  "unit": "kWh",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy which is exported (?)"
+},{
+  "name": "Self consumption",
+  "kpi_id": 5,
+  "unit": "%",
+  "type": "float",
+  "timeseries": true,
+  "description": "Percent of energy generated locally which is also consumed locally."
+},{
+  "name": "Self generation",
+  "kpi_id": 6,
+  "unit": "%",
+  "type": "float",
+  "timeseries": true,
+  "description": "Amount of energy consumed locally which is also generated locally. "
+},
+  {
+    "name": "Yearly net load profile",
+    "kpi_id": 7,
+    "unit": "kW",
+    "type": "float",
+    "timeseries": true,
+    "description": "The yearly net power load profiles"
+  },{
+  "name": "Net load duration curve",
+  "kpi_id": 8,
+  "unit": "kW",
+  "type": "float",
+  "timeseries": true,
+  "description": "Curve of the net load duration"
+},{
+  "name": "Peak load",
+  "kpi_id": 9,
+  "unit": "kW",
+  "type": "float",
+  "timeseries": true,
+  "description": "Peak power load"
+},{
+  "name": "Peak export",
+  "kpi_id": 10,
+  "unit": "kW",
+  "type": "float",
+  "timeseries": true,
+  "description": "Peak power exported"
+},{
+  "name": "Utilisation factor",
+  "kpi_id": 11,
+  "unit": "%",
+  "type": "float",
+  "timeseries": true,
+  "description": "Percantage power utilised"
+},{
+  "name": "Daily net load profile",
+  "kpi_id": 12,
+  "unit": "kW",
+  "type": "float",
+  "timeseries": true,
+  "description": "The daily net power load profile"
+},
+  {
+    "name": "Total gas emissions",
+    "kpi_id": 13,
+    "unit": "tCO_2eq",
+    "type": "float",
+    "timeseries": false,
+    "description": "The total amount of gas emissions"
+  },{
+  "name": "Total gas emissions pr. m^2",
+  "kpi_id": 14,
+  "unit": "tCO_2eq/m^2/year",
+  "type": "float",
+  "timeseries": false,
+  "description": "The total amount of gas emmisions per square meter each year."
+},{
+  "name": "Greenhouse gas emissions",
+  "kpi_id": 15,
+  "type": "float",
+  "timeseries": true,
+  "description": "Percentage of gas emission reduction compared to base case"
+},
+  {
+    "name": "Life cycle cost",
+    "kpi_id": 16,
+    "unit": "NOK",
+    "type": "float",
+    "timeseries": true,
+    "description": "The cost of the building for each of its life cycles."
+  },
+  {
+    "name": "Life cycle cost pr. m^2",
+    "kpi_id": 17,
+    "unit": "NOK/m^2 heated floor area/year",
+    "type": "float",
+    "timeseries": true,
+    "description": "The cost of the building for each of its life cycles per square meters of heated floors."
+  },
+  {
+    "name": "Mode of transport",
+    "kpi_id": 18,
+    "unit": "%",
+    "type": "float",
+    "timeseries": false,
+    "description": "The percentage of people who choose different means of transport."
+  },
+  {
+    "name": "Accesss to public transport",
+    "kpi_id": 19,
+    "unit": "Meters",
+    "type": "float",
+    "timeseries": false,
+    "description": "How good the access is to public transportation such as busses and trains."
+  },
+  {
+    "name": "Demographic needs",
+    "kpi_id": 20,
+    "unit": "Qualitative",
+    "type": "String",
+    "timeseries": false,
+    "description": "Other qualitative needs"
+  },
+  {
+    "name": "Number of services, facilities and amenities",
+    "kpi_id": 21,
+    "unit": "No. of amenities",
+    "type": "float",
+    "timeseries": false,
+    "description": "Amount of public services and amenities there are in the vicinity."
+  },
+  {
+    "name": "Meters from services, facilities and amenities",
+    "kpi_id": 22,
+    "unit": "Meters",
+    "type": "float",
+    "timeseries": false,
+    "description": "How far away public services and amenities are."
+  },{
+  "name": "Public space",
+  "kpi_id": 23,
+  "unit": "Qualitative",
+  "type": "String",
+  "timeseries": false,
+  "description": "Amount of space available for public use."
+}
+]

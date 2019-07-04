@@ -1,0 +1,24 @@
+.GraphContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+.chartTypeDropDown {
+  position: absolute;
+  top: 2%;
+  right: 2.5%;
+  display: inline-flex;
+}
+
+.chartContainer {
+  padding-top: 12%;
+}
+
+.chartContainerFullScreen {
+  padding-top: 6%;
+}

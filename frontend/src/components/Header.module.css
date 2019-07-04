@@ -1,0 +1,58 @@
+.Header {
+  height: calc(10vh - 1px);
+  width: 100%;
+  border-bottom: 1px solid rgb(100, 100, 100);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #45566f;
+}
+
+.HeaderLogo {
+  height: 100%;
+  padding-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: inline-block;
+  height: 65%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.headerRightSide {
+  position: absolute;
+  right: 5%;
+}
+
+.headerRightSide > div {
+  display: inline-block;
+  padding-right: 20px;
+  padding-left: 20px;
+  line-height: calc(10vh - 1px);
+}
+
+.headerRightSide > div:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+
+.humburger {
+  display: inline-block;
+  height: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.link {
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+
+.link:hover {
+  background: rgba(128, 128, 128, 0.2);
+}

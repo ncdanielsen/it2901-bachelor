@@ -1,0 +1,135 @@
+
+.kpiSet {
+  position: relative;
+  margin-left: calc(15% - 30px);
+  width: 70%;
+  padding: 20px 30px;
+  border: 1px solid rgba(215, 215, 215, 0.5);
+  box-shadow: 2px 2px 20px rgb(215,215,215);
+  border-radius: 10px;
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.kpiSetSelected {
+  border: 1px solid #29af8b !important;
+}
+
+.rKpiSet {
+  position: relative;
+  margin-left: calc(15% - 30px);
+  width: 70%;
+  padding: 20px 30px;
+  border: 1px solid rgba(215, 215, 215, 0.5);
+  box-shadow: 2px 2px 20px rgb(215,215,215);
+  border-radius: 10px;
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*.rKpiMeta {
+  position: relative;
+  //margin-left: calc(15% - 30px);
+  width: 70%;
+  display: flex;
+}*/
+
+
+.kpiSection {
+  /*display: inline-block;
+  vertical-align: top;*/
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  width: 25%;
+  min-width: 140px;
+  min-height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.kpiButtonSection {
+  /*display: inline-block;
+  vertical-align: top;*/
+  width: 12%;
+  min-width: 70px;
+  min-height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ownerSection {
+  width: 15%;
+}
+
+.kpiNameLabel {
+  font-weight: bold;
+}
+
+.kpiName {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.kpiDates {
+  margin-top: 15px;
+}
+
+.kpiDates > div {
+  color: rgb(170,170,170);
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.viewDetailsButton {
+  display: inline-block;
+  line-height: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: white;
+  color: rgb(190,190,190);
+  border: 1px solid rgb(190,190,190);
+  cursor: pointer;
+  margin-top: 17px;
+  font-size: 14px;
+}
+
+
+
+.kpiOptionTop {
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.kpiOptionBottom {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.editButton {
+  display: inline-block;
+  min-height: 30px;
+  line-height: 30px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: rgb(200,200,200);
+  color: white;
+  cursor: pointer;
+}
+
+.selectButton {
+  display: inline-block;
+  min-height: 30px;
+  line-height: 30px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: #5aa5cc;
+  color: white;
+  cursor: pointer;
+}
+
+.selectButtonSelected {
+  background: rgb(255, 77, 102);
+}

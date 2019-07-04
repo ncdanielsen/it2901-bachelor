@@ -1,0 +1,26 @@
+.graphDropdownInfo {
+  border: 1px solid #5aa5cc;
+  border-radius: 5px;
+  overflow: hidden;
+  background: white;
+  max-width: 240px;
+  margin-left: 10px;
+}
+
+.dropdownInfoTitle {
+  background: #5aa5cc;
+  color: white;
+  padding: 5px 15px;
+  min-height: 30px;
+  line-height: 30px;
+}
+
+.dropdownInfoAll {
+  border-top: 1px solid #5aa5cc;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.dropdownInfo {
+  padding: 10px;
+}

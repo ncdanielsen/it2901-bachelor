@@ -1,0 +1,23 @@
+[
+    {
+        "email": "e2eTest@mail.com",
+        "password": "e2eTestPassword",
+        "superuser": "true", 
+        "admin": "true"
+    },{
+        "email": "admin@mail.com",
+        "password": "admin",
+        "superuser": "true", 
+        "admin": "true"
+    },{
+        "email": "bruker@mail.com",
+        "password": "bruker",
+        "superuser": "false", 
+        "admin": "false"
+    },{
+        "email": "superbruker@mail.com",
+        "password": "superbruker",
+        "superuser": "true", 
+        "admin": "false"
+    }
+]

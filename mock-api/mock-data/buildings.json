@@ -1,0 +1,41 @@
+[{
+  "name": "ZVB Blokk A",
+  "building_id": 1,
+  "address": {
+    "address": "Bergensveien 1",
+    "zip": 5258,
+    "city": "Bergen"
+  }
+},{
+  "name": "ZVB Blokk B",
+  "building_id": 2,
+  "address": {
+    "address": "Bergensveien 2",
+    "zip": 5258,
+    "city": "Bergen"
+  }
+},{
+  "name": "ZVB Blokk C",
+  "building_id": 3,
+  "address": {
+    "address": "Bergensveien 3",
+    "zip": 5258,
+    "city": "Bergen"
+  }
+},{
+  "name": "Perleporten",
+  "building_id": 4,
+  "address": {
+    "address": "Richard Birkelands vei 2B",
+    "zip": 7034,
+    "city": "Trondheim"
+  }
+},{
+  "name": "Elgeseter gate 10",
+  "building_id": 5,
+  "address": {
+    "address": "Elgeseter gate 10",
+    "zip": 7030,
+    "city": "Trondheim"
+  }
+}]
